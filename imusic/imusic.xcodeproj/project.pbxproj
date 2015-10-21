@@ -1,0 +1,653 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */; settings = {ASSET_TAGS = (); }; };
+		67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B221BD7BAA000FB9EBE /* SBJsonParser.m */; settings = {ASSET_TAGS = (); }; };
+		67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */; settings = {ASSET_TAGS = (); }; };
+		67701B3A1BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B261BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m */; settings = {ASSET_TAGS = (); }; };
+		67701B3B1BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B281BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m */; settings = {ASSET_TAGS = (); }; };
+		67701B3C1BD7BAA000FB9EBE /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2A1BD7BAA000FB9EBE /* SBJsonStreamParserState.m */; settings = {ASSET_TAGS = (); }; };
+		67701B3D1BD7BAA000FB9EBE /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2C1BD7BAA000FB9EBE /* SBJsonStreamWriter.m */; settings = {ASSET_TAGS = (); }; };
+		67701B3E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m */; settings = {ASSET_TAGS = (); }; };
+		67701B3F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B301BD7BAA000FB9EBE /* SBJsonStreamWriterState.m */; settings = {ASSET_TAGS = (); }; };
+		67701B401BD7BAA000FB9EBE /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B321BD7BAA000FB9EBE /* SBJsonTokeniser.m */; settings = {ASSET_TAGS = (); }; };
+		67701B411BD7BAA000FB9EBE /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B341BD7BAA000FB9EBE /* SBJsonUTF8Stream.m */; settings = {ASSET_TAGS = (); }; };
+		67701B421BD7BAA000FB9EBE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B361BD7BAA000FB9EBE /* SBJsonWriter.m */; settings = {ASSET_TAGS = (); }; };
+		67701B481BD7BC3500FB9EBE /* ImusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B471BD7BC3500FB9EBE /* ImusicViewController.m */; settings = {ASSET_TAGS = (); }; };
+		67701B4B1BD7BC5A00FB9EBE /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */; settings = {ASSET_TAGS = (); }; };
+		67DCE24E1BD7695A00EFCEA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE24D1BD7695A00EFCEA1 /* main.m */; };
+		67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2501BD7695A00EFCEA1 /* AppDelegate.m */; };
+		67DCE2571BD7695A00EFCEA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67DCE2551BD7695A00EFCEA1 /* Main.storyboard */; };
+		67DCE25A1BD7695A00EFCEA1 /* imusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2581BD7695A00EFCEA1 /* imusic.xcdatamodeld */; };
+		67DCE25C1BD7695A00EFCEA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67DCE25B1BD7695A00EFCEA1 /* Assets.xcassets */; };
+		67DCE25F1BD7695A00EFCEA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67DCE25D1BD7695A00EFCEA1 /* LaunchScreen.storyboard */; };
+		67DCE26A1BD7695A00EFCEA1 /* imusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2691BD7695A00EFCEA1 /* imusicTests.m */; };
+		67DCE2751BD7695A00EFCEA1 /* imusicUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2741BD7695A00EFCEA1 /* imusicUITests.m */; };
+		67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */; settings = {ASSET_TAGS = (); }; };
+		67DCE2861BD7700C00EFCEA1 /* drawable in Resources */ = {isa = PBXBuildFile; fileRef = 67DCE2851BD7700C00EFCEA1 /* drawable */; settings = {ASSET_TAGS = (); }; };
+		67DCE2891BD7716C00EFCEA1 /* settingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2881BD7716C00EFCEA1 /* settingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		67DCE28C1BD7725600EFCEA1 /* imusicTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE28B1BD7725600EFCEA1 /* imusicTabBarController.m */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		67DCE2661BD7695A00EFCEA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67DCE2411BD7695A00EFCEA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67DCE2481BD7695A00EFCEA1;
+			remoteInfo = imusic;
+		};
+		67DCE2711BD7695A00EFCEA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67DCE2411BD7695A00EFCEA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67DCE2481BD7695A00EFCEA1;
+			remoteInfo = imusic;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		67701B1E1BD7BAA000FB9EBE /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "SBJson/NSObject+SBJson.h"; sourceTree = "<group>"; };
+		67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJson.m"; path = "SBJson/NSObject+SBJson.m"; sourceTree = "<group>"; };
+		67701B201BD7BAA000FB9EBE /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson.h; path = SBJson/SBJson.h; sourceTree = "<group>"; };
+		67701B211BD7BAA000FB9EBE /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonParser.h; path = SBJson/SBJsonParser.h; sourceTree = "<group>"; };
+		67701B221BD7BAA000FB9EBE /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonParser.m; path = SBJson/SBJsonParser.m; sourceTree = "<group>"; };
+		67701B231BD7BAA000FB9EBE /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParser.h; path = SBJson/SBJsonStreamParser.h; sourceTree = "<group>"; };
+		67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParser.m; path = SBJson/SBJsonStreamParser.m; sourceTree = "<group>"; };
+		67701B251BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAccumulator.h; path = SBJson/SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		67701B261BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAccumulator.m; path = SBJson/SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		67701B271BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAdapter.h; path = SBJson/SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		67701B281BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAdapter.m; path = SBJson/SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		67701B291BD7BAA000FB9EBE /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserState.h; path = SBJson/SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		67701B2A1BD7BAA000FB9EBE /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserState.m; path = SBJson/SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		67701B2B1BD7BAA000FB9EBE /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriter.h; path = SBJson/SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		67701B2C1BD7BAA000FB9EBE /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriter.m; path = SBJson/SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		67701B2D1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterAccumulator.h; path = SBJson/SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		67701B2E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterAccumulator.m; path = SBJson/SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		67701B2F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterState.h; path = SBJson/SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		67701B301BD7BAA000FB9EBE /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterState.m; path = SBJson/SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		67701B311BD7BAA000FB9EBE /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonTokeniser.h; path = SBJson/SBJsonTokeniser.h; sourceTree = "<group>"; };
+		67701B321BD7BAA000FB9EBE /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonTokeniser.m; path = SBJson/SBJsonTokeniser.m; sourceTree = "<group>"; };
+		67701B331BD7BAA000FB9EBE /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonUTF8Stream.h; path = SBJson/SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		67701B341BD7BAA000FB9EBE /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = SBJson/SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		67701B351BD7BAA000FB9EBE /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = SBJson/SBJsonWriter.h; sourceTree = "<group>"; };
+		67701B361BD7BAA000FB9EBE /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = SBJson/SBJsonWriter.m; sourceTree = "<group>"; };
+		67701B461BD7BC3500FB9EBE /* ImusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImusicViewController.h; sourceTree = "<group>"; };
+		67701B471BD7BC3500FB9EBE /* ImusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImusicViewController.m; sourceTree = "<group>"; };
+		67701B491BD7BC5A00FB9EBE /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
+		67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
+		67DCE2491BD7695A00EFCEA1 /* imusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		67DCE24D1BD7695A00EFCEA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		67DCE24F1BD7695A00EFCEA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		67DCE2501BD7695A00EFCEA1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		67DCE2561BD7695A00EFCEA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		67DCE2591BD7695A00EFCEA1 /* imusic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = imusic.xcdatamodel; sourceTree = "<group>"; };
+		67DCE25B1BD7695A00EFCEA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		67DCE25E1BD7695A00EFCEA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		67DCE2601BD7695A00EFCEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67DCE2651BD7695A00EFCEA1 /* imusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = imusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67DCE2691BD7695A00EFCEA1 /* imusicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = imusicTests.m; sourceTree = "<group>"; };
+		67DCE26B1BD7695A00EFCEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67DCE2701BD7695A00EFCEA1 /* imusicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = imusicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67DCE2741BD7695A00EFCEA1 /* imusicUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = imusicUITests.m; sourceTree = "<group>"; };
+		67DCE2761BD7695B00EFCEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67DCE2821BD76BA300EFCEA1 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		67DCE2851BD7700C00EFCEA1 /* drawable */ = {isa = PBXFileReference; lastKnownFileType = folder; path = drawable; sourceTree = "<group>"; };
+		67DCE2871BD7716C00EFCEA1 /* settingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingViewController.h; sourceTree = "<group>"; };
+		67DCE2881BD7716C00EFCEA1 /* settingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingViewController.m; sourceTree = "<group>"; };
+		67DCE28A1BD7725600EFCEA1 /* imusicTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imusicTabBarController.h; sourceTree = "<group>"; };
+		67DCE28B1BD7725600EFCEA1 /* imusicTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imusicTabBarController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67DCE2461BD7695A00EFCEA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67DCE2621BD7695A00EFCEA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67DCE26D1BD7695A00EFCEA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67DCE2401BD7695A00EFCEA1 = {
+			isa = PBXGroup;
+			children = (
+				67DCE24B1BD7695A00EFCEA1 /* imusic */,
+				67DCE2681BD7695A00EFCEA1 /* imusicTests */,
+				67DCE2731BD7695A00EFCEA1 /* imusicUITests */,
+				67DCE24A1BD7695A00EFCEA1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67DCE24A1BD7695A00EFCEA1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67DCE2491BD7695A00EFCEA1 /* imusic.app */,
+				67DCE2651BD7695A00EFCEA1 /* imusicTests.xctest */,
+				67DCE2701BD7695A00EFCEA1 /* imusicUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67DCE24B1BD7695A00EFCEA1 /* imusic */ = {
+			isa = PBXGroup;
+			children = (
+				67701B461BD7BC3500FB9EBE /* ImusicViewController.h */,
+				67701B471BD7BC3500FB9EBE /* ImusicViewController.m */,
+				67DCE2911BD78E3000EFCEA1 /* SBJson */,
+				67DCE28A1BD7725600EFCEA1 /* imusicTabBarController.h */,
+				67DCE28B1BD7725600EFCEA1 /* imusicTabBarController.m */,
+				67DCE2871BD7716C00EFCEA1 /* settingViewController.h */,
+				67DCE2881BD7716C00EFCEA1 /* settingViewController.m */,
+				67DCE24F1BD7695A00EFCEA1 /* AppDelegate.h */,
+				67DCE2501BD7695A00EFCEA1 /* AppDelegate.m */,
+				67DCE2551BD7695A00EFCEA1 /* Main.storyboard */,
+				67DCE25B1BD7695A00EFCEA1 /* Assets.xcassets */,
+				67DCE25D1BD7695A00EFCEA1 /* LaunchScreen.storyboard */,
+				67DCE2601BD7695A00EFCEA1 /* Info.plist */,
+				67DCE2821BD76BA300EFCEA1 /* SplashViewController.h */,
+				67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */,
+				67DCE2581BD7695A00EFCEA1 /* imusic.xcdatamodeld */,
+				67DCE24C1BD7695A00EFCEA1 /* Supporting Files */,
+				67701B491BD7BC5A00FB9EBE /* LocalViewController.h */,
+				67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */,
+			);
+			path = imusic;
+			sourceTree = "<group>";
+		};
+		67DCE24C1BD7695A00EFCEA1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				67DCE2851BD7700C00EFCEA1 /* drawable */,
+				67DCE24D1BD7695A00EFCEA1 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		67DCE2681BD7695A00EFCEA1 /* imusicTests */ = {
+			isa = PBXGroup;
+			children = (
+				67DCE2691BD7695A00EFCEA1 /* imusicTests.m */,
+				67DCE26B1BD7695A00EFCEA1 /* Info.plist */,
+			);
+			path = imusicTests;
+			sourceTree = "<group>";
+		};
+		67DCE2731BD7695A00EFCEA1 /* imusicUITests */ = {
+			isa = PBXGroup;
+			children = (
+				67DCE2741BD7695A00EFCEA1 /* imusicUITests.m */,
+				67DCE2761BD7695B00EFCEA1 /* Info.plist */,
+			);
+			path = imusicUITests;
+			sourceTree = "<group>";
+		};
+		67DCE2911BD78E3000EFCEA1 /* SBJson */ = {
+			isa = PBXGroup;
+			children = (
+				67701B1E1BD7BAA000FB9EBE /* NSObject+SBJson.h */,
+				67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */,
+				67701B201BD7BAA000FB9EBE /* SBJson.h */,
+				67701B211BD7BAA000FB9EBE /* SBJsonParser.h */,
+				67701B221BD7BAA000FB9EBE /* SBJsonParser.m */,
+				67701B231BD7BAA000FB9EBE /* SBJsonStreamParser.h */,
+				67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */,
+				67701B251BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.h */,
+				67701B261BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m */,
+				67701B271BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.h */,
+				67701B281BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m */,
+				67701B291BD7BAA000FB9EBE /* SBJsonStreamParserState.h */,
+				67701B2A1BD7BAA000FB9EBE /* SBJsonStreamParserState.m */,
+				67701B2B1BD7BAA000FB9EBE /* SBJsonStreamWriter.h */,
+				67701B2C1BD7BAA000FB9EBE /* SBJsonStreamWriter.m */,
+				67701B2D1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.h */,
+				67701B2E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m */,
+				67701B2F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.h */,
+				67701B301BD7BAA000FB9EBE /* SBJsonStreamWriterState.m */,
+				67701B311BD7BAA000FB9EBE /* SBJsonTokeniser.h */,
+				67701B321BD7BAA000FB9EBE /* SBJsonTokeniser.m */,
+				67701B331BD7BAA000FB9EBE /* SBJsonUTF8Stream.h */,
+				67701B341BD7BAA000FB9EBE /* SBJsonUTF8Stream.m */,
+				67701B351BD7BAA000FB9EBE /* SBJsonWriter.h */,
+				67701B361BD7BAA000FB9EBE /* SBJsonWriter.m */,
+			);
+			name = SBJson;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		67DCE2481BD7695A00EFCEA1 /* imusic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67DCE2791BD7695B00EFCEA1 /* Build configuration list for PBXNativeTarget "imusic" */;
+			buildPhases = (
+				67DCE2451BD7695A00EFCEA1 /* Sources */,
+				67DCE2461BD7695A00EFCEA1 /* Frameworks */,
+				67DCE2471BD7695A00EFCEA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = imusic;
+			productName = imusic;
+			productReference = 67DCE2491BD7695A00EFCEA1 /* imusic.app */;
+			productType = "com.apple.product-type.application";
+		};
+		67DCE2641BD7695A00EFCEA1 /* imusicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67DCE27C1BD7695B00EFCEA1 /* Build configuration list for PBXNativeTarget "imusicTests" */;
+			buildPhases = (
+				67DCE2611BD7695A00EFCEA1 /* Sources */,
+				67DCE2621BD7695A00EFCEA1 /* Frameworks */,
+				67DCE2631BD7695A00EFCEA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				67DCE2671BD7695A00EFCEA1 /* PBXTargetDependency */,
+			);
+			name = imusicTests;
+			productName = imusicTests;
+			productReference = 67DCE2651BD7695A00EFCEA1 /* imusicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		67DCE26F1BD7695A00EFCEA1 /* imusicUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67DCE27F1BD7695B00EFCEA1 /* Build configuration list for PBXNativeTarget "imusicUITests" */;
+			buildPhases = (
+				67DCE26C1BD7695A00EFCEA1 /* Sources */,
+				67DCE26D1BD7695A00EFCEA1 /* Frameworks */,
+				67DCE26E1BD7695A00EFCEA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				67DCE2721BD7695A00EFCEA1 /* PBXTargetDependency */,
+			);
+			name = imusicUITests;
+			productName = imusicUITests;
+			productReference = 67DCE2701BD7695A00EFCEA1 /* imusicUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67DCE2411BD7695A00EFCEA1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = weshi;
+				TargetAttributes = {
+					67DCE2481BD7695A00EFCEA1 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+					67DCE2641BD7695A00EFCEA1 = {
+						CreatedOnToolsVersion = 7.0.1;
+						TestTargetID = 67DCE2481BD7695A00EFCEA1;
+					};
+					67DCE26F1BD7695A00EFCEA1 = {
+						CreatedOnToolsVersion = 7.0.1;
+						TestTargetID = 67DCE2481BD7695A00EFCEA1;
+					};
+				};
+			};
+			buildConfigurationList = 67DCE2441BD7695A00EFCEA1 /* Build configuration list for PBXProject "imusic" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 67DCE2401BD7695A00EFCEA1;
+			productRefGroup = 67DCE24A1BD7695A00EFCEA1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67DCE2481BD7695A00EFCEA1 /* imusic */,
+				67DCE2641BD7695A00EFCEA1 /* imusicTests */,
+				67DCE26F1BD7695A00EFCEA1 /* imusicUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		67DCE2471BD7695A00EFCEA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67DCE25F1BD7695A00EFCEA1 /* LaunchScreen.storyboard in Resources */,
+				67DCE25C1BD7695A00EFCEA1 /* Assets.xcassets in Resources */,
+				67DCE2861BD7700C00EFCEA1 /* drawable in Resources */,
+				67DCE2571BD7695A00EFCEA1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67DCE2631BD7695A00EFCEA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67DCE26E1BD7695A00EFCEA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67DCE2451BD7695A00EFCEA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67701B3A1BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m in Sources */,
+				67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */,
+				67701B411BD7BAA000FB9EBE /* SBJsonUTF8Stream.m in Sources */,
+				67701B481BD7BC3500FB9EBE /* ImusicViewController.m in Sources */,
+				67DCE2891BD7716C00EFCEA1 /* settingViewController.m in Sources */,
+				67DCE25A1BD7695A00EFCEA1 /* imusic.xcdatamodeld in Sources */,
+				67701B4B1BD7BC5A00FB9EBE /* LocalViewController.m in Sources */,
+				67DCE28C1BD7725600EFCEA1 /* imusicTabBarController.m in Sources */,
+				67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */,
+				67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */,
+				67701B3D1BD7BAA000FB9EBE /* SBJsonStreamWriter.m in Sources */,
+				67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */,
+				67701B3F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.m in Sources */,
+				67701B3B1BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m in Sources */,
+				67701B3E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m in Sources */,
+				67701B421BD7BAA000FB9EBE /* SBJsonWriter.m in Sources */,
+				67701B3C1BD7BAA000FB9EBE /* SBJsonStreamParserState.m in Sources */,
+				67DCE24E1BD7695A00EFCEA1 /* main.m in Sources */,
+				67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */,
+				67701B401BD7BAA000FB9EBE /* SBJsonTokeniser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67DCE2611BD7695A00EFCEA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67DCE26A1BD7695A00EFCEA1 /* imusicTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67DCE26C1BD7695A00EFCEA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67DCE2751BD7695A00EFCEA1 /* imusicUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		67DCE2671BD7695A00EFCEA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67DCE2481BD7695A00EFCEA1 /* imusic */;
+			targetProxy = 67DCE2661BD7695A00EFCEA1 /* PBXContainerItemProxy */;
+		};
+		67DCE2721BD7695A00EFCEA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67DCE2481BD7695A00EFCEA1 /* imusic */;
+			targetProxy = 67DCE2711BD7695A00EFCEA1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		67DCE2551BD7695A00EFCEA1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				67DCE2561BD7695A00EFCEA1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		67DCE25D1BD7695A00EFCEA1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				67DCE25E1BD7695A00EFCEA1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		67DCE2771BD7695B00EFCEA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		67DCE2781BD7695B00EFCEA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		67DCE27A1BD7695B00EFCEA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = imusic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67DCE27B1BD7695B00EFCEA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = imusic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		67DCE27D1BD7695B00EFCEA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = imusicTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusicTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/imusic.app/imusic";
+			};
+			name = Debug;
+		};
+		67DCE27E1BD7695B00EFCEA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = imusicTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusicTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/imusic.app/imusic";
+			};
+			name = Release;
+		};
+		67DCE2801BD7695B00EFCEA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = imusicUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusicUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = imusic;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		67DCE2811BD7695B00EFCEA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = imusicUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusicUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = imusic;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67DCE2441BD7695A00EFCEA1 /* Build configuration list for PBXProject "imusic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67DCE2771BD7695B00EFCEA1 /* Debug */,
+				67DCE2781BD7695B00EFCEA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67DCE2791BD7695B00EFCEA1 /* Build configuration list for PBXNativeTarget "imusic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67DCE27A1BD7695B00EFCEA1 /* Debug */,
+				67DCE27B1BD7695B00EFCEA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67DCE27C1BD7695B00EFCEA1 /* Build configuration list for PBXNativeTarget "imusicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67DCE27D1BD7695B00EFCEA1 /* Debug */,
+				67DCE27E1BD7695B00EFCEA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67DCE27F1BD7695B00EFCEA1 /* Build configuration list for PBXNativeTarget "imusicUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67DCE2801BD7695B00EFCEA1 /* Debug */,
+				67DCE2811BD7695B00EFCEA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		67DCE2581BD7695A00EFCEA1 /* imusic.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				67DCE2591BD7695A00EFCEA1 /* imusic.xcdatamodel */,
+			);
+			currentVersion = 67DCE2591BD7695A00EFCEA1 /* imusic.xcdatamodel */;
+			path = imusic.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 67DCE2411BD7695A00EFCEA1 /* Project object */;
+}
