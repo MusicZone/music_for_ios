@@ -8,27 +8,105 @@
 
 #import "ImusicViewController.h"
 
+#define HTTP_URL @"http://www.imusic.ren/app/?"
+
+
+
 @interface ImusicViewController ()
 @property (strong, nonatomic) IBOutlet UIProgressView *progress;
 @property (nonatomic,strong) NSMutableData *receivedData;
 @property long expectedBytes;
+@property NSArray *abstractRes;
+@property NSArray *albumRes;
 @end
 
 @implementation ImusicViewController
-@synthesize progress,expectedBytes,receivedData;
+@synthesize progress,expectedBytes,receivedData,abstractRes,albumRes;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     UITableView *tb = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [tb setDataSource:self];
     [tb setDelegate:self];
-    [self.view addSubview:tb];
+    //[self.view addSubview:tb];
     
+    abstractRes = nil;
+    albumRes = nil;
     
+    dispatch_queue_t myqueue = dispatch_queue_create("serialqueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(myqueue, ^{
+        /*NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"]];
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+        if ([data length] > 0 && error == nil) {
+            NSLog(@"%lu bytes of data was returned.",(unsigned long)[data length]);
+        }else if ([data length] == 0 && error == nil){
+            NSLog(@"No data was returned.");
+        }else if (error != nil){
+            NSLog(@"Error happened = %@",error);
+        }*/
+        
+        NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"];
+        //通过url获取数据
+        NSURL * url = [NSURL URLWithString:urlstr];
+        NSError *err;
+        NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&err];
+        if(jsonResponseString != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //解析json数据为数据字典
+                abstractRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
+
+            });
+        }
+        
+        
+    });
     
-    
-    
-    
+    dispatch_async(myqueue, ^{
+        /*NSURL *url = [NSURL URLWithString:urlString];
+         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"]];
+         NSURLResponse *response = nil;
+         NSError *error = nil;
+         NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+         if ([data length] > 0 && error == nil) {
+         NSLog(@"%lu bytes of data was returned.",(unsigned long)[data length]);
+         }else if ([data length] == 0 && error == nil){
+         NSLog(@"No data was returned.");
+         }else if (error != nil){
+         NSLog(@"Error happened = %@",error);
+         }*/
+        
+        NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Albums&a=get"];
+        //通过url获取数据
+        NSURL * url = [NSURL URLWithString:urlstr];
+        NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        if(jsonResponseString != nil){
+            [progress setProgress:0];
+            progress.hidden = NO;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                //解析json数据为数据字典
+                albumRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
+                
+                float num = (float)albumRes.count;
+                
+                
+                for( int i=0; i<num; i++){
+                    NSDictionary *song =[albumRes objectAtIndex:i];
+                    NSString *url=[song objectForKey:@"url"];
+                    NSString *name=[song objectForKey:@"name"];
+                    [self downloadFiles:url filename:name];
+                    float progressive = (float)i / num;
+                    [progress setProgress:progressive];
+                }
+                
+            });
+            progress.hidden = YES;
+        }
+        
+        
+    });
     
     
     
@@ -41,6 +119,14 @@
     
     
     // Do any additional setup after loading the view.
+}
+
+-(NSArray *)dictionaryFromJsonFormatOriginalData:(NSString *)str
+{
+    SBJsonParser *sbJsonParser = [[SBJsonParser alloc]init];
+    //NSError *error = nil;
+    //NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc]initWithDictionary:[sbJsonParser objectWithString:str error:&error]];
+    return [sbJsonParser objectWithString:str error:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,7 +173,7 @@
 
 //==================DownLoad Code=============================
 
-- (void)downloadFiles:(NSString *)urlstring
+- (void)downloadFiles:(NSString *)urlstring filename:(NSString *)name
 {/*
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         
@@ -110,13 +196,28 @@
     NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                             timeoutInterval:60];
-    receivedData = [[NSMutableData alloc] initWithLength:0];
+    /*receivedData = [[NSMutableData alloc] initWithLength:0];
     NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:theRequest
                                                                    delegate:self
                                                            startImmediately:YES];
+    */
+    
+
+    NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
+
+    if (syData != nil) {
+            
+        NSString *imusicDir = [self getDirectory];
+        NSString *path = [imusicDir stringByAppendingPathComponent:name];
+            //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [syData writeToFile:path atomically:YES];
+        progress.hidden = YES;
+    }
+    
 }
 
-
+/*
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     progress.hidden = NO;
@@ -139,7 +240,7 @@
 
 - (NSCachedURLResponse *) connection:(NSURLConnection *)connection willCacheResponse:    (NSCachedURLResponse *)cachedResponse {
     return nil;
-}
+}*/
 - (NSString *)getDirectory
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -157,7 +258,7 @@
     return dir;
     
 }
-
+/*
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection {
     //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -168,7 +269,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [receivedData writeToFile:path atomically:YES];
     progress.hidden = YES;
-}
+}*/
 //=================================================
 
 
