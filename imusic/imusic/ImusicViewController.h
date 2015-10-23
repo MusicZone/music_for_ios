@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SBJson.h"
-@interface ImusicViewController : UIViewController//<NSURLConnectionDataDelegate>
+@interface ImusicViewController : UIViewController
 
 @end

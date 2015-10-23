@@ -15,6 +15,7 @@
 @interface ImusicViewController ()
 @property (strong, nonatomic) IBOutlet UIProgressView *progress;
 @property (strong, nonatomic) IBOutlet UIButton *playbutton;
+
 @property (nonatomic,strong) NSMutableData *receivedData;
 @property long expectedBytes;
 @property (nonatomic,strong) NSArray *abstractRes;
@@ -256,7 +257,6 @@
     progress.hidden = YES;
 }*/
 //=================================================
-
 
 
 

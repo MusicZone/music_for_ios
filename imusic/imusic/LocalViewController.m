@@ -11,14 +11,16 @@
 
 @interface LocalViewController ()
 @property int mp3count;
+@property (strong, nonatomic) IBOutlet UITableView *songtable;
 @property (nonatomic,strong) NSMutableArray *albums;
 @property (nonatomic,strong)  AVAudioPlayer *player;
 @end
 
 @implementation LocalViewController
-@synthesize mp3count,albums,player;
+@synthesize mp3count,albums,player,songtable;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    mp3count=0;
     // Do any additional setup after loading the view.
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -28,7 +30,7 @@
     NSArray *mp3Array = [NSBundle pathsForResourcesOfType:@"mp3" inDirectory:dir];
     mp3count = [mp3Array count];
     albums = [[NSMutableArray alloc] init];
-    int ord = 0;
+    //int ord = 0;
     for (NSString *filePath in mp3Array) {
         NSURL *fileURL = [NSURL fileURLWithPath:filePath];
         AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:fileURL options:nil];
@@ -73,10 +75,10 @@
     
     
     
-    UITableView *tb = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [tb setDataSource:self];
-    [tb setDelegate:self];
-    [self.view addSubview:tb];
+    //UITableView *tb = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [songtable setDataSource:self];
+    [songtable setDelegate:self];
+    //[self.view addSubview:tb];
     
     
     
