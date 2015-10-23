@@ -21,6 +21,9 @@
 		67701B421BD7BAA000FB9EBE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B361BD7BAA000FB9EBE /* SBJsonWriter.m */; settings = {ASSET_TAGS = (); }; };
 		67701B481BD7BC3500FB9EBE /* ImusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B471BD7BC3500FB9EBE /* ImusicViewController.m */; settings = {ASSET_TAGS = (); }; };
 		67701B4B1BD7BC5A00FB9EBE /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */; settings = {ASSET_TAGS = (); }; };
+		678BFD421BD9DED200CCF726 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678BFD411BD9DED200CCF726 /* AVFoundation.framework */; };
+		678BFD4B1BD9E5E000CCF726 /* localTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 678BFD491BD9E5E000CCF726 /* localTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		678BFD4C1BD9E5E000CCF726 /* localTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678BFD4A1BD9E5E000CCF726 /* localTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		67DCE24E1BD7695A00EFCEA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE24D1BD7695A00EFCEA1 /* main.m */; };
 		67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2501BD7695A00EFCEA1 /* AppDelegate.m */; };
 		67DCE2571BD7695A00EFCEA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67DCE2551BD7695A00EFCEA1 /* Main.storyboard */; };
@@ -82,6 +85,10 @@
 		67701B471BD7BC3500FB9EBE /* ImusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImusicViewController.m; sourceTree = "<group>"; };
 		67701B491BD7BC5A00FB9EBE /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
 		67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
+		678BFD411BD9DED200CCF726 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		678BFD481BD9E5E000CCF726 /* localTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localTableViewCell.h; sourceTree = "<group>"; };
+		678BFD491BD9E5E000CCF726 /* localTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = localTableViewCell.m; sourceTree = "<group>"; };
+		678BFD4A1BD9E5E000CCF726 /* localTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = localTableViewCell.xib; sourceTree = "<group>"; };
 		67DCE2491BD7695A00EFCEA1 /* imusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67DCE24D1BD7695A00EFCEA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		67DCE24F1BD7695A00EFCEA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				678BFD421BD9DED200CCF726 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +142,7 @@
 		67DCE2401BD7695A00EFCEA1 = {
 			isa = PBXGroup;
 			children = (
+				678BFD411BD9DED200CCF726 /* AVFoundation.framework */,
 				67DCE24B1BD7695A00EFCEA1 /* imusic */,
 				67DCE2681BD7695A00EFCEA1 /* imusicTests */,
 				67DCE2731BD7695A00EFCEA1 /* imusicUITests */,
@@ -154,6 +163,9 @@
 		67DCE24B1BD7695A00EFCEA1 /* imusic */ = {
 			isa = PBXGroup;
 			children = (
+				678BFD481BD9E5E000CCF726 /* localTableViewCell.h */,
+				678BFD491BD9E5E000CCF726 /* localTableViewCell.m */,
+				678BFD4A1BD9E5E000CCF726 /* localTableViewCell.xib */,
 				67701B461BD7BC3500FB9EBE /* ImusicViewController.h */,
 				67701B471BD7BC3500FB9EBE /* ImusicViewController.m */,
 				67DCE2911BD78E3000EFCEA1 /* SBJson */,
@@ -339,6 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				678BFD4C1BD9E5E000CCF726 /* localTableViewCell.xib in Resources */,
 				67DCE25F1BD7695A00EFCEA1 /* LaunchScreen.storyboard in Resources */,
 				67DCE25C1BD7695A00EFCEA1 /* Assets.xcassets in Resources */,
 				67DCE2861BD7700C00EFCEA1 /* drawable in Resources */,
@@ -383,6 +396,7 @@
 				67701B3B1BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m in Sources */,
 				67701B3E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m in Sources */,
 				67701B421BD7BAA000FB9EBE /* SBJsonWriter.m in Sources */,
+				678BFD4B1BD9E5E000CCF726 /* localTableViewCell.m in Sources */,
 				67701B3C1BD7BAA000FB9EBE /* SBJsonStreamParserState.m in Sources */,
 				67DCE24E1BD7695A00EFCEA1 /* main.m in Sources */,
 				67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */,

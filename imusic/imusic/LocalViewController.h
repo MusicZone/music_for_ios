@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface LocalViewController : UIViewController
+#import <AVFoundation/AVFoundation.h>
+@interface LocalViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,AVAudioPlayerDelegate>
 
 @end

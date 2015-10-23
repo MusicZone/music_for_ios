@@ -14,21 +14,19 @@
 
 @interface ImusicViewController ()
 @property (strong, nonatomic) IBOutlet UIProgressView *progress;
+@property (strong, nonatomic) IBOutlet UIButton *playbutton;
 @property (nonatomic,strong) NSMutableData *receivedData;
 @property long expectedBytes;
-@property NSArray *abstractRes;
-@property NSArray *albumRes;
+@property (nonatomic,strong) NSArray *abstractRes;
+@property (nonatomic,strong) NSArray *albumRes;
 @end
 
 @implementation ImusicViewController
-@synthesize progress,expectedBytes,receivedData,abstractRes,albumRes;
+@synthesize progress,playbutton,expectedBytes,receivedData,abstractRes,albumRes;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UITableView *tb = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [tb setDataSource:self];
-    [tb setDelegate:self];
-    //[self.view addSubview:tb];
+    
     
     abstractRes = nil;
     albumRes = nil;
@@ -101,8 +99,10 @@
                     [progress setProgress:progressive];
                 }
                 
+                
             });
             progress.hidden = YES;
+            [playbutton setHidden:NO];
         }
         
         
@@ -119,6 +119,8 @@
     
     
     // Do any additional setup after loading the view.
+}
+- (IBAction)pressPlayButton:(id)sender {
 }
 
 -(NSArray *)dictionaryFromJsonFormatOriginalData:(NSString *)str
@@ -143,24 +145,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 10;
-}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    // Configure the cell...
-    cell.textLabel.text =@"hello world";
-    return cell;
-}
 
 
 

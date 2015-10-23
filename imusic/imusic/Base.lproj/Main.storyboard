@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Vmp-B6-4M4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -51,19 +52,34 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bPX-Td-euo">
-                                <rect key="frame" x="225" y="243" width="150" height="2"/>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bPX-Td-euo">
+                                <rect key="frame" x="178" y="243" width="244" height="2"/>
                             </progressView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-by-yJ5">
+                                <rect key="frame" x="150" y="94" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zTF-by-yJ5" secondAttribute="height" multiplier="1:1" id="hKZ-hr-Vqx"/>
+                                </constraints>
+                                <state key="normal" title="Button" backgroundImage="play.png"/>
+                                <connections>
+                                    <action selector="pressPlayButton:" destination="DxX-1s-NER" eventType="touchUpInside" id="Czt-eT-9QE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bPX-Td-euo" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="TLU-ba-WLG"/>
-                            <constraint firstItem="bPX-Td-euo" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="d0C-WE-DJH"/>
+                            <constraint firstItem="zTF-by-yJ5" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="HV6-3u-Zi7"/>
+                            <constraint firstItem="bPX-Td-euo" firstAttribute="width" secondItem="z1u-zk-jiy" secondAttribute="height" multiplier="1:2" id="KG7-5E-pCy"/>
+                            <constraint firstItem="zTF-by-yJ5" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="N1P-Vk-mLB"/>
+                            <constraint firstItem="zTF-by-yJ5" firstAttribute="width" secondItem="z1u-zk-jiy" secondAttribute="width" multiplier="1:2" id="TIi-sj-W0q"/>
+                            <constraint firstAttribute="centerX" secondItem="bPX-Td-euo" secondAttribute="centerX" id="TLU-ba-WLG"/>
+                            <constraint firstAttribute="centerY" secondItem="bPX-Td-euo" secondAttribute="centerY" id="d0C-WE-DJH"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="voice" image="icon_voice.png" id="eiY-Ji-OgS"/>
                     <navigationItem key="navigationItem" id="o8a-aW-TBp"/>
                     <connections>
+                        <outlet property="playButton" destination="zTF-by-yJ5" id="Isn-OX-eSk"/>
                         <outlet property="progress" destination="bPX-Td-euo" id="6DJ-0D-Hss"/>
                     </connections>
                 </viewController>
@@ -231,5 +247,6 @@
         <image name="icon_help.png" width="40" height="40"/>
         <image name="icon_remote.png" width="40" height="40"/>
         <image name="icon_voice.png" width="40" height="40"/>
+        <image name="play.png" width="256" height="256"/>
     </resources>
 </document>

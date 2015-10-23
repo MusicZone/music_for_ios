@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="localcellid" id="KGk-i7-Jjw" customClass="localTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpu-Ev-eER">
+                        <rect key="frame" x="18" y="11" width="94" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="delete" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAe-rw-EbU">
+                        <rect key="frame" x="225" y="3" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="kAe-rw-EbU" secondAttribute="height" multiplier="1:1" id="1Uw-vj-xrF"/>
+                        </constraints>
+                        <state key="normal" image="delete.png"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvQ-Mk-YQr">
+                        <rect key="frame" x="263" y="2" width="39" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="nvQ-Mk-YQr" secondAttribute="height" multiplier="1:1" id="Sxf-xl-BpV"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="play.png"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGY-3I-eBR">
+                        <rect key="frame" x="122" y="11" width="93" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kAe-rw-EbU" firstAttribute="trailing" secondItem="nvQ-Mk-YQr" secondAttribute="leading" id="8NJ-Ss-bqD"/>
+                    <constraint firstItem="QGY-3I-eBR" firstAttribute="leading" secondItem="Qpu-Ev-eER" secondAttribute="trailing" constant="10" id="LeS-Zb-ZbU"/>
+                    <constraint firstItem="nvQ-Mk-YQr" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="8:9" id="O4J-iL-jIa"/>
+                    <constraint firstItem="QGY-3I-eBR" firstAttribute="width" secondItem="Qpu-Ev-eER" secondAttribute="width" id="Sz1-90-45q"/>
+                    <constraint firstItem="Qpu-Ev-eER" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VJ9-db-Pcp"/>
+                    <constraint firstItem="Qpu-Ev-eER" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Zzo-3y-zqZ"/>
+                    <constraint firstItem="kAe-rw-EbU" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="8:9" id="cN7-gT-635"/>
+                    <constraint firstItem="QGY-3I-eBR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dgj-gu-oXN"/>
+                    <constraint firstItem="nvQ-Mk-YQr" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="k8H-Cj-ljm"/>
+                    <constraint firstItem="kAe-rw-EbU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pjY-uW-Vor"/>
+                    <constraint firstItem="kAe-rw-EbU" firstAttribute="leading" secondItem="QGY-3I-eBR" secondAttribute="trailing" constant="10" id="tdO-y2-KXD"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="nvQ-Mk-YQr" secondAttribute="trailing" constant="10" id="ybb-jI-hFV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="artist" destination="QGY-3I-eBR" id="H8h-oU-Ke0"/>
+                <outlet property="deleteButton" destination="kAe-rw-EbU" id="86R-LC-cdE"/>
+                <outlet property="playButton" destination="nvQ-Mk-YQr" id="xSc-n8-BTb"/>
+                <outlet property="title" destination="Qpu-Ev-eER" id="MH6-Ss-yLe"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="delete.png" width="256" height="256"/>
+        <image name="play.png" width="256" height="256"/>
+    </resources>
+</document>
