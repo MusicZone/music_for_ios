@@ -13,6 +13,7 @@
 
 
 @interface ImusicViewController ()
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loadind;
 @property (strong, nonatomic) IBOutlet UIProgressView *progress;
 @property (strong, nonatomic) IBOutlet UIButton *playbutton;
 
@@ -23,7 +24,7 @@
 @end
 
 @implementation ImusicViewController
-@synthesize progress,playbutton,expectedBytes,receivedData,abstractRes,albumRes;
+@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -31,7 +32,7 @@
     
     abstractRes = nil;
     albumRes = nil;
-    
+    [loadind startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("serialqueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(myqueue, ^{
         /*NSURL *url = [NSURL URLWithString:urlString];
@@ -82,29 +83,10 @@
         NSURL * url = [NSURL URLWithString:urlstr];
         NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
         if(jsonResponseString != nil){
-            [progress setProgress:0];
-            progress.hidden = NO;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                //解析json数据为数据字典
-                albumRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
-                
-                float num = (float)albumRes.count;
-                
-                
-                for( int i=0; i<num; i++){
-                    NSDictionary *song =[albumRes objectAtIndex:i];
-                    NSString *url=[song objectForKey:@"url"];
-                    NSString *name=[song objectForKey:@"name"];
-                    [self downloadFiles:url filename:name];
-                    float progressive = (float)i / num;
-                    [progress setProgress:progressive];
-                }
-                
-                
-            });
-            progress.hidden = YES;
+            albumRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
             [playbutton setHidden:NO];
         }
+        [loadind stopAnimating];
         
         
     });
@@ -121,7 +103,30 @@
     
     // Do any additional setup after loading the view.
 }
-- (IBAction)pressPlayButton:(id)sender {
+- (IBAction)pressPlay:(id)sender {
+    [playbutton setHidden:YES];
+    [progress setHidden:NO];
+    [progress setProgress:0];
+    //dispatch_sync(dispatch_get_main_queue(), ^{
+        //解析json数据为数据字典
+        
+        
+        float num = (float)albumRes.count;
+        
+        
+        for( int i=0; i<num; i++){
+            NSDictionary *song =[albumRes objectAtIndex:i];
+            NSString *url=[song objectForKey:@"url"];
+            NSString *name=[song objectForKey:@"name"];
+            [self downloadFiles:url filename:name];
+            float progressive = (float)i / num;
+            [progress setProgress:progressive];
+        }
+        
+        
+    //});
+    [progress setHidden:YES];
+    [playbutton setHidden:NO];
 }
 
 -(NSArray *)dictionaryFromJsonFormatOriginalData:(NSString *)str

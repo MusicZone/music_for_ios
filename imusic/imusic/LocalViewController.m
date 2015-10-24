@@ -31,12 +31,17 @@
     mp3count = [mp3Array count];
     albums = [[NSMutableArray alloc] init];
     //int ord = 0;
+    
     for (NSString *filePath in mp3Array) {
         NSURL *fileURL = [NSURL fileURLWithPath:filePath];
         AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:fileURL options:nil];
         NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-        [info setObject:fileURL forKey:@"url"];
+        [info setObject:filePath forKey:@"path"];
+        [info setObject:[filePath lastPathComponent] forKey:@"title"];
+        [info setObject:@"unknown" forKey:@"artist"];
+        
         for (NSString *format in [mp3Asset availableMetadataFormats]) {
+            NSArray<AVMetadataItem *> *dd = [mp3Asset metadataForFormat:format];
             for (AVMetadataItem *metadataItem in [mp3Asset metadataForFormat:format]) {
                 //artwork这个key对应的value里面存的就是封面缩略图，其它key可以取出其它摘要信息，例如title - 标题
                 /*if ([metadataItem.commonKey isEqual:]) {
@@ -66,8 +71,11 @@
                 
                 
             }
+            
+            NSLog(@"%@", @"asdfasdf");
         }
         [albums addObject:info];
+        NSLog(@"%@", @"asdfasdf");
     }
     
     
@@ -122,8 +130,8 @@
     
     cell.title.tag = indexPath.row;
     cell.artist.tag = indexPath.row;
-    cell.deleteButton.tag = indexPath.row + 1;
-    cell.playButton.tag = indexPath.row + 1;
+    cell.deleteButton.tag = indexPath.row;
+    cell.playButton.tag = indexPath.row;
     
     //[cell setCellValue:[selectedInfo objectAtIndex:indexPath.row]];
     NSDictionary *info = [albums objectAtIndex:indexPath.row];
@@ -132,15 +140,32 @@
     [cell.playButton addTarget:self
                         action:@selector(playSong:)
               forControlEvents:UIControlEventTouchUpInside];
+    [cell.deleteButton addTarget:self
+                        action:@selector(deleteSong:)
+              forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
     
 }
+
+- (void)deleteSong:(id)sender{
+    UIButton *btn = (UIButton *)sender;
+    int index = btn.tag;
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSString *MapLayerDataPath = [[albums objectAtIndex:index] objectForKey:@"path"];
+    BOOL bRet = [fileMgr fileExistsAtPath:MapLayerDataPath];
+    if (bRet) {
+        NSError *err;
+        [fileMgr removeItemAtPath:MapLayerDataPath error:&err];
+    }
+}
+
+
 - (void)playSong:(id)sender{
     
     UIButton *btn = (UIButton *)sender;
     int index = btn.tag;
-    NSURL *url = [[albums objectAtIndex:index] objectForKey:@"url"];
+    NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
     dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(que, ^{
         NSData *filedata = [NSData dataWithContentsOfURL:url];

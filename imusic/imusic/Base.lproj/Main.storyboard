@@ -36,19 +36,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bPX-Td-euo">
-                                <rect key="frame" x="162" y="275" width="276" height="2"/>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bPX-Td-euo">
+                                <rect key="frame" x="162" y="266" width="276" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="fx3-c8-B08"/>
+                                </constraints>
                             </progressView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-by-yJ5">
                                 <rect key="frame" x="150" y="126" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zTF-by-yJ5" secondAttribute="height" multiplier="1:1" id="hKZ-hr-Vqx"/>
                                 </constraints>
-                                <state key="normal" title="Button" backgroundImage="play.png"/>
+                                <state key="normal" backgroundImage="play.png"/>
+                                <connections>
+                                    <action selector="pressPlay:" destination="DxX-1s-NER" eventType="touchUpInside" id="tR7-Gn-buu"/>
+                                </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p1u-8d-5ao">
+                                <rect key="frame" x="282" y="257" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="p1u-8d-5ao" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="4tl-41-Kmy"/>
+                            <constraint firstItem="p1u-8d-5ao" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="Fb6-jg-bF4"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="HV6-3u-Zi7"/>
                             <constraint firstItem="bPX-Td-euo" firstAttribute="width" secondItem="z1u-zk-jiy" secondAttribute="height" multiplier="1:2" id="KG7-5E-pCy"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="N1P-Vk-mLB"/>
@@ -60,6 +71,7 @@
                     <tabBarItem key="tabBarItem" title="iMusic" image="radio.png" id="eiY-Ji-OgS"/>
                     <navigationItem key="navigationItem" id="o8a-aW-TBp"/>
                     <connections>
+                        <outlet property="loadind" destination="p1u-8d-5ao" id="9Nh-dD-20m"/>
                         <outlet property="playbutton" destination="zTF-by-yJ5" id="ToP-Lr-cer"/>
                         <outlet property="progress" destination="bPX-Td-euo" id="6DJ-0D-Hss"/>
                     </connections>
