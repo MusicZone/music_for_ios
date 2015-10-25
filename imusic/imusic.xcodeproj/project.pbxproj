@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67331D6A1BDD3AF6005D60C9 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67331D691BDD3AF5005D60C9 /* bg.jpg */; settings = {ASSET_TAGS = (); }; };
 		67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */; settings = {ASSET_TAGS = (); }; };
 		67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B221BD7BAA000FB9EBE /* SBJsonParser.m */; settings = {ASSET_TAGS = (); }; };
 		67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */; settings = {ASSET_TAGS = (); }; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67331D691BDD3AF5005D60C9 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg.jpg; path = drawable/bg.jpg; sourceTree = "<group>"; };
 		67701B1E1BD7BAA000FB9EBE /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "SBJson/NSObject+SBJson.h"; sourceTree = "<group>"; };
 		67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJson.m"; path = "SBJson/NSObject+SBJson.m"; sourceTree = "<group>"; };
 		67701B201BD7BAA000FB9EBE /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson.h; path = SBJson/SBJson.h; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		6783C7311BDA833300506203 /* drawable */ = {
 			isa = PBXGroup;
 			children = (
+				67331D691BDD3AF5005D60C9 /* bg.jpg */,
 				6783C7D31BDA8EC300506203 /* local.png */,
 				6783C7D41BDA8EC300506203 /* radio.png */,
 				6783C7D51BDA8EC300506203 /* settings.png */,
@@ -403,6 +406,7 @@
 				6783C7AA1BDA837E00506203 /* reload.png in Resources */,
 				6783C7D71BDA8EC300506203 /* radio.png in Resources */,
 				6783C7D21BDA872C00506203 /* Main.storyboard in Resources */,
+				67331D6A1BDD3AF6005D60C9 /* bg.jpg in Resources */,
 				6783C7D81BDA8EC300506203 /* settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -109,6 +109,7 @@
     [progress setProgress:0];
     //dispatch_sync(dispatch_get_main_queue(), ^{
         //解析json数据为数据字典
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         
         
         float num = (float)albumRes.count;
@@ -119,14 +120,18 @@
             NSString *url=[song objectForKey:@"url"];
             NSString *name=[song objectForKey:@"name"];
             [self downloadFiles:url filename:name];
-            float progressive = (float)i / num;
-            [progress setProgress:progressive];
+            
+            float progressive = (float)(i+1) / num;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [progress setProgress:progressive];
+            });
         }
-        
-        
-    //});
-    [progress setHidden:YES];
-    [playbutton setHidden:NO];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [progress setHidden:YES];
+            [playbutton setHidden:NO];
+        });
+    });
+    
 }
 
 -(NSArray *)dictionaryFromJsonFormatOriginalData:(NSString *)str
@@ -201,9 +206,8 @@
         NSString *imusicDir = [self getDirectory];
         NSString *path = [imusicDir stringByAppendingPathComponent:name];
             //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [syData writeToFile:path atomically:YES];
-        progress.hidden = YES;
     }
     
 }
