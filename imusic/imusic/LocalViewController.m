@@ -150,14 +150,8 @@
 
 - (void)deleteSong:(id)sender{
     UIButton *btn = (UIButton *)sender;
-    int index = btn.tag;
-    NSFileManager *fileMgr = [NSFileManager defaultManager];
-    NSString *MapLayerDataPath = [[albums objectAtIndex:index] objectForKey:@"path"];
-    BOOL bRet = [fileMgr fileExistsAtPath:MapLayerDataPath];
-    if (bRet) {
-        NSError *err;
-        [fileMgr removeItemAtPath:MapLayerDataPath error:&err];
-    }
+    
+    [self showAlertView:btn.tag];
 }
 
 
@@ -193,6 +187,43 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
 }
+
+#pragma mark - alert
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        int index = alertView.tag;
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSString *MapLayerDataPath = [[albums objectAtIndex:index] objectForKey:@"path"];
+        BOOL bRet = [fileMgr fileExistsAtPath:MapLayerDataPath];
+        if (bRet) {
+            NSError *err;
+            [fileMgr removeItemAtPath:MapLayerDataPath error:&err];
+        }
+    }
+}
+
+-(void)showAlertView:(int)index{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除文件"
+                                                    message:@"删除当前音乐文件"
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:@"取消", nil];
+    [alert setTag:index];
+    [alert show];
+}
+
+
+
+
+
+
+
+
+
+
+
 @end

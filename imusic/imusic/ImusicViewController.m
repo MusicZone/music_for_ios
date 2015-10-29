@@ -16,15 +16,19 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loadind;
 @property (strong, nonatomic) IBOutlet UIProgressView *progress;
 @property (strong, nonatomic) IBOutlet UIButton *playbutton;
+@property (strong, nonatomic) IBOutlet UILabel *title;
 
 @property (nonatomic,strong) NSMutableData *receivedData;
 @property long expectedBytes;
 @property (nonatomic,strong) NSArray *abstractRes;
 @property (nonatomic,strong) NSArray *albumRes;
+@property (nonatomic,strong) AVPlayer *player;
+@property (nonatomic,strong) NSMutableArray *playeritems;
+@property (nonatomic,strong) NSEnumerator *itemen;
 @end
 
 @implementation ImusicViewController
-@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes;
+@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -54,13 +58,13 @@
         NSError *err;
         NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&err];
         if(jsonResponseString != nil){
+            abstractRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
+            /*
             dispatch_async(dispatch_get_main_queue(), ^{
                 //解析json数据为数据字典
-                abstractRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
-
-            });
+                
+            });*/
         }
-        
         
     });
     
@@ -90,17 +94,6 @@
         
         
     });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // Do any additional setup after loading the view.
 }
 - (IBAction)pressPlay:(id)sender {
@@ -113,27 +106,164 @@
         
         
         float num = (float)albumRes.count;
-        
+        playeritems = [[NSMutableArray alloc] init];
         
         for( int i=0; i<num; i++){
             NSDictionary *song =[albumRes objectAtIndex:i];
             NSString *url=[song objectForKey:@"url"];
             NSString *name=[song objectForKey:@"name"];
-            [self downloadFiles:url filename:name];
+            NSString *path = [self downloadFiles:url filename:name];
             
             float progressive = (float)(i+1) / num;
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [progress setProgress:progressive];
             });
+            
+            if ([path isEqualToString:@""]) {
+                break;
+            }
+            NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
+            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+            
+            furl = [NSURL fileURLWithPath:path];
+            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             [progress setHidden:YES];
-            [playbutton setHidden:NO];
+            //[playbutton setHidden:NO];
+            /*[sender addTarget:self
+                       action:@selector(playSong:)
+             forControlEvents:UIControlEventTouchUpInside];*/
+            itemen =[playeritems objectEnumerator];
+            [self play];
+            
         });
     });
     
 }
-
+- (void)play{
+    AVPlayerItem *bj = [itemen nextObject];
+    NSURL *aurl = [(AVURLAsset *)bj.asset URL];
+    
+    bool re = [[aurl scheme] isEqualToString:@"http"];
+    if(re){
+        
+        [title setHidden:YES];
+    }else{
+    
+        AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:aurl options:nil];
+        NSString *tt = [[aurl absoluteString] lastPathComponent];
+        
+        for (NSString *format in [mp3Asset availableMetadataFormats]) {
+            NSArray<AVMetadataItem *> *dd = [mp3Asset metadataForFormat:format];
+            for (AVMetadataItem *metadataItem in [mp3Asset metadataForFormat:format]) {
+                if ([metadataItem.commonKey isEqual:AVMetadataCommonKeyTitle]) {
+                    tt = (NSString *)metadataItem.value;
+                }
+            }
+        }
+        [title setText:tt];
+        CGFloat width = title.frame.size.width;
+        CGSize labelSize = [tt sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(width, 500) lineBreakMode:UILineBreakModeWordWrap];
+        
+        title.numberOfLines = 0;
+        title.lineBreakMode = UILineBreakModeWordWrap;
+        title.frame = CGRectMake(0, 0, 300, labelSize.height);
+        [title setHidden:NO];
+    }
+    
+    player = [AVPlayer playerWithPlayerItem:bj];
+    [bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
+}
+//- (void)playSong:(id)sender{
+    /*
+    NSURL *url = [NSURL fileURLWithPath:[[abstractRes objectAtIndex:0] objectForKey:@"url"]];
+    player = [[AVPlayer alloc] initWithURL:url];
+    [player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
+    */
+     
+     /*
+    NSURL *videoUrl = [NSURL URLWithString:@"http://www.jxvdy.com/file/upload/201405/05/18-24-58-42-627.mp4"];
+    self.playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
+    [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
+    [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
+    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];<br>[[NSNotificationCenterdefaultCenter]addObserver:selfselector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotificationobject:self.playerItem];
+    */
+    
+    /*
+     
+     NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
+     NSURL *videoUrl = [NSURL URLWithString:
+     @"http:/1/v.jxvdy.com/sendfile/w5bgP3A8JgiQQo5l0hvoNGE2H16WbN09X-ONHPq3P3C1BISgf7C-qVs6_c8oaw3zKScO78I--b0BGFBRxlpw13sf2e54QA"];
+     self.playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
+     [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
+     [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
+     self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+     self.playerView.player = _player;
+     self.stateButton.enabled = NO;
+     
+     
+     
+     
+     
+     */
+    
+    /*
+    NSData *filedata = [NSData dataWithContentsOfURL:url];
+    player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
+    if(player != nil){
+        [player setDelegate:self];
+        if([player prepareToPlay]){
+            [player play];
+        }
+    }*/
+//}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    AVPlayerItem *playerItem = (AVPlayerItem *)object;
+    if([keyPath isEqualToString:@"status"]){
+        if ([playerItem status] == AVPlayerStatusReadyToPlay) {
+            [player play];
+        }
+            
+    }
+    
+    /*
+    AVPlayerItem *playerItem = (AVPlayerItem *)object;
+    if ([keyPath isEqualToString:@"status"]) {
+        if ([playerItem status] == AVPlayerStatusReadyToPlay) {
+            NSLog(@"AVPlayerStatusReadyToPlay");
+            self.stateButton.enabled = YES;
+            CMTime duration = self.playerItem.duration;// 获取视频总长度
+            CGFloat totalSecond = playerItem.duration.value / playerItem.duration.timescale;// 转换成秒
+            _totalTime = [self convertTime:totalSecond];// 转换成播放时间
+            [self customVideoSlider:duration];// 自定义UISlider外观
+            NSLog(@"movie total duration:%f",CMTimeGetSeconds(duration));
+            [self monitoringPlayback:self.playerItem];// 监听播放状态
+        } else if ([playerItem status] == AVPlayerStatusFailed) {
+            NSLog(@"AVPlayerStatusFailed");
+        }
+    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+        NSTimeInterval timeInterval = [self availableDuration];// 计算缓冲进度
+        NSLog(@"Time Interval:%f",timeInterval);
+        CMTime duration = self.playerItem.duration;
+        CGFloat totalDuration = CMTimeGetSeconds(duration);
+        [self.videoProgress setProgress:timeInterval / totalDuration animated:YES];
+    
+    }*/
+}
+- (void)moviePlayDidEnd:(NSNotification *)notification {
+    [self play];
+    /*
+    NSLog(@"Play end");
+    
+    __weak typeof(self) weakSelf = self;
+    [self.playerView.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+        [weakSelf.videoSlider setValue:0.0 animated:YES];
+        [weakSelf.stateButton setTitle:@"Play" forState:UIControlStateNormal];
+    }];*/
+}
 -(NSArray *)dictionaryFromJsonFormatOriginalData:(NSString *)str
 {
     SBJsonParser *sbJsonParser = [[SBJsonParser alloc]init];
@@ -169,7 +299,7 @@
 
 //==================DownLoad Code=============================
 
-- (void)downloadFiles:(NSString *)urlstring filename:(NSString *)name
+- (NSString *)downloadFiles:(NSString *)urlstring filename:(NSString *)name
 {/*
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         
@@ -207,11 +337,20 @@
         NSString *path = [imusicDir stringByAppendingPathComponent:name];
             //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
         //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [syData writeToFile:path atomically:YES];
+        [self saveToFile:syData filepath:path];
+        return path;
+    }
+    return @"";
+}
+- (void)saveToFile:(NSData *)data filepath:(NSString *)path{
+    
+    NSFileManager* fm=[NSFileManager defaultManager];
+    if(![fm fileExistsAtPath:path]){
+        //下面是对该文件进行制定路径的保存
+        [data writeToFile:path atomically:YES];
     }
     
 }
-
 /*
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;

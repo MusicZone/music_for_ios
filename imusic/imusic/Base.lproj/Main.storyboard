@@ -42,6 +42,12 @@
                                     <constraint firstAttribute="height" constant="20" id="fx3-c8-B08"/>
                                 </constraints>
                             </progressView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEZ-oW-Aqd">
+                                <rect key="frame" x="150" y="105" width="300" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-by-yJ5">
                                 <rect key="frame" x="150" y="126" width="300" height="300"/>
                                 <constraints>
@@ -58,11 +64,14 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YEZ-oW-Aqd" firstAttribute="width" secondItem="zTF-by-yJ5" secondAttribute="width" id="41K-Dm-NYB"/>
                             <constraint firstItem="p1u-8d-5ao" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="4tl-41-Kmy"/>
+                            <constraint firstItem="YEZ-oW-Aqd" firstAttribute="bottom" secondItem="zTF-by-yJ5" secondAttribute="top" id="Aju-vn-aUk"/>
                             <constraint firstItem="p1u-8d-5ao" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="Fb6-jg-bF4"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="HV6-3u-Zi7"/>
                             <constraint firstItem="bPX-Td-euo" firstAttribute="width" secondItem="z1u-zk-jiy" secondAttribute="height" multiplier="1:2" id="KG7-5E-pCy"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="N1P-Vk-mLB"/>
+                            <constraint firstItem="YEZ-oW-Aqd" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="RA4-Ie-zYo"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="width" secondItem="z1u-zk-jiy" secondAttribute="width" multiplier="1:2" id="TIi-sj-W0q"/>
                             <constraint firstAttribute="centerX" secondItem="bPX-Td-euo" secondAttribute="centerX" id="TLU-ba-WLG"/>
                             <constraint firstAttribute="centerY" secondItem="bPX-Td-euo" secondAttribute="centerY" id="d0C-WE-DJH"/>
@@ -74,6 +83,7 @@
                         <outlet property="loadind" destination="p1u-8d-5ao" id="9Nh-dD-20m"/>
                         <outlet property="playbutton" destination="zTF-by-yJ5" id="ToP-Lr-cer"/>
                         <outlet property="progress" destination="bPX-Td-euo" id="A62-mM-uPO"/>
+                        <outlet property="title" destination="YEZ-oW-Aqd" id="YVN-Dn-ivr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5N-72-pen" userLabel="First Responder" sceneMemberID="firstResponder"/>

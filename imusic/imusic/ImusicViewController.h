@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SBJson.h"
+#import <AVFoundation/AVFoundation.h>
 @interface ImusicViewController : UIViewController
 
 @end
