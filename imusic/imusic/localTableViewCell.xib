@@ -27,14 +27,14 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="kAe-rw-EbU" secondAttribute="height" multiplier="1:1" id="1Uw-vj-xrF"/>
                         </constraints>
-                        <state key="normal" image="delete.png"/>
+                        <state key="normal" backgroundImage="delete.png"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvQ-Mk-YQr">
                         <rect key="frame" x="263" y="2" width="39" height="39"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="nvQ-Mk-YQr" secondAttribute="height" multiplier="1:1" id="Sxf-xl-BpV"/>
                         </constraints>
-                        <state key="normal" title="Button" image="play.png"/>
+                        <state key="normal" backgroundImage="play.png"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGY-3I-eBR">
                         <rect key="frame" x="122" y="11" width="93" height="21"/>

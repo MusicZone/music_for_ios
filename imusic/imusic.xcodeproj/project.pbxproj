@@ -46,7 +46,7 @@
 		67DCE2751BD7695A00EFCEA1 /* imusicUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2741BD7695A00EFCEA1 /* imusicUITests.m */; };
 		67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */; settings = {ASSET_TAGS = (); }; };
 		67DCE2891BD7716C00EFCEA1 /* settingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2881BD7716C00EFCEA1 /* settingViewController.m */; settings = {ASSET_TAGS = (); }; };
-		67DCE28C1BD7725600EFCEA1 /* imusicTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE28B1BD7725600EFCEA1 /* imusicTabBarController.m */; settings = {ASSET_TAGS = (); }; };
+		67DCE28C1BD7725600EFCEA1 /* ImusicTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE28B1BD7725600EFCEA1 /* ImusicTabBarController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,8 +131,8 @@
 		67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		67DCE2871BD7716C00EFCEA1 /* settingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingViewController.h; sourceTree = "<group>"; };
 		67DCE2881BD7716C00EFCEA1 /* settingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingViewController.m; sourceTree = "<group>"; };
-		67DCE28A1BD7725600EFCEA1 /* imusicTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imusicTabBarController.h; sourceTree = "<group>"; };
-		67DCE28B1BD7725600EFCEA1 /* imusicTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imusicTabBarController.m; sourceTree = "<group>"; };
+		67DCE28A1BD7725600EFCEA1 /* ImusicTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImusicTabBarController.h; sourceTree = "<group>"; };
+		67DCE28B1BD7725600EFCEA1 /* ImusicTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImusicTabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,8 +211,8 @@
 				67701B461BD7BC3500FB9EBE /* ImusicViewController.h */,
 				67701B471BD7BC3500FB9EBE /* ImusicViewController.m */,
 				67DCE2911BD78E3000EFCEA1 /* SBJson */,
-				67DCE28A1BD7725600EFCEA1 /* imusicTabBarController.h */,
-				67DCE28B1BD7725600EFCEA1 /* imusicTabBarController.m */,
+				67DCE28A1BD7725600EFCEA1 /* ImusicTabBarController.h */,
+				67DCE28B1BD7725600EFCEA1 /* ImusicTabBarController.m */,
 				67DCE2871BD7716C00EFCEA1 /* settingViewController.h */,
 				67DCE2881BD7716C00EFCEA1 /* settingViewController.m */,
 				67DCE24F1BD7695A00EFCEA1 /* AppDelegate.h */,
@@ -439,7 +439,7 @@
 				67DCE2891BD7716C00EFCEA1 /* settingViewController.m in Sources */,
 				67DCE25A1BD7695A00EFCEA1 /* imusic.xcdatamodeld in Sources */,
 				67701B4B1BD7BC5A00FB9EBE /* LocalViewController.m in Sources */,
-				67DCE28C1BD7725600EFCEA1 /* imusicTabBarController.m in Sources */,
+				67DCE28C1BD7725600EFCEA1 /* ImusicTabBarController.m in Sources */,
 				67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */,
 				67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */,
 				67701B3D1BD7BAA000FB9EBE /* SBJsonStreamWriter.m in Sources */,

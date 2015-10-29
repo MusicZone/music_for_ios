@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="2452.5" y="-361.26760563380282"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Imusic Tab Bar Controller-->
         <scene sceneID="ear-Z0-gPJ">
             <objects>
-                <tabBarController storyboardIdentifier="start" definesPresentationContext="YES" id="247-FU-WQ8" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="start" definesPresentationContext="YES" id="247-FU-WQ8" customClass="ImusicTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="C28-M7-aqW"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="G05-el-AL4">

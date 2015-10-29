@@ -14,13 +14,16 @@
 @property (strong, nonatomic) IBOutlet UITableView *songtable;
 @property (nonatomic,strong) NSMutableArray *albums;
 @property (nonatomic,strong)  AVAudioPlayer *player;
+@property (nonatomic,strong)  UIButton *playingbtn;
 @end
 
 @implementation LocalViewController
-@synthesize mp3count,albums,player,songtable;
+@synthesize mp3count,albums,player,songtable,playingbtn;
 - (void)viewDidLoad {
     [super viewDidLoad];
     mp3count=0;
+    player =nil;
+    playingbtn = nil;
     // Do any additional setup after loading the view.
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -45,11 +48,11 @@
             for (AVMetadataItem *metadataItem in [mp3Asset metadataForFormat:format]) {
                 //artwork这个key对应的value里面存的就是封面缩略图，其它key可以取出其它摘要信息，例如title - 标题
                 /*if ([metadataItem.commonKey isEqual:]) {
-                    NSData *data = [(NSDictionary*)metadataItem.value objectForKey:@"data"];
-                    NSString *mime = [(NSDictionary*)metadataItem.value objectForKey:@"MIME"];
-                    NSLog(@"mime = %@, data = %@, image = %@", mime, data, [UIImage imageWithData:data]);
-                    break;
-                }*/
+                 NSData *data = [(NSDictionary*)metadataItem.value objectForKey:@"data"];
+                 NSString *mime = [(NSDictionary*)metadataItem.value objectForKey:@"MIME"];
+                 NSLog(@"mime = %@, data = %@, image = %@", mime, data, [UIImage imageWithData:data]);
+                 break;
+                 }*/
                 if ([metadataItem.commonKey isEqual:AVMetadataCommonKeyArtist]) {
                     NSLog(@"%@", (NSString *)metadataItem.value);
                     [info setObject:metadataItem.value forKey:@"artist"];
@@ -101,27 +104,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {/*
-    static NSString *CellIdentifier = @"localcellid";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    // Configure the cell...
-    cell.textLabel.text =@"hello world";
-    return cell;
-    
-    */
+  static NSString *CellIdentifier = @"localcellid";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil) {
+  cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+  }
+  
+  // Configure the cell...
+  cell.textLabel.text =@"hello world";
+  return cell;
+  
+  */
     
     
     
     static NSString *myCell = @"localcellid";
     /*static BOOL nibsRegistered = NO;
-    if (!nibsRegistered) {
-        UINib *nib = [UINib nibWithNibName:@"ContactsTableViewCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:myCell];
-        nibsRegistered = YES;
-    }*/
+     if (!nibsRegistered) {
+     UINib *nib = [UINib nibWithNibName:@"ContactsTableViewCell" bundle:nil];
+     [tableView registerNib:nib forCellReuseIdentifier:myCell];
+     nibsRegistered = YES;
+     }*/
     localTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:myCell];
     if (!cell) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"localTableViewCell" owner:self options:nil];
@@ -141,8 +144,8 @@
                         action:@selector(playSong:)
               forControlEvents:UIControlEventTouchUpInside];
     [cell.deleteButton addTarget:self
-                        action:@selector(deleteSong:)
-              forControlEvents:UIControlEventTouchUpInside];
+                          action:@selector(deleteSong:)
+                forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
     
@@ -153,24 +156,62 @@
     
     [self showAlertView:btn.tag];
 }
-
+- (void)closeAll{
+    if (playingbtn !=nil){
+        [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                              forState:UIControlStateNormal];
+        [player pause];
+    }
+}
 
 - (void)playSong:(id)sender{
-    
-    UIButton *btn = (UIButton *)sender;
-    int index = btn.tag;
-    NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
-    dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(que, ^{
-        NSData *filedata = [NSData dataWithContentsOfURL:url];
-        player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
-        if(player != nil){
-            [player setDelegate:self];
-            if([player prepareToPlay]){
-                [player play];
-            }
+    if (playingbtn != (UIButton *)sender) {
+        
+        if (playingbtn != nil) {
+            [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                                  forState:UIControlStateNormal];
+            [player stop];
         }
-    });
+        
+        UIButton *btn = (UIButton *)sender;
+        int index = btn.tag;
+        playingbtn = btn;
+        NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
+        //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //dispatch_async(que, ^{
+            NSData *filedata = [NSData dataWithContentsOfURL:url];
+            player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
+            if(player != nil){
+                [player setDelegate:self];
+                if([player prepareToPlay]){
+                    [player play];
+                    [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                          forState:UIControlStateNormal];
+                }
+            }
+        //});
+        
+    }else{
+    
+        if (player.playing) {
+            [player pause];
+            [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                               forState:UIControlStateNormal];
+        }else{
+            [player play];
+            [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                  forState:UIControlStateNormal];
+
+        }
+    }
+        
+        
+        
+        
+        
+        
+        
+        
     
 }
 - (void)didReceiveMemoryWarning {
@@ -179,14 +220,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
@@ -207,7 +248,7 @@
 }
 
 -(void)showAlertView:(int)index{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除文件"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:@"删除当前音乐文件"
                                                    delegate:self
                                           cancelButtonTitle:@"确定"

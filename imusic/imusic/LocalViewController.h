@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 @interface LocalViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,AVAudioPlayerDelegate,UIAlertViewDelegate>
-
+- (void)closeAll;
 @end

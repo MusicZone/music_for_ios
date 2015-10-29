@@ -10,5 +10,5 @@
 #import "SBJson.h"
 #import <AVFoundation/AVFoundation.h>
 @interface ImusicViewController : UIViewController
-
+- (void)closeAll;
 @end

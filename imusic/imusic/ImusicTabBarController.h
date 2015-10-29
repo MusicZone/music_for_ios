@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface imusicTabBarController : UITabBarController{
+@interface ImusicTabBarController : UITabBarController<UITabBarControllerDelegate>{
     //NSString * ip;
 }
 
