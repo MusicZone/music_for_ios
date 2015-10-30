@@ -29,15 +29,15 @@
     [scrollView setBounces:NO];
 
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
-    [imageview setImage:[UIImage imageNamed:@"guide_01.png"]];
+    [imageview setImage:[UIImage imageNamed:@"guide_01.jpg"]];
     [scrollView addSubview:imageview];
 
     UIImageView *imageview1 = [[UIImageView alloc] initWithFrame:CGRectMake(width, 0, width, height)];
-    [imageview1 setImage:[UIImage imageNamed:@"guide_02.png"]];
+    [imageview1 setImage:[UIImage imageNamed:@"guide_02.jpg"]];
     [scrollView addSubview:imageview1];
 
     UIImageView *imageview2 = [[UIImageView alloc] initWithFrame:CGRectMake(width*2, 0, width, height)];
-    [imageview2 setImage:[UIImage imageNamed:@"guide_03.png"]];
+    [imageview2 setImage:[UIImage imageNamed:@"guide_03.jpg"]];
     imageview2.userInteractionEnabled = YES;
     [scrollView addSubview:imageview2];
 
@@ -49,12 +49,11 @@
     }
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont boldSystemFontOfSize:30]];
-    [button setFrame:CGRectMake(46, 371, 230, 37)];
+    [button setFrame:CGRectMake(46, 371, 37, 37)];
     [button addTarget:self action:@selector(firstpressed) forControlEvents:UIControlEventTouchUpInside];
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    [button sizeToFit];
-    
-    
+    //[button sizeToFit];
+    [button setBackgroundImage:[UIImage imageNamed:@"bone.png"] forState:UIControlStateNormal];
     [imageview2 addSubview:button];
 
     [imageview2 addConstraint:[NSLayoutConstraint
@@ -84,10 +83,39 @@
                               
                               attribute:NSLayoutAttributeBottom
                               
-                              multiplier:0.75
+                              multiplier:0.55
                               
                               constant:0]];
-    
+    [imageview2 addConstraint:[NSLayoutConstraint
+                           
+                           constraintWithItem:button
+                           
+                           attribute:NSLayoutAttributeWidth
+                           
+                           relatedBy:NSLayoutRelationEqual
+                           
+                           toItem:imageview2
+                           
+                           attribute:NSLayoutAttributeWidth
+                           
+                           multiplier:0.5
+                           
+                           constant:0]];
+    [imageview2 addConstraint:[NSLayoutConstraint
+                               
+                               constraintWithItem:button
+                               
+                               attribute:NSLayoutAttributeHeight
+                               
+                               relatedBy:NSLayoutRelationEqual
+                               
+                               toItem:imageview2
+                               
+                               attribute:NSLayoutAttributeWidth
+                               
+                               multiplier:0.25
+                               
+                               constant:0]];
     [self.view addSubview:scrollView];
 }
 - (void)firstpressed
