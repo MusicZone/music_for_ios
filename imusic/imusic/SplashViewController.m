@@ -9,11 +9,11 @@
 #import "SplashViewController.h"
 
 @interface SplashViewController ()
-
+@property (strong,nonatomic) UIPageControl *pageControl;
 @end
 
 @implementation SplashViewController
-@synthesize isFirstTime;
+@synthesize isFirstTime,pageControl;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -24,6 +24,7 @@
     CGFloat height=self.view.bounds.size.height;
     CGFloat width = self.view.bounds.size.width;
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    scrollView.delegate = self;
     [scrollView setContentSize:CGSizeMake(width*3, height)];
     [scrollView setPagingEnabled:YES];  //视图整页显示
     [scrollView setBounces:NO];
@@ -117,6 +118,73 @@
                                
                                constant:0]];
     [self.view addSubview:scrollView];
+    
+    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    pageControl.numberOfPages = 3;
+    pageControl.currentPage = 0;
+    pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:pageControl];
+    [self.view addConstraint:[NSLayoutConstraint
+                               
+                               constraintWithItem:pageControl
+                               
+                               attribute:NSLayoutAttributeCenterX
+                               
+                               relatedBy:NSLayoutRelationEqual
+                               
+                               toItem:self.view
+                               
+                               attribute:NSLayoutAttributeCenterX
+                               
+                               multiplier:1
+                               
+                               constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint
+                               
+                               constraintWithItem:pageControl
+                               
+                               attribute:NSLayoutAttributeBottom
+                               
+                               relatedBy:NSLayoutRelationEqual
+                               
+                               toItem:self.view
+                               
+                               attribute:NSLayoutAttributeBottom
+                               
+                               multiplier:0.95
+                               
+                               constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint
+                               
+                               constraintWithItem:pageControl
+                               
+                               attribute:NSLayoutAttributeWidth
+                               
+                               relatedBy:NSLayoutRelationEqual
+                               
+                               toItem:self.view
+                               
+                               attribute:NSLayoutAttributeWidth
+                               
+                               multiplier:0.5
+                               
+                               constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint
+                               
+                               constraintWithItem:pageControl
+                               
+                               attribute:NSLayoutAttributeHeight
+                               
+                               relatedBy:NSLayoutRelationEqual
+                               
+                               toItem:self.view
+                               
+                               attribute:NSLayoutAttributeWidth
+                               
+                               multiplier:0.25
+                               
+                               constant:0]];
+    
 }
 - (void)firstpressed
 {
@@ -149,5 +217,10 @@
     [super viewWillDisappear:animated];
     
 }
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat pageWidth = self.view.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    pageControl.currentPage = page;
+}
 @end

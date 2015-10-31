@@ -110,7 +110,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -137,8 +137,6 @@
     //    把数组中的值赋给单元格显示出来
     if(row == 0){
         cell.textLabel.text=@"关于";//[self.listData objectAtIndex:row];
-    }else if(row == 1){
-        cell.textLabel.text=@"使用教程";
     }else{
         cell.textLabel.text=@"更新";
     }
@@ -191,12 +189,6 @@
     if(indexPath.row ==0 ){
         UIViewController *transview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"instruct"];
         [self.navigationController pushViewController:transview animated:YES];
-    }else if(indexPath.row == 1 ){
-        //SplashViewController *splash = [[SplashViewController alloc] init];
-        SplashViewController *splash = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"splash"];
-        splash.isFirstTime = NO;
-        [self.navigationController pushViewController:splash animated:YES];
-
     }else{
         [self checkVersion];
     }

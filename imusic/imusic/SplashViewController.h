@@ -7,6 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface SplashViewController : UIViewController
+@interface SplashViewController : UIViewController<UIScrollViewDelegate>
 @property (nonatomic) Boolean isFirstTime;
 @end

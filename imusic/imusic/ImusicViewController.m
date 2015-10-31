@@ -31,7 +31,8 @@
 @synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:NO];
+    [[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:NO];
     
     player=nil;
     abstractRes = nil;
@@ -86,11 +87,19 @@
         //通过url获取数据
         NSURL * url = [NSURL URLWithString:urlstr];
         NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        
         if(jsonResponseString != nil){
             albumRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
-            [playbutton setHidden:NO];
+            
         }
-        [loadind stopAnimating];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if(albumRes !=nil){
+                [playbutton setHidden:NO];
+            }
+            [loadind stopAnimating];
+            [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:YES];
+            [[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:YES];
+        });
         
         
     });

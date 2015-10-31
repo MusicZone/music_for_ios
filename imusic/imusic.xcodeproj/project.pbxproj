@@ -359,6 +359,7 @@
 				TargetAttributes = {
 					67DCE2481BD7695A00EFCEA1 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 59G3687JN9;
 					};
 					67DCE2641BD7695A00EFCEA1 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -370,7 +371,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 67DCE2441BD7695A00EFCEA1 /* Build configuration list for PBXProject "iMusic" */;
+			buildConfigurationList = 67DCE2441BD7695A00EFCEA1 /* Build configuration list for PBXProject "imusic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -547,7 +548,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "";
@@ -586,7 +587,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
@@ -599,11 +600,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = imusic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8c6af889-29c8-4218-80b3-8c56bbe69345";
 			};
 			name = Debug;
 		};
@@ -611,11 +614,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = imusic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8c6af889-29c8-4218-80b3-8c56bbe69345";
 			};
 			name = Release;
 		};
@@ -670,7 +675,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		67DCE2441BD7695A00EFCEA1 /* Build configuration list for PBXProject "iMusic" */ = {
+		67DCE2441BD7695A00EFCEA1 /* Build configuration list for PBXProject "imusic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67DCE2771BD7695B00EFCEA1 /* Debug */,
