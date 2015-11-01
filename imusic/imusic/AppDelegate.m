@@ -20,8 +20,8 @@
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    //if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
-    if(YES)
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
+    //if(YES)
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
         NSLog(@"第一次启动");

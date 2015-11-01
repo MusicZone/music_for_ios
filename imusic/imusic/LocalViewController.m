@@ -262,9 +262,15 @@
 
 
 
-
-
-
-
+/*
+- (void) viewDidLayoutSubviews {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        CGRect viewBounds = self.view.bounds;
+        CGFloat topBarOffset = self.topLayoutGuide.length;
+        viewBounds.origin.y = topBarOffset * -1;
+        self.view.bounds = viewBounds;
+    }
+}
+*/
 
 @end

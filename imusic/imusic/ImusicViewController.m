@@ -31,8 +31,8 @@
 @synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:NO];
-    [[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:NO];
+    //[[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:NO];
+    //[[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:NO];
     
     player=nil;
     abstractRes = nil;
@@ -203,6 +203,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
     }else{
         player = nil;
+        [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                              forState:UIControlStateNormal];
+        
     }
 }
 - (void)closeAll
@@ -289,6 +292,12 @@
      }*/
 }
 - (void)moviePlayDidEnd:(NSNotification *)notification {
+    
+    [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
+    
+    
+    
     [self play];
     /*
      NSLog(@"Play end");
@@ -440,8 +449,15 @@
  progress.hidden = YES;
  }*/
 //=================================================
-
-
+/*
+- (void) viewDidLayoutSubviews {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        CGRect viewBounds = self.view.bounds;
+        CGFloat topBarOffset = self.topLayoutGuide.length;
+        viewBounds.origin.y = topBarOffset * -1;
+        self.view.bounds = viewBounds;
+    }
+}*/
 
 
 

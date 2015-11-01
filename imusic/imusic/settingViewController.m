@@ -26,6 +26,7 @@
     tb.backgroundColor = [UIColor clearColor];
     tb.translatesAutoresizingMaskIntoConstraints = NO;
     tb.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tb.bounces = NO;
     [self.view addSubview:tb];
     
     
@@ -38,9 +39,9 @@
                                
                                relatedBy:NSLayoutRelationEqual
                                
-                               toItem:self.view
+                               toItem:self.topLayoutGuide
                                
-                               attribute:NSLayoutAttributeTop
+                               attribute:NSLayoutAttributeBottom
                                
                                multiplier:1
                                
@@ -53,9 +54,9 @@
                                
                                relatedBy:NSLayoutRelationEqual
                                
-                               toItem:self.view
+                               toItem:self.bottomLayoutGuide
                                
-                               attribute:NSLayoutAttributeBottom
+                               attribute:NSLayoutAttributeTop
                                
                                multiplier:1
                                
@@ -95,7 +96,10 @@
     
     // Do any additional setup after loading the view.
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [self.navigationController setNavigationBarHidden:YES];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -188,6 +192,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.row ==0 ){
         UIViewController *transview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"instruct"];
+        UINavigationController *tt = self.navigationController;
+        
+        
+        [self.navigationController setNavigationBarHidden:NO];
         [self.navigationController pushViewController:transview animated:YES];
     }else{
         [self checkVersion];
@@ -200,21 +208,55 @@
 //}
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 40)];
+    CGFloat wid = tableView.frame.size.width;
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wid, 40)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, wid, 40)];
     [title setText:@"系统帮助"];
     [title setFont:[UIFont boldSystemFontOfSize:18]];
     [title setBackgroundColor:[UIColor clearColor]];
     [title setTextColor:[UIColor blackColor]];
     [title setTextAlignment:NSTextAlignmentLeft];
     [container addSubview:title];
+    
+    
+    
+    
+    
+    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 10)];
+    container.backgroundColor = [UIColor whiteColor];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:container.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = container.bounds;
+    maskLayer.path = maskPath.CGPath;
+    container.layer.mask = maskLayer;
+    
+    
     return container;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    CGFloat wid = tableView.frame.size.width;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wid, 10)];
+    view.backgroundColor = [UIColor whiteColor];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view.layer.mask = maskLayer;
+    
+    return view;
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 
 {
     
     return 40.0;
+    
+}
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+
+{
+    
+    return 10.0;
     
 }
 -(NSMutableDictionary *)dictionaryFromJsonFormatOriginalData:(NSString *)str
@@ -280,4 +322,33 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[getUrls valueForKey:@"downloadurl"]]];
     }
 }
++(void)setImageCornerRadius:(UIImageView *)imageView topLeftAndRight:(BOOL)isTop bottomLeftAndRight:(BOOL)isBottom {
+    if (isTop && !isBottom) {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:imageView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = imageView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        imageView.layer.mask = maskLayer;
+    } else if (!isTop && isBottom) {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:imageView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = imageView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        imageView.layer.mask = maskLayer;
+    }else{
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:imageView.bounds byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = imageView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        imageView.layer.mask = maskLayer;
+    }
+}/*
+- (void) viewDidLayoutSubviews {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        CGRect viewBounds = self.view.bounds;
+        CGFloat topBarOffset = self.topLayoutGuide.length;
+        viewBounds.origin.y = topBarOffset * -1;
+        self.view.bounds = viewBounds;
+    }
+}*/
 @end

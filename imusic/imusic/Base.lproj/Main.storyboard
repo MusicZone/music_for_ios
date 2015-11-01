@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="247-FU-WQ8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H8v-1E-wDN">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -28,13 +28,13 @@
         <!--iMusic-->
         <scene sceneID="4ro-1o-KBW">
             <objects>
-                <viewController id="DxX-1s-NER" customClass="ImusicViewController" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="DxX-1s-NER" customClass="ImusicViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k17-W7-wFc"/>
                         <viewControllerLayoutGuide type="bottom" id="GdY-q3-M3a"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="z1u-zk-jiy">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bPX-Td-euo">
@@ -43,13 +43,13 @@
                                     <constraint firstAttribute="height" constant="20" id="fx3-c8-B08"/>
                                 </constraints>
                             </progressView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEZ-oW-Aqd">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEZ-oW-Aqd">
                                 <rect key="frame" x="150" y="105" width="300" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-by-yJ5">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-by-yJ5">
                                 <rect key="frame" x="150" y="126" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zTF-by-yJ5" secondAttribute="height" multiplier="1:1" id="hKZ-hr-Vqx"/>
@@ -59,7 +59,7 @@
                                     <action selector="pressPlay:" destination="DxX-1s-NER" eventType="touchUpInside" id="tR7-Gn-buu"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p1u-8d-5ao">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p1u-8d-5ao">
                                 <rect key="frame" x="282" y="257" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
@@ -79,7 +79,6 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="iMusic" image="radio.png" id="eiY-Ji-OgS"/>
-                    <navigationItem key="navigationItem" id="o8a-aW-TBp"/>
                     <connections>
                         <outlet property="loadind" destination="p1u-8d-5ao" id="9Nh-dD-20m"/>
                         <outlet property="playbutton" destination="zTF-by-yJ5" id="ToP-Lr-cer"/>
@@ -94,7 +93,7 @@
         <!--Imusic Tab Bar Controller-->
         <scene sceneID="ear-Z0-gPJ">
             <objects>
-                <tabBarController storyboardIdentifier="start" definesPresentationContext="YES" id="247-FU-WQ8" customClass="ImusicTabBarController" sceneMemberID="viewController">
+                <tabBarController definesPresentationContext="YES" id="247-FU-WQ8" customClass="ImusicTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="C28-M7-aqW"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="G05-el-AL4">
@@ -115,31 +114,30 @@
         <!--本地音乐-->
         <scene sceneID="N5T-Tk-jX5">
             <objects>
-                <viewController storyboardIdentifier="IME" id="Wjn-hJ-QUh" customClass="LocalViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IME" extendedLayoutIncludesOpaqueBars="YES" id="Wjn-hJ-QUh" customClass="LocalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nvU-is-EsF"/>
                         <viewControllerLayoutGuide type="bottom" id="xte-es-1nK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bju-uR-nU4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qaH-30-e2X">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qaH-30-e2X" firstAttribute="width" secondItem="bju-uR-nU4" secondAttribute="width" id="AEs-bq-qVC"/>
-                            <constraint firstItem="qaH-30-e2X" firstAttribute="centerY" secondItem="bju-uR-nU4" secondAttribute="centerY" id="eqJ-sQ-Rlz"/>
-                            <constraint firstItem="qaH-30-e2X" firstAttribute="height" secondItem="bju-uR-nU4" secondAttribute="height" id="eqy-Q0-Cxb"/>
-                            <constraint firstItem="qaH-30-e2X" firstAttribute="centerX" secondItem="bju-uR-nU4" secondAttribute="centerX" id="nbj-hH-Tp9"/>
+                            <constraint firstItem="qaH-30-e2X" firstAttribute="top" secondItem="nvU-is-EsF" secondAttribute="bottom" id="Z4j-fB-4nm"/>
+                            <constraint firstAttribute="trailing" secondItem="qaH-30-e2X" secondAttribute="trailing" id="aat-PQ-kfE"/>
+                            <constraint firstItem="qaH-30-e2X" firstAttribute="leading" secondItem="bju-uR-nU4" secondAttribute="leading" id="ahB-Tg-W75"/>
+                            <constraint firstItem="xte-es-1nK" firstAttribute="top" secondItem="qaH-30-e2X" secondAttribute="bottom" id="cfp-Od-5Au"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="本地音乐" image="local.png" id="yfw-Ng-eL8"/>
-                    <navigationItem key="navigationItem" id="g37-NK-YM3"/>
                     <connections>
                         <outlet property="songtable" destination="qaH-30-e2X" id="g5g-6V-6sH"/>
                     </connections>
@@ -147,6 +145,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0k9-Oz-GXe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2469" y="699"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0sG-IV-cyV">
+            <objects>
+                <navigationController storyboardIdentifier="start" navigationBarHidden="YES" id="H8v-1E-wDN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lq7-YH-MKo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="247-FU-WQ8" kind="relationship" relationship="rootViewController" id="Pjl-lP-THR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XaB-wQ-XoD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="675" y="667"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="VUc-cu-Uhd">
@@ -235,10 +249,11 @@
                             <constraint firstItem="jf9-CL-g90" firstAttribute="leading" secondItem="5Hu-E2-AYv" secondAttribute="leading" id="xa8-Eq-XS8"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="fOu-Wx-Aiq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ym-tf-4QO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3123" y="1420"/>
+            <point key="canvasLocation" x="3899" y="1269"/>
         </scene>
         <!--关于-->
         <scene sceneID="Off-DO-KIN">
@@ -254,6 +269,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="关于" image="settings.png" id="Si6-ba-sY2"/>
+                    <navigationItem key="navigationItem" id="R4Q-kM-CO7"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F9q-Tk-hXT" userLabel="First Responder" sceneMemberID="firstResponder"/>
