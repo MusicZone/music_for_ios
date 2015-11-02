@@ -55,9 +55,6 @@
                                     <constraint firstAttribute="width" secondItem="zTF-by-yJ5" secondAttribute="height" multiplier="1:1" id="hKZ-hr-Vqx"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="play.png"/>
-                                <connections>
-                                    <action selector="pressPlay:" destination="DxX-1s-NER" eventType="touchUpInside" id="tR7-Gn-buu"/>
-                                </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p1u-8d-5ao">
                                 <rect key="frame" x="282" y="257" width="37" height="37"/>
@@ -162,10 +159,10 @@
             </objects>
             <point key="canvasLocation" x="675" y="667"/>
         </scene>
-        <!--View Controller-->
+        <!--About View Controller-->
         <scene sceneID="VUc-cu-Uhd">
             <objects>
-                <viewController storyboardIdentifier="instruct" id="qkg-8d-ICR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="instruct" id="qkg-8d-ICR" customClass="AboutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jWl-ik-IuT"/>
                         <viewControllerLayoutGuide type="bottom" id="QHv-bH-3Pg"/>

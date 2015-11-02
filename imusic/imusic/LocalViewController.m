@@ -25,6 +25,31 @@
     player =nil;
     playingbtn = nil;
     // Do any additional setup after loading the view.
+    //[self refreshTable];
+    
+    
+    
+    
+    
+    
+    //UITableView *tb = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [songtable setDataSource:self];
+    [songtable setDelegate:self];
+    //[self.view addSubview:tb];
+    
+    
+    
+    
+    
+    
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self refreshTable];
+    [songtable reloadData];
+}
+-(void)refreshTable
+{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -75,27 +100,9 @@
                 
             }
             
-            NSLog(@"%@", @"asdfasdf");
         }
         [albums addObject:info];
-        NSLog(@"%@", @"asdfasdf");
     }
-    
-    
-    
-    
-    
-    
-    //UITableView *tb = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [songtable setDataSource:self];
-    [songtable setDelegate:self];
-    //[self.view addSubview:tb];
-    
-    
-    
-    
-    
-    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -131,10 +138,11 @@
         cell = [nib objectAtIndex:0];
     }
     
-    cell.title.tag = indexPath.row;
-    cell.artist.tag = indexPath.row;
-    cell.deleteButton.tag = indexPath.row;
-    cell.playButton.tag = indexPath.row;
+    //cell.title.tag = indexPath.row;
+    //cell.artist.tag = indexPath.row;
+    //cell.deleteButton.tag = indexPath.row;
+    //cell.playButton.tag = indexPath.row;
+    cell.contentView.tag = indexPath.row+100;
     
     //[cell setCellValue:[selectedInfo objectAtIndex:indexPath.row]];
     NSDictionary *info = [albums objectAtIndex:indexPath.row];
@@ -154,7 +162,7 @@
 - (void)deleteSong:(id)sender{
     UIButton *btn = (UIButton *)sender;
     
-    [self showAlertView:btn.tag];
+    [self showAlertView:[btn superview].tag-100];
 }
 - (void)closeAll{
     if (playingbtn !=nil){
@@ -174,44 +182,44 @@
         }
         
         UIButton *btn = (UIButton *)sender;
-        int index = btn.tag;
+        int index = [btn superview].tag-100;
         playingbtn = btn;
         NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
         //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         //dispatch_async(que, ^{
-            NSData *filedata = [NSData dataWithContentsOfURL:url];
-            player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
-            if(player != nil){
-                [player setDelegate:self];
-                if([player prepareToPlay]){
-                    [player play];
-                    [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
-                                          forState:UIControlStateNormal];
-                }
+        NSData *filedata = [NSData dataWithContentsOfURL:url];
+        player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
+        if(player != nil){
+            [player setDelegate:self];
+            if([player prepareToPlay]){
+                [player play];
+                [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                      forState:UIControlStateNormal];
             }
+        }
         //});
         
     }else{
-    
+        
         if (player.playing) {
             [player pause];
             [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
-                               forState:UIControlStateNormal];
+                                  forState:UIControlStateNormal];
         }else{
             [player play];
             [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
                                   forState:UIControlStateNormal];
-
+            
         }
     }
-        
-        
-        
-        
-        
-        
-        
-        
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 - (void)didReceiveMemoryWarning {
@@ -230,9 +238,55 @@
  */
 
 
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)playera successfully:(BOOL)flag{
+    if (playingbtn != nil) {
+        player = nil;
+        [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                              forState:UIControlStateNormal];
+        int newtag = [playingbtn superview].tag+1;
+        
+        localTableViewCell *cell = (localTableViewCell *)[[self.view viewWithTag:newtag] superview];
+        UIButton *next = cell.playButton;
+        if(next != nil){
+            playingbtn = next;
+            NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:newtag-100] objectForKey:@"path"]];
+            //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            //dispatch_async(que, ^{
+            NSData *filedata = [NSData dataWithContentsOfURL:url];
+            NSError *error;
+            NSIndexPath *pt = [NSIndexPath indexPathForRow:newtag-99 inSection:0];
+            [self scrollNow:pt];
+            player = [[AVAudioPlayer alloc] initWithData:filedata error:&error];
+            if(player != nil){
+                [player setDelegate:self];
+                if([player prepareToPlay]){
+                    [player play];
+                    [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                          forState:UIControlStateNormal];
+                }
+            }
+        }
+    }
 }
-
+-(void)scrollNow:(NSIndexPath *)index{
+    NSArray *rows = [songtable indexPathsForVisibleRows];
+    NSIndexPath *dex = (NSIndexPath *)[rows lastObject];
+    int a = dex.row;
+    a = index.row;
+    if(dex.row <= index.row){
+        
+        
+        CGFloat spacetobottom = songtable.contentSize.height - songtable.contentOffset.y;
+        CGFloat framesize = songtable.frame.size.height;
+        if (spacetobottom>framesize) {
+            //scroll it
+            [songtable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    }
+}
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player
+                                 error:(NSError *)error{
+}
 #pragma mark - alert
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
@@ -244,6 +298,8 @@
             NSError *err;
             [fileMgr removeItemAtPath:MapLayerDataPath error:&err];
         }
+        [self refreshTable];
+        [songtable reloadData];
     }
 }
 
@@ -263,14 +319,14 @@
 
 
 /*
-- (void) viewDidLayoutSubviews {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        CGRect viewBounds = self.view.bounds;
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        viewBounds.origin.y = topBarOffset * -1;
-        self.view.bounds = viewBounds;
-    }
-}
-*/
+ - (void) viewDidLayoutSubviews {
+ if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+ CGRect viewBounds = self.view.bounds;
+ CGFloat topBarOffset = self.topLayoutGuide.length;
+ viewBounds.origin.y = topBarOffset * -1;
+ self.view.bounds = viewBounds;
+ }
+ }
+ */
 
 @end

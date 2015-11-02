@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "__34-[ImusicViewController pressPlay:]_block_invoke:ImusicViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[LocalViewController scrollNow:]:LocalViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dex.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ImusicViewController play]:ImusicViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[LocalViewController playSong:]:LocalViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[LocalViewController audioPlayerDidFinishPlaying:successfully:]:LocalViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ImusicViewController observeValueForKeyPath:ofObject:change:context:]:ImusicViewController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

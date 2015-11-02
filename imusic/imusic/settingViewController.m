@@ -39,13 +39,13 @@
                                
                                relatedBy:NSLayoutRelationEqual
                                
-                               toItem:self.topLayoutGuide
+                               toItem:self.view
                                
-                               attribute:NSLayoutAttributeBottom
+                               attribute:NSLayoutAttributeTop
                                
                                multiplier:1
                                
-                               constant:10]];
+                               constant:60]];
     [self.view addConstraint:[NSLayoutConstraint
                                
                                constraintWithItem:tb
@@ -96,10 +96,7 @@
     
     // Do any additional setup after loading the view.
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [self.navigationController setNavigationBarHidden:YES];
-    
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -216,8 +213,13 @@
     [title setBackgroundColor:[UIColor clearColor]];
     [title setTextColor:[UIColor blackColor]];
     [title setTextAlignment:NSTextAlignmentLeft];
-    [container addSubview:title];
     
+    
+    [container addSubview:title];
+    UIImageView *lineImage;
+    lineImage= [[UIImageView alloc] initWithFrame:CGRectMake(0, 39, tableView.frame.size.width, 1)];
+    lineImage.image = [UIImage imageNamed:@"unsolidline.png"];
+    [container addSubview:lineImage];
     
     
     

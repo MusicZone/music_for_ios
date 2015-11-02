@@ -9,7 +9,7 @@
 #import "ImusicViewController.h"
 
 #define HTTP_URL @"http://www.imusic.ren/app/?"
-
+#define NOTICE @"播放过程需要使用网络流量，最好使用WIFI网络！"
 
 
 @interface ImusicViewController ()
@@ -31,12 +31,35 @@
 @synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:NO];
-    //[[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:NO];
+    
     
     player=nil;
     abstractRes = nil;
     albumRes = nil;
+    progress.layer.cornerRadius = 10.0;
+    progress.clipsToBounds = YES;
+    
+    
+    [title setText:NOTICE];
+    CGFloat width = title.frame.size.width;
+    CGSize labelSize = [NOTICE sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(width, 500) lineBreakMode:UILineBreakModeWordWrap];
+    
+    title.numberOfLines = 0;
+    title.lineBreakMode = UILineBreakModeWordWrap;
+    title.frame = CGRectMake(0, 0, 300, labelSize.height);
+    [title setHidden:NO];
+    
+    
+    
+    
+    [self reload];
+    
+    // Do any additional setup after loading the view.
+}
+-(void)reload{
+    [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:NO];
+    [[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:NO];
+    [playbutton setHidden:YES];
     [loadind startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("serialqueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(myqueue, ^{
@@ -94,8 +117,21 @@
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             if(albumRes !=nil){
-                [playbutton setHidden:NO];
+                [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                                      forState:UIControlStateNormal];
+                [playbutton addTarget:self
+                               action:@selector(pressPlay:)
+                     forControlEvents:UIControlEventTouchUpInside];
+                
+            }else{
+                [playbutton setBackgroundImage:[UIImage imageNamed:@"reload.png"]
+                                      forState:UIControlStateNormal];
+                [playbutton addTarget:self
+                               action:@selector(pressReload:)
+                     forControlEvents:UIControlEventTouchUpInside];
+                [self showAlertView:@"请连接网络后重新刷新歌单!"];
             }
+            [playbutton setHidden:NO];
             [loadind stopAnimating];
             [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:YES];
             [[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:YES];
@@ -103,9 +139,8 @@
         
         
     });
-    // Do any additional setup after loading the view.
 }
-- (IBAction)pressPlay:(id)sender {
+- (void)pressPlay:(id)sender {
     if (player != nil && player.rate > 0 && !player.error) {
         [player pause];
         [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
@@ -147,6 +182,7 @@
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [progress setHidden:YES];
                     [playbutton setHidden:NO];
+                    [title setHidden:YES];
                     /*[sender addTarget:self
                      action:@selector(playSong:)
                      forControlEvents:UIControlEventTouchUpInside];*/
@@ -166,6 +202,9 @@
     }
     
 }
+- (void)pressReload:(id)sender {
+    [self reload];
+}
 - (void)play{
     AVPlayerItem *bj = [itemen nextObject];
     if(bj != nil){
@@ -178,7 +217,7 @@
         }else{
             
             AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:aurl options:nil];
-            NSString *tt = [[aurl absoluteString] lastPathComponent];
+            NSString *tt = [[[aurl absoluteString] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
             for (NSString *format in [mp3Asset availableMetadataFormats]) {
                 NSArray<AVMetadataItem *> *dd = [mp3Asset metadataForFormat:format];
@@ -189,6 +228,7 @@
                 }
             }
             [title setText:tt];
+            [title setHidden:NO];
             CGFloat width = title.frame.size.width;
             CGSize labelSize = [tt sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(width, 500) lineBreakMode:UILineBreakModeWordWrap];
             
@@ -261,8 +301,16 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     AVPlayerItem *playerItem = (AVPlayerItem *)object;
     if([keyPath isEqualToString:@"status"]){
+        AVPlayerItemStatus  tt = [playerItem status];
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             [player play];
+        }else{
+            [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
+            
+            
+            
+            [self play];
         }
         
     }
@@ -460,7 +508,18 @@
 }*/
 
 
+#pragma mark - alert
 
+
+-(void)showAlertView:(NSString *)msg{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:msg
+                                                   delegate:nil
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil, nil];
+    [alert setTag:index];
+    [alert show];
+}
 
 
 
