@@ -7,7 +7,7 @@
 //
 
 #import "settingViewController.h"
-
+#define HTTP_URL @"http://www.imusic.ren/ios/iosupdate.json"
 @interface settingViewController ()
 
 @end
@@ -284,7 +284,7 @@
 -(void)checkVersion
 {
     NSString *newVersion;
-    getUrls = [self getUpdateInfo:[NSURL URLWithString:@"http://123.150.174.234/update/iosupdate.json"]];
+    getUrls = [self getUpdateInfo:[NSURL URLWithString:HTTP_URL]];
     
     
     NSURL *url = [NSURL URLWithString:[getUrls valueForKey:@"appurl"]];
