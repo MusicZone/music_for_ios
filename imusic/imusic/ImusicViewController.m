@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *playbutton;
 @property (strong, nonatomic) IBOutlet UILabel *title;
 
+@property (strong,nonatomic) Update *up;
 @property (nonatomic,strong) NSMutableData *receivedData;
 @property long expectedBytes;
 @property (nonatomic,strong) NSArray *abstractRes;
@@ -28,10 +29,11 @@
 @end
 
 @implementation ImusicViewController
-@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title;
+@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title,up;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    up = [[Update alloc] init];
+    [up checkVersion];
     
     player=nil;
     abstractRes = nil;
@@ -135,6 +137,7 @@
             [loadind stopAnimating];
             [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:YES];
             [[[[self.tabBarController tabBar] items] objectAtIndex:2] setEnabled:YES];
+            
         });
         
         

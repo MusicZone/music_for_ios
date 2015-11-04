@@ -7,13 +7,14 @@
 //
 
 #import "settingViewController.h"
-#define HTTP_URL @"http://www.imusic.ren/ios/iosupdate.json"
-@interface settingViewController ()
+//#define HTTP_URL @"http://www.imusic.ren/ios/iosupdate.json"
 
+@interface settingViewController ()
+@property (strong,nonatomic) Update *up;
 @end
 
 @implementation settingViewController
-//@synthesize buttonTable;
+@synthesize up;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -195,7 +196,8 @@
         [self.navigationController setNavigationBarHidden:NO];
         [self.navigationController pushViewController:transview animated:YES];
     }else{
-        [self checkVersion];
+        up = [[Update alloc] init];
+        [up checkVersion];
     }
     
 }
@@ -261,69 +263,10 @@
     return 10.0;
     
 }
--(NSMutableDictionary *)dictionaryFromJsonFormatOriginalData:(NSString *)str
-{
-    SBJsonParser *sbJsonParser = [[SBJsonParser alloc]init];
-    NSError *error = nil;
-    
-    //添加autorelease 解决 内存泄漏问题
-    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc]initWithDictionary:[sbJsonParser objectWithString:str error:&error]];
-    return tempDictionary;
-}
--(NSDictionary *)getUpdateInfo:(NSURL *)url
-{
-    //通过url获取数据
-    NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    
-    //解析json数据为数据字典
-    NSDictionary *Response = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
-    
-    return Response;
 
-}
--(void)checkVersion
-{
-    NSString *newVersion;
-    getUrls = [self getUpdateInfo:[NSURL URLWithString:HTTP_URL]];
-    
-    
-    NSURL *url = [NSURL URLWithString:[getUrls valueForKey:@"appurl"]];
-    
-    //通过url获取数据
-    NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"通过appStore获取的数据是：%@",jsonResponseString);
-    
-    //解析json数据为数据字典
-    NSDictionary *loginAuthenticationResponse = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
-    
-    //从数据字典中检出版本号数据
-    NSArray *configData = [loginAuthenticationResponse valueForKey:@"results"];
-    for(id config in configData)
-    {
-        newVersion = [config valueForKey:@"version"];
-    }
-    
-    NSLog(@"通过appStore获取的版本号是：%@",newVersion);
-    
-    //获取本地软件的版本号
-    NSString *localVersion = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleVersion"];
-    
-    NSString *msg = [NSString stringWithFormat:@"你当前的版本是V%@，发现新版本V%@，是否下载新版本？",localVersion,newVersion];
-    
-    //对比发现的新版本和本地的版本
-    if ([newVersion floatValue] > [localVersion floatValue])
-    {
-        UIAlertView *createUserResponseAlert = [[UIAlertView alloc] initWithTitle:@"升级提示!" message:msg delegate:self cancelButtonTitle:@"下次再说" otherButtonTitles: @"现在升级", nil];
-        [createUserResponseAlert show];
-    }
-}
-- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //如果选择“现在升级”
-    if (buttonIndex == 1)
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[getUrls valueForKey:@"downloadurl"]]];
-    }
-}
+
+
+
 +(void)setImageCornerRadius:(UIImageView *)imageView topLeftAndRight:(BOOL)isTop bottomLeftAndRight:(BOOL)isBottom {
     if (isTop && !isBottom) {
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:imageView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];

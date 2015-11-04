@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SplashViewController.h"
-#import "SBJson.h"
-@interface settingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
+#import "Update.h"
+
+@interface settingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     NSDictionary *getUrls;
 }
 

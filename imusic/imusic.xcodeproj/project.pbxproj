@@ -40,6 +40,7 @@
 		678BFD4C1BD9E5E000CCF726 /* localTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678BFD4A1BD9E5E000CCF726 /* localTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		678CEC301BE7678100266E88 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678CEC2F1BE7678100266E88 /* AboutViewController.m */; settings = {ASSET_TAGS = (); }; };
 		678CEC321BE76D1D00266E88 /* unsolidline.png in Resources */ = {isa = PBXBuildFile; fileRef = 678CEC311BE76D1D00266E88 /* unsolidline.png */; settings = {ASSET_TAGS = (); }; };
+		678F669E1BE9A704002FB9CA /* Update.m in Sources */ = {isa = PBXBuildFile; fileRef = 678F669D1BE9A704002FB9CA /* Update.m */; settings = {ASSET_TAGS = (); }; };
 		67DCE24E1BD7695A00EFCEA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE24D1BD7695A00EFCEA1 /* main.m */; };
 		67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2501BD7695A00EFCEA1 /* AppDelegate.m */; };
 		67DCE25A1BD7695A00EFCEA1 /* imusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2581BD7695A00EFCEA1 /* imusic.xcdatamodeld */; };
@@ -120,6 +121,8 @@
 		678CEC2E1BE7678100266E88 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		678CEC2F1BE7678100266E88 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		678CEC311BE76D1D00266E88 /* unsolidline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unsolidline.png; path = drawable/unsolidline.png; sourceTree = "<group>"; };
+		678F669C1BE9A704002FB9CA /* Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Update.h; sourceTree = "<group>"; };
+		678F669D1BE9A704002FB9CA /* Update.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Update.m; sourceTree = "<group>"; };
 		67DCE2491BD7695A00EFCEA1 /* imusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67DCE24D1BD7695A00EFCEA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		67DCE24F1BD7695A00EFCEA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -237,6 +240,8 @@
 				67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */,
 				678CEC2E1BE7678100266E88 /* AboutViewController.h */,
 				678CEC2F1BE7678100266E88 /* AboutViewController.m */,
+				678F669C1BE9A704002FB9CA /* Update.h */,
+				678F669D1BE9A704002FB9CA /* Update.m */,
 			);
 			path = imusic;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				678F669E1BE9A704002FB9CA /* Update.m in Sources */,
 				67701B3A1BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m in Sources */,
 				67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */,
 				67701B411BD7BAA000FB9EBE /* SBJsonUTF8Stream.m in Sources */,
