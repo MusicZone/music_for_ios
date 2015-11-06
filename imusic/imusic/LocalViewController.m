@@ -184,6 +184,14 @@
         UIButton *btn = (UIButton *)sender;
         int index = [btn superview].tag-100;
         playingbtn = btn;
+        
+        
+        
+        
+        //scroll if needed
+        NSIndexPath *pt = [NSIndexPath indexPathForRow:[btn superview].tag-99 inSection:0];
+        [self scrollNow:pt];
+        //play it
         NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
         //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         //dispatch_async(que, ^{
@@ -245,30 +253,71 @@
                               forState:UIControlStateNormal];
         int newtag = [playingbtn superview].tag+1;
         
-        localTableViewCell *cell = (localTableViewCell *)[[self.view viewWithTag:newtag] superview];
-        UIButton *next = cell.playButton;
-        if(next != nil){
-            playingbtn = next;
-            NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:newtag-100] objectForKey:@"path"]];
-            //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            //dispatch_async(que, ^{
-            NSData *filedata = [NSData dataWithContentsOfURL:url];
-            NSError *error;
-            NSIndexPath *pt = [NSIndexPath indexPathForRow:newtag-99 inSection:0];
-            [self scrollNow:pt];
-            player = [[AVAudioPlayer alloc] initWithData:filedata error:&error];
-            if(player != nil){
-                [player setDelegate:self];
-                if([player prepareToPlay]){
-                    [player play];
-                    [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
-                                          forState:UIControlStateNormal];
-                }
+        //nextline whether in display
+        NSIndexPath *pt = [NSIndexPath indexPathForRow:newtag-99 inSection:0];
+        [self scrollNow:pt];
+        /*if([self scrollNow:pt]){
+            //dispatch_async(dispatch_get_main_queue(), ^{
+            //    [self playNext:newtag];
+            
+            //});
+            [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timePlayNext:) userInfo:[NSNumber numberWithInt:newtag] repeats:NO];
+        }else{
+            [self playNext:newtag];
+        }*/
+        //play this line
+        [self playNext:newtag];
+    }
+}/*
+-(void)timePlayNext:(NSTimer *)timer{
+    NSNumber *tag = [timer userInfo];
+    int newtag = [tag intValue];
+    
+    
+    localTableViewCell *cell = (localTableViewCell *)[[self.view viewWithTag:newtag] superview];
+    UIButton *next = cell.playButton;
+    if(next != nil){
+        playingbtn = next;
+        NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:newtag-100] objectForKey:@"path"]];
+        //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //dispatch_async(que, ^{
+        NSData *filedata = [NSData dataWithContentsOfURL:url];
+        NSError *error;
+        
+        player = [[AVAudioPlayer alloc] initWithData:filedata error:&error];
+        if(player != nil){
+            [player setDelegate:self];
+            if([player prepareToPlay]){
+                [player play];
+                [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                      forState:UIControlStateNormal];
+            }
+        }
+    }
+}*/
+-(void)playNext:(int)newtag{
+    localTableViewCell *cell = (localTableViewCell *)[[self.view viewWithTag:newtag] superview];
+    UIButton *next = cell.playButton;
+    if(next != nil){
+        playingbtn = next;
+        NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:newtag-100] objectForKey:@"path"]];
+        //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //dispatch_async(que, ^{
+        NSData *filedata = [NSData dataWithContentsOfURL:url];
+        NSError *error;
+        
+        player = [[AVAudioPlayer alloc] initWithData:filedata error:&error];
+        if(player != nil){
+            [player setDelegate:self];
+            if([player prepareToPlay]){
+                [player play];
+                [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                      forState:UIControlStateNormal];
             }
         }
     }
 }
--(void)scrollNow:(NSIndexPath *)index{
+-(BOOL)scrollNow:(NSIndexPath *)index{
     NSArray *rows = [songtable indexPathsForVisibleRows];
     NSIndexPath *dex = (NSIndexPath *)[rows lastObject];
     int a = dex.row;
@@ -281,8 +330,10 @@
         if (spacetobottom>framesize) {
             //scroll it
             [songtable scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            return YES;
         }
     }
+    return NO;
 }
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player
                                  error:(NSError *)error{

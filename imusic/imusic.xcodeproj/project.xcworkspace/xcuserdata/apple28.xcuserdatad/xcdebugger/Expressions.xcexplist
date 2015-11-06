@@ -3,6 +3,20 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[LocalViewController audioPlayerDidFinishPlaying:successfully:]:LocalViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ImusicViewController observeValueForKeyPath:ofObject:change:context:]:ImusicViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "bj">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ImusicViewController play]:ImusicViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "__34-[ImusicViewController pressPlay:]_block_invoke:ImusicViewController.m">
       </ContextState>
       <ContextState
@@ -14,16 +28,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ImusicViewController play]:ImusicViewController.m">
-      </ContextState>
-      <ContextState
          contextName = "-[LocalViewController playSong:]:LocalViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[LocalViewController audioPlayerDidFinishPlaying:successfully:]:LocalViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[ImusicViewController observeValueForKeyPath:ofObject:change:context:]:ImusicViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -143,6 +143,131 @@
         
     });
 }
+- (void)downloadSongs:(int)ind{
+    [title setHidden:YES];
+    [playbutton setHidden:YES];
+    [progress setHidden:NO];
+    [progress setProgress:0];
+    //dispatch_sync(dispatch_get_main_queue(), ^{
+    //解析json数据为数据字典
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        
+        
+        float num = (float)albumRes.count;
+        playeritems = [[NSMutableArray alloc] init];
+        
+        for( int i=0; i<num; i++){
+            NSDictionary *song =[albumRes objectAtIndex:i];
+            NSString *url=[song objectForKey:@"url"];
+            NSString *name=[song objectForKey:@"name"];
+            NSString *path = [self downloadFiles:url filename:name];
+            
+            float progressive = (float)(i+1) / num;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [progress setProgress:progressive];
+            });
+            
+            if ([path isEqualToString:@""]) {
+                break;
+            }
+            NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
+            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+            
+            furl = [NSURL fileURLWithPath:path];
+            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [progress setHidden:YES];
+            [playbutton setHidden:NO];
+            [title setHidden:NO];
+            /*[sender addTarget:self
+             action:@selector(playSong:)
+             forControlEvents:UIControlEventTouchUpInside];*/
+            itemen =[playeritems objectEnumerator];
+            for (int i=0; i<ind; i++) {
+                [itemen nextObject];
+            }
+            [self play];
+            [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                  forState:UIControlStateNormal];
+            
+        });
+    });
+}/*
+- (void)downloadSongsAgain:(int)ind{
+    [title setHidden:YES];
+    [playbutton setHidden:YES];
+    [progress setHidden:NO];
+    [progress setProgress:0];
+    //dispatch_sync(dispatch_get_main_queue(), ^{
+    //解析json数据为数据字典
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        
+        
+        float num = (float)albumRes.count;
+        playeritems = [[NSMutableArray alloc] init];
+        
+        for( int i=0; i<num; i++){
+            NSDictionary *song =[albumRes objectAtIndex:i];
+            NSString *url=[song objectForKey:@"url"];
+            NSString *name=[song objectForKey:@"name"];
+            NSString *path = [self downloadFiles:url filename:name];
+            
+            float progressive = (float)(i+1) / num;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [progress setProgress:progressive];
+            });
+            
+            if ([path isEqualToString:@""]) {
+                break;
+            }
+            NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
+            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+            
+            furl = [NSURL fileURLWithPath:path];
+            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [progress setHidden:YES];
+            [playbutton setHidden:NO];
+            [title setHidden:YES];
+            
+            /*[sender addTarget:self
+             action:@selector(playSong:)
+             forControlEvents:UIControlEventTouchUpInside];*//*
+            itemen =[playeritems objectEnumerator];
+            
+            
+            
+            
+            [self play];
+
+            
+            
+            
+            /*[sender addTarget:self
+             action:@selector(playSong:)
+             forControlEvents:UIControlEventTouchUpInside];*/
+            //itemen =[playeritems objectEnumerator];
+            //AVPlayerItem *bj = [player currentItem];
+            //AVPlayerItem *bj = [itemen nextObject];
+            //[player replaceCurrentItemWithPlayerItem:item];
+            //NSError * er = [item error];
+            //er =nil;
+            //player = [AVPlayer playerWithPlayerItem:bj];
+            //player = [AVPlayer playerWithPlayerItem:item];
+            //[player play];
+            ////player = [AVPlayer r:item];
+            //[bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
+            //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:item];
+            //[player seekToTime:kCMTimeZero];
+            //[self play];
+            /*[playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                  forState:UIControlStateNormal];
+            
+        });
+    });
+}*/
 - (void)pressPlay:(id)sender {
     if (player != nil && player.rate > 0 && !player.error) {
         [player pause];
@@ -151,52 +276,7 @@
     }else{
         
         if(player == nil){
-            [playbutton setHidden:YES];
-            [progress setHidden:NO];
-            [progress setProgress:0];
-            //dispatch_sync(dispatch_get_main_queue(), ^{
-            //解析json数据为数据字典
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                
-                
-                float num = (float)albumRes.count;
-                playeritems = [[NSMutableArray alloc] init];
-                
-                for( int i=0; i<num; i++){
-                    NSDictionary *song =[albumRes objectAtIndex:i];
-                    NSString *url=[song objectForKey:@"url"];
-                    NSString *name=[song objectForKey:@"name"];
-                    NSString *path = [self downloadFiles:url filename:name];
-                    
-                    float progressive = (float)(i+1) / num;
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [progress setProgress:progressive];
-                    });
-                    
-                    if ([path isEqualToString:@""]) {
-                        break;
-                    }
-                    NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
-                    [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
-                    
-                    furl = [NSURL fileURLWithPath:path];
-                    [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
-                }
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setHidden:YES];
-                    [playbutton setHidden:NO];
-                    [title setHidden:YES];
-                    /*[sender addTarget:self
-                     action:@selector(playSong:)
-                     forControlEvents:UIControlEventTouchUpInside];*/
-                    itemen =[playeritems objectEnumerator];
-                    
-                    [self play];
-                    [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
-                                          forState:UIControlStateNormal];
-                    
-                });
-            });
+            [self downloadSongs:0];
         }else{
             [player play];
             [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
@@ -239,11 +319,12 @@
             title.lineBreakMode = UILineBreakModeWordWrap;
             title.frame = CGRectMake(0, 0, 300, labelSize.height);
             [title setHidden:NO];
+            [self.view setNeedsLayout];
         }
         
         player = [AVPlayer playerWithPlayerItem:bj];
         [bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:bj];
     }else{
         player = nil;
         [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
@@ -308,12 +389,18 @@
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             [player play];
         }else{
+            int index = [playeritems indexOfObject:[player currentItem]];
+            /*AVPlayerItem *bj = [player currentItem];
+            if(bj)
+                bj =nil;
+            [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];*/
             [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
+            [self downloadSongs:index];
+            //player = [AVPlayer playerWithPlayerItem:[player currentItem]];
             
-            
-            
-            [self play];
+            //[self play];
         }
         
     }
