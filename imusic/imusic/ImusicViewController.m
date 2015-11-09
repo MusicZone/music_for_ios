@@ -158,18 +158,34 @@
         
         for( int i=0; i<num; i++){
             NSDictionary *song =[albumRes objectAtIndex:i];
-            NSString *url=[song objectForKey:@"url"];
+            
             NSString *name=[song objectForKey:@"name"];
-            NSString *path = [self downloadFiles:url filename:name];
+            int nm = 1;
+            NSString *url=@"";
+            NSString *sec = @"";
+            NSString *path = @"";
+            do{
+                
+                sec = [NSString stringWithFormat:@"%@%d",@"url",nm];
+                url = [song objectForKey:sec];
+                if(url != [NSNull null] && ![url isEqualToString:@""]){
+                    path = [self downloadFiles:url filename:name whichone:i whole:num];
+                }
+                nm++;
+                
+            }while([path isEqualToString:@""] && nm<=10);
             
-            float progressive = (float)(i+1) / num;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [progress setProgress:progressive];
-            });
-            
-            if ([path isEqualToString:@""]) {
+            if ([path isEqualToString:@""])
                 break;
-            }
+            
+            
+            
+            //float progressive = (float)(i+1) / num;
+            //dispatch_sync(dispatch_get_main_queue(), ^{
+            //    [progress setProgress:progressive];
+            //});
+            
+            
             NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
             [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
             
@@ -194,80 +210,80 @@
         });
     });
 }/*
-- (void)downloadSongsAgain:(int)ind{
-    [title setHidden:YES];
-    [playbutton setHidden:YES];
-    [progress setHidden:NO];
-    [progress setProgress:0];
-    //dispatch_sync(dispatch_get_main_queue(), ^{
-    //解析json数据为数据字典
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        
-        
-        float num = (float)albumRes.count;
-        playeritems = [[NSMutableArray alloc] init];
-        
-        for( int i=0; i<num; i++){
-            NSDictionary *song =[albumRes objectAtIndex:i];
-            NSString *url=[song objectForKey:@"url"];
-            NSString *name=[song objectForKey:@"name"];
-            NSString *path = [self downloadFiles:url filename:name];
-            
-            float progressive = (float)(i+1) / num;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [progress setProgress:progressive];
-            });
-            
-            if ([path isEqualToString:@""]) {
-                break;
-            }
-            NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
-            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
-            
-            furl = [NSURL fileURLWithPath:path];
-            [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
-        }
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [progress setHidden:YES];
-            [playbutton setHidden:NO];
-            [title setHidden:YES];
-            
-            /*[sender addTarget:self
-             action:@selector(playSong:)
-             forControlEvents:UIControlEventTouchUpInside];*//*
-            itemen =[playeritems objectEnumerator];
-            
-            
-            
-            
-            [self play];
-
-            
-            
-            
-            /*[sender addTarget:self
-             action:@selector(playSong:)
-             forControlEvents:UIControlEventTouchUpInside];*/
-            //itemen =[playeritems objectEnumerator];
-            //AVPlayerItem *bj = [player currentItem];
-            //AVPlayerItem *bj = [itemen nextObject];
-            //[player replaceCurrentItemWithPlayerItem:item];
-            //NSError * er = [item error];
-            //er =nil;
-            //player = [AVPlayer playerWithPlayerItem:bj];
-            //player = [AVPlayer playerWithPlayerItem:item];
-            //[player play];
-            ////player = [AVPlayer r:item];
-            //[bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
-            //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:item];
-            //[player seekToTime:kCMTimeZero];
-            //[self play];
-            /*[playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
-                                  forState:UIControlStateNormal];
-            
-        });
-    });
-}*/
+  - (void)downloadSongsAgain:(int)ind{
+  [title setHidden:YES];
+  [playbutton setHidden:YES];
+  [progress setHidden:NO];
+  [progress setProgress:0];
+  //dispatch_sync(dispatch_get_main_queue(), ^{
+  //解析json数据为数据字典
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+  
+  
+  float num = (float)albumRes.count;
+  playeritems = [[NSMutableArray alloc] init];
+  
+  for( int i=0; i<num; i++){
+  NSDictionary *song =[albumRes objectAtIndex:i];
+  NSString *url=[song objectForKey:@"url"];
+  NSString *name=[song objectForKey:@"name"];
+  NSString *path = [self downloadFiles:url filename:name];
+  
+  float progressive = (float)(i+1) / num;
+  dispatch_sync(dispatch_get_main_queue(), ^{
+  [progress setProgress:progressive];
+  });
+  
+  if ([path isEqualToString:@""]) {
+  break;
+  }
+  NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
+  [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+  
+  furl = [NSURL fileURLWithPath:path];
+  [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
+  }
+  dispatch_sync(dispatch_get_main_queue(), ^{
+  [progress setHidden:YES];
+  [playbutton setHidden:NO];
+  [title setHidden:YES];
+  
+  /*[sender addTarget:self
+  action:@selector(playSong:)
+  forControlEvents:UIControlEventTouchUpInside];*//*
+                                                   itemen =[playeritems objectEnumerator];
+                                                   
+                                                   
+                                                   
+                                                   
+                                                   [self play];
+                                                   
+                                                   
+                                                   
+                                                   
+                                                   /*[sender addTarget:self
+                                                   action:@selector(playSong:)
+                                                   forControlEvents:UIControlEventTouchUpInside];*/
+//itemen =[playeritems objectEnumerator];
+//AVPlayerItem *bj = [player currentItem];
+//AVPlayerItem *bj = [itemen nextObject];
+//[player replaceCurrentItemWithPlayerItem:item];
+//NSError * er = [item error];
+//er =nil;
+//player = [AVPlayer playerWithPlayerItem:bj];
+//player = [AVPlayer playerWithPlayerItem:item];
+//[player play];
+////player = [AVPlayer r:item];
+//[bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
+//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:item];
+//[player seekToTime:kCMTimeZero];
+//[self play];
+/*[playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+ forState:UIControlStateNormal];
+ 
+ });
+ });
+ }*/
 - (void)pressPlay:(id)sender {
     if (player != nil && player.rate > 0 && !player.error) {
         [player pause];
@@ -391,10 +407,10 @@
         }else{
             int index = [playeritems indexOfObject:[player currentItem]];
             /*AVPlayerItem *bj = [player currentItem];
-            if(bj)
-                bj =nil;
-            [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];*/
+             if(bj)
+             bj =nil;
+             [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
+             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];*/
             [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
             [self downloadSongs:index];
@@ -481,8 +497,19 @@
 
 //==================DownLoad Code=============================
 
-- (NSString *)downloadFiles:(NSString *)urlstring filename:(NSString *)name
-{/*
+- (NSString *)downloadFiles:(NSString *)urlstring filename:(NSString *)name whichone:(int)which whole:(int)whole
+{
+    NSString *imusicDir = [self getDirectory];
+    NSString *path = [imusicDir stringByAppendingPathComponent:name];
+    NSFileManager* fm=[NSFileManager defaultManager];
+    if([fm fileExistsAtPath:path]){
+        float progressive =  (float)which/whole + (float)1/whole;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [progress setProgress:progressive];
+        });
+        return path;
+    }
+    /*
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
   
   BOOL needBackup = [self.backupDelegate checkNeedBackup];// 跑在子线程
@@ -501,7 +528,7 @@
   
   });*/
     NSURL *url = [NSURL URLWithString:urlstring];
-    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url
                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                             timeoutInterval:60];
     /*receivedData = [[NSMutableData alloc] initWithLength:0];
@@ -510,20 +537,201 @@
      startImmediately:YES];
      */
     
+    NSError * error;
+    NSURLResponse * rep;
     
-    NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
     
-    if (syData != nil) {
+    theRequest.HTTPMethod = @"HEAD";
+    [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+    long filesize = rep.expectedContentLength;
+    
+    //========================method 1 =================
+    long from=0;
+    long to =0;
+    theRequest.HTTPMethod = @"GET";
+    long block = filesize;
+    int trytime =100;
+    
+    NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
+    NSDictionary *dc = [rp allHeaderFields];
+    if([dc objectForKey:@"Accept-Ranges"]){
+        NSString *rang = [dc objectForKey:@"Accept-Ranges"];
+        if ([rang isEqual:@"bytes"]) {
+            block = 524288;
+        }
+    }
+    
+    float present_done = (float)which/whole;
+    float present_now = (float)1/whole;
+    int step=0,count=1;
+    if (filesize/block) {
+        step = filesize/block+1;
+    }else{
+        step = filesize/block;
+    }
+    NSMutableData *filedata=[[NSMutableData alloc] init];
+    to = from + block-1;
+    while (from+block<=filesize && trytime != 0) {
+        
+        theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.f];
+        
+        NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, to];
+        NSLog(@"%@", range);
+        [theRequest setValue:range forHTTPHeaderField:@"Range"];
+        NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+        if (syData !=nil) {
+            [filedata appendData:syData];
+            from +=block;
+            to +=block;
+            float progressive =  present_done +  (present_now*count)/step;
+            count++;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [progress setProgress:progressive];
+            });
+        }else{
+            trytime--;
+        }
+        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
+    }
+    while(from<filesize && trytime != 0){
+        NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, filesize-1];
+        [theRequest setValue:range forHTTPHeaderField:@"Range"];
+        NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+        if (syData !=nil) {
+            [filedata appendData:syData];
+            from = filesize;
+            to = filesize-1;
+            float progressive =  present_done +  present_now;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [progress setProgress:progressive];
+            });
+        }
+    }
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    if ([filedata length] != 0  && trytime != 0) {
         
         NSString *imusicDir = [self getDirectory];
         NSString *path = [imusicDir stringByAppendingPathComponent:name];
         //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
         //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self saveToFile:syData filepath:path];
+        [self saveToFile:filedata filepath:path];
         return path;
     }
     return @"";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    
+    //==================method 2==============
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:theRequest];
+    [task resume];
+    return @"";*/
+    
 }
+/*
+#pragma mark NSURLSessionDownloadDelegate
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location
+{/*
+    //下载成功后，文件是保存在一个临时目录的，需要开发者自己考到放置该文件的目录
+    NSLog(@"Download success for URL: %@",location.description);
+    NSURL *destination = [self createDirectoryForDownloadItemFromURL:location];
+    BOOL success = [self copyTempFileAtURL:location toDestination:destination];
+    
+    if(success){
+        //        文件保存成功后，使用GCD调用主线程把图片文件显示在UIImageView中
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithContentsOfFile:[destination path]];
+            self.imageView.image = image;
+            self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            self.imageView.hidden = NO;
+        });
+    }else{
+        NSLog(@"Meet error when copy file");
+    }
+    self.task = nil;*//*
+    NSString *imusicDir = [self getDirectory];
+    NSString *path = [imusicDir stringByAppendingPathComponent:@"1.mp3"];
+    
+    NSFileManager* fm=[NSFileManager defaultManager];
+    if(![fm fileExistsAtPath:path]){
+        //下面是对该文件进行制定路径的保存
+        [fm moveItemAtPath:location.path toPath:path error:nil];
+    }
+}
+
+/* Sent periodically to notify the delegate of download progress. *//*
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{/*
+    //刷新进度条的delegate方法，同样的，获取数据，调用主线程刷新UI
+    double currentProgress = totalBytesWritten/(double)totalBytesExpectedToWrite;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.progressBar.progress = currentProgress;
+        self.progressBar.hidden = NO;
+    });*//*
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+ didResumeAtOffset:(int64_t)fileOffset
+expectedTotalBytes:(int64_t)expectedTotalBytes
+{
+    NSLog(@"Resume");
+
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
 - (void)saveToFile:(NSData *)data filepath:(NSString *)path{
     
     NSFileManager* fm=[NSFileManager defaultManager];
@@ -588,14 +796,14 @@
  }*/
 //=================================================
 /*
-- (void) viewDidLayoutSubviews {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        CGRect viewBounds = self.view.bounds;
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        viewBounds.origin.y = topBarOffset * -1;
-        self.view.bounds = viewBounds;
-    }
-}*/
+ - (void) viewDidLayoutSubviews {
+ if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+ CGRect viewBounds = self.view.bounds;
+ CGFloat topBarOffset = self.topLayoutGuide.length;
+ viewBounds.origin.y = topBarOffset * -1;
+ self.view.bounds = viewBounds;
+ }
+ }*/
 
 
 #pragma mark - alert
