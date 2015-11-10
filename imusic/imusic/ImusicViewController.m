@@ -32,6 +32,12 @@
 @synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title,up;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [session setActive:YES error:nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
+    
     up = [[Update alloc] init];
     [up checkVersion];
     
@@ -57,6 +63,42 @@
     [self reload];
     
     // Do any additional setup after loading the view.
+}
+- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        int test = receivedEvent.subtype;
+        switch (test) {
+                
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+            case UIEventSubtypeRemoteControlPlay:
+            case UIEventSubtypeRemoteControlPause:
+            case UIEventSubtypeRemoteControlStop:
+                if (player != nil && player.rate > 0 && !player.error) {
+                    [player pause];
+                    [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                                          forState:UIControlStateNormal];
+                }else{
+                    
+                    if(player == nil){
+                        [self downloadSongs:0];
+                    }else{
+                        [player play];
+                        [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                              forState:UIControlStateNormal];
+                    }
+                }
+                break;
+                
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                break;
+                
+            case UIEventSubtypeRemoteControlNextTrack:
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 -(void)reload{
     [[[[self.tabBarController tabBar] items] objectAtIndex:1] setEnabled:NO];
@@ -143,11 +185,13 @@
         
     });
 }
+
 - (void)downloadSongs:(int)ind{
     [title setHidden:YES];
     [playbutton setHidden:YES];
     [progress setHidden:NO];
     [progress setProgress:0];
+    [UIApplication sharedApplication].idleTimerDisabled=YES;
     //dispatch_sync(dispatch_get_main_queue(), ^{
     //解析json数据为数据字典
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
@@ -206,6 +250,8 @@
             [self play];
             [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
                                   forState:UIControlStateNormal];
+            
+            [UIApplication sharedApplication].idleTimerDisabled=NO;
             
         });
     });
@@ -327,7 +373,7 @@
                 }
             }
             [title setText:tt];
-            [title setHidden:NO];
+            //[title setHidden:NO];
             CGFloat width = title.frame.size.width;
             CGSize labelSize = [tt sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(width, 500) lineBreakMode:UILineBreakModeWordWrap];
             
@@ -345,7 +391,8 @@
         player = nil;
         [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
                               forState:UIControlStateNormal];
-        
+        [title setText:@""];
+        [title setHidden:YES];
     }
 }
 - (void)closeAll
@@ -553,7 +600,12 @@
     int trytime =100;
     
     NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
+    if(rp.statusCode!=200 && rp.statusCode != 206){
+        return @"";
+    }
+    
     NSDictionary *dc = [rp allHeaderFields];
+    
     if([dc objectForKey:@"Accept-Ranges"]){
         NSString *rang = [dc objectForKey:@"Accept-Ranges"];
         if ([rang isEqual:@"bytes"]) {
@@ -595,6 +647,7 @@
     }
     while(from<filesize && trytime != 0){
         NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, filesize-1];
+        NSLog(@"%@", range);
         [theRequest setValue:range forHTTPHeaderField:@"Range"];
         NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
         if (syData !=nil) {
@@ -606,6 +659,7 @@
                 [progress setProgress:progressive];
             });
         }
+        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
     }
         
     
@@ -627,7 +681,7 @@
     
     
     
-    if ([filedata length] != 0  && trytime != 0) {
+    if ([filedata length] == filesize  && trytime != 0) {
         
         NSString *imusicDir = [self getDirectory];
         NSString *path = [imusicDir stringByAppendingPathComponent:name];

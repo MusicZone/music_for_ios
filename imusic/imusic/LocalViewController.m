@@ -21,6 +21,13 @@
 @synthesize mp3count,albums,player,songtable,playingbtn;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [session setActive:YES error:nil];
+    //[[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
+    
     mp3count=0;
     player =nil;
     playingbtn = nil;
@@ -47,6 +54,45 @@
 {
     [self refreshTable];
     [songtable reloadData];
+    //[[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    //[self resignFirstResponder];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    //[[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //[self becomeFirstResponder];
+}
+- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        int test = receivedEvent.subtype;
+        switch (test) {
+                
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+            case UIEventSubtypeRemoteControlPlay:
+            case UIEventSubtypeRemoteControlPause:
+            case UIEventSubtypeRemoteControlStop:
+                if (player.playing) {
+                    [player pause];
+                    [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
+                                          forState:UIControlStateNormal];
+                }else{
+                    [player play];
+                    [playingbtn setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                                          forState:UIControlStateNormal];
+                    
+                }
+                break;
+                
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                break;
+                
+            case UIEventSubtypeRemoteControlNextTrack:
+                break;
+                
+            default:
+                break;  
+        }  
+    }  
 }
 -(void)refreshTable
 {
@@ -196,6 +242,9 @@
         //dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         //dispatch_async(que, ^{
         NSData *filedata = [NSData dataWithContentsOfURL:url];
+        //AVAudioSession *session = [AVAudioSession sharedInstance];
+        //[session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        //[session setActive:YES error:nil];
         player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
         if(player != nil){
             [player setDelegate:self];
@@ -305,8 +354,11 @@
         //dispatch_async(que, ^{
         NSData *filedata = [NSData dataWithContentsOfURL:url];
         NSError *error;
-        
-        player = [[AVAudioPlayer alloc] initWithData:filedata error:&error];
+        //AVAudioSession *session = [AVAudioSession sharedInstance];
+        //[session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        //[session setActive:YES error:nil];
+        //player = [[AVAudioPlayer alloc] initWithData:filedata error:&error];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         if(player != nil){
             [player setDelegate:self];
             if([player prepareToPlay]){

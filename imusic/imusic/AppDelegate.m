@@ -9,11 +9,11 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-
+@property __block UIBackgroundTaskIdentifier taskIdentifiery;
 @end
 
 @implementation AppDelegate
-
+@synthesize taskIdentifiery;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -47,12 +47,28 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    taskIdentifiery = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:taskIdentifiery];
+        //标示一个后台任务请求
+        taskIdentifiery = UIBackgroundTaskInvalid;
+    }];
+    
+    
+    
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    UIApplication *app = [UIApplication sharedApplication];
+    [app endBackgroundTask:taskIdentifiery];
+    //标示一个后台任务请求
+    taskIdentifiery = UIBackgroundTaskInvalid;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
