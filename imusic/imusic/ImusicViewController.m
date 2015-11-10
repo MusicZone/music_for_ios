@@ -220,7 +220,7 @@
             }while([path isEqualToString:@""] && nm<=10);
             
             if ([path isEqualToString:@""])
-                break;
+                continue;
             
             
             
@@ -589,9 +589,12 @@
     
     
     theRequest.HTTPMethod = @"HEAD";
-    [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+    NSData *headdata = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
     long filesize = rep.expectedContentLength;
-    
+    NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
+    if(rp.statusCode!=200 && rp.statusCode != 206){
+        return @"";
+    }
     //========================method 1 =================
     long from=0;
     long to =0;
@@ -599,10 +602,18 @@
     long block = filesize;
     int trytime =100;
     
-    NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
-    if(rp.statusCode!=200 && rp.statusCode != 206){
-        return @"";
-    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     NSDictionary *dc = [rp allHeaderFields];
     
@@ -682,6 +693,13 @@
     
     
     if ([filedata length] == filesize  && trytime != 0) {
+        
+        
+        NSString *aResults = [[NSString alloc] initWithData:filedata encoding:NSUTF8StringEncoding];
+        if(aResults && [aResults containsString:@"<html>"]) {
+            return @"";
+        }
+        
         
         NSString *imusicDir = [self getDirectory];
         NSString *path = [imusicDir stringByAppendingPathComponent:name];
