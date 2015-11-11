@@ -10,6 +10,6 @@
 #import "SBJson.h"
 #import "Update.h"
 #import <AVFoundation/AVFoundation.h>
-@interface ImusicViewController : UIViewController<NSURLSessionDelegate>
+@interface ImusicViewController : UIViewController<NSURLSessionDelegate,AVAssetResourceLoaderDelegate>
 - (void)closeAll;
 @end

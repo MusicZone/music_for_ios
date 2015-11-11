@@ -10,10 +10,20 @@
 
 #define HTTP_URL @"http://www.imusic.ren/app/?"
 #define NOTICE @"播放过程需要使用网络流量，最好使用WIFI网络！"
+@interface NSURLRequest (IgnoreSSL)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString*)host;
+@end
 
+@implementation NSURLRequest (IgnoreSSL)
++ (BOOL)allowsAnyHTTPSCertificateForHost:(NSString*)host
+{
+    return YES;
+}
+@end
 
 @interface ImusicViewController ()
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loadind;
+@property (strong, nonatomic) IBOutlet UILabel *progressTitle;
 @property (strong, nonatomic) IBOutlet UIProgressView *progress;
 @property (strong, nonatomic) IBOutlet UIButton *playbutton;
 @property (strong, nonatomic) IBOutlet UILabel *title;
@@ -29,7 +39,7 @@
 @end
 
 @implementation ImusicViewController
-@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title,up;
+@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title,up,progressTitle;
 - (void)viewDidLoad {
     [super viewDidLoad];
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -190,7 +200,10 @@
     [title setHidden:YES];
     [playbutton setHidden:YES];
     [progress setHidden:NO];
+    [progressTitle setHidden:NO];
+    [progressTitle setText:@""];
     [progress setProgress:0];
+    [progressTitle setText:@"歌曲同步了0%!"];
     [UIApplication sharedApplication].idleTimerDisabled=YES;
     //dispatch_sync(dispatch_get_main_queue(), ^{
     //解析json数据为数据字典
@@ -238,6 +251,8 @@
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             [progress setHidden:YES];
+            [progressTitle setHidden:YES];
+            [progressTitle setText:@""];
             [playbutton setHidden:NO];
             [title setHidden:NO];
             /*[sender addTarget:self
@@ -355,7 +370,7 @@
     if(bj != nil){
         NSURL *aurl = [(AVURLAsset *)bj.asset URL];
         
-        bool re = [[aurl scheme] isEqualToString:@"http"];
+        bool re = [[aurl scheme] isEqualToString:@"http"] | [[aurl scheme] isEqualToString:@"https"];
         if(re){
             
             [title setHidden:YES];
@@ -384,6 +399,24 @@
             [self.view setNeedsLayout];
         }
         
+        AVURLAsset      *asset          = bj.asset;
+        AVPlayerItem    *playerItem     = [AVPlayerItem playerItemWithAsset:asset];
+        AVAssetResourceLoader *loader   = asset.resourceLoader;
+        [loader setDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+/*
+        
+        NSURL *sourceMovieURL = [[NSURL alloc]initWithString:@"https://bbs-androidtv.rhcloud.com/comment/test1.mp3"];
+        
+        AVURLAsset *movieAsset = [AVURLAsset URLAssetWithURL:sourceMovieURL options:nil];
+        [movieAsset.resourceLoader setDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        
+        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+        
+        bj = playerItem;*/
+        
+        
+        
+        
         player = [AVPlayer playerWithPlayerItem:bj];
         [bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:bj];
@@ -395,6 +428,28 @@
         [title setHidden:YES];
     }
 }
+- (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader    shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest *)loadingRequest
+{
+    
+    //Handle NSURLConnection to the SSL secured resource here
+    return YES;
+}
+- (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader
+shouldWaitForResponseToAuthenticationChallenge:(NSURLAuthenticationChallenge *)authenticationChallenge
+{
+    //server trust
+    NSURLProtectionSpace *protectionSpace = authenticationChallenge.protectionSpace;
+    if ([protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
+    {
+        [authenticationChallenge.sender useCredential:[NSURLCredential credentialForTrust:authenticationChallenge.protectionSpace.serverTrust] forAuthenticationChallenge:authenticationChallenge];
+        [authenticationChallenge.sender continueWithoutCredentialForAuthenticationChallenge:authenticationChallenge];
+        
+    }
+    else{ // other type: username password, client trust..
+    }
+    return YES;
+}
+
 - (void)closeAll
 {
     [player pause];
@@ -452,6 +507,8 @@
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
             [player play];
         }else{
+            AVPlayerItem * ss = [player currentItem];
+            NSError *er = ss.error;
             int index = [playeritems indexOfObject:[player currentItem]];
             /*AVPlayerItem *bj = [player currentItem];
              if(bj)
@@ -553,6 +610,8 @@
         float progressive =  (float)which/whole + (float)1/whole;
         dispatch_sync(dispatch_get_main_queue(), ^{
             [progress setProgress:progressive];
+            NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
+            [progressTitle setText:ptx];
         });
         return path;
     }
@@ -589,7 +648,8 @@
     
     
     theRequest.HTTPMethod = @"HEAD";
-    NSData *headdata = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+    //[theRequest setAllowsAnyHTTPSCertificate:YES forHost:[url host]];
+    NSData *headdata = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
     long filesize = rep.expectedContentLength;
     NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
     if(rp.statusCode!=200 && rp.statusCode != 206){
@@ -641,7 +701,7 @@
         NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, to];
         NSLog(@"%@", range);
         [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
         if (syData !=nil) {
             [filedata appendData:syData];
             from +=block;
@@ -650,6 +710,8 @@
             count++;
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [progress setProgress:progressive];
+                NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
+                [progressTitle setText:ptx];
             });
         }else{
             trytime--;
@@ -660,7 +722,7 @@
         NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, filesize-1];
         NSLog(@"%@", range);
         [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&rep error:&error];
+        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
         if (syData !=nil) {
             [filedata appendData:syData];
             from = filesize;
@@ -668,6 +730,8 @@
             float progressive =  present_done +  present_now;
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [progress setProgress:progressive];
+                NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
+                [progressTitle setText:ptx];
             });
         }
         NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);

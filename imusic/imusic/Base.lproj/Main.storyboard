@@ -37,6 +37,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLS-mo-aYG">
+                                <rect key="frame" x="279" y="269" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bPX-Td-euo">
                                 <rect key="frame" x="150" y="290" width="300" height="20"/>
                                 <constraints>
@@ -64,6 +70,7 @@
                         <constraints>
                             <constraint firstItem="YEZ-oW-Aqd" firstAttribute="width" secondItem="zTF-by-yJ5" secondAttribute="width" id="41K-Dm-NYB"/>
                             <constraint firstItem="p1u-8d-5ao" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="4tl-41-Kmy"/>
+                            <constraint firstItem="CLS-mo-aYG" firstAttribute="bottom" secondItem="bPX-Td-euo" secondAttribute="top" id="8Qp-CA-Pog"/>
                             <constraint firstItem="YEZ-oW-Aqd" firstAttribute="bottom" secondItem="zTF-by-yJ5" secondAttribute="top" id="Aju-vn-aUk"/>
                             <constraint firstItem="p1u-8d-5ao" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="Fb6-jg-bF4"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="centerY" secondItem="z1u-zk-jiy" secondAttribute="centerY" id="HV6-3u-Zi7"/>
@@ -72,6 +79,7 @@
                             <constraint firstItem="YEZ-oW-Aqd" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="RA4-Ie-zYo"/>
                             <constraint firstItem="zTF-by-yJ5" firstAttribute="width" secondItem="z1u-zk-jiy" secondAttribute="width" multiplier="1:2" id="TIi-sj-W0q"/>
                             <constraint firstAttribute="centerX" secondItem="bPX-Td-euo" secondAttribute="centerX" id="TLU-ba-WLG"/>
+                            <constraint firstItem="CLS-mo-aYG" firstAttribute="centerX" secondItem="z1u-zk-jiy" secondAttribute="centerX" id="YTk-XW-GiG"/>
                             <constraint firstAttribute="centerY" secondItem="bPX-Td-euo" secondAttribute="centerY" id="d0C-WE-DJH"/>
                         </constraints>
                     </view>
@@ -80,6 +88,7 @@
                         <outlet property="loadind" destination="p1u-8d-5ao" id="9Nh-dD-20m"/>
                         <outlet property="playbutton" destination="zTF-by-yJ5" id="ToP-Lr-cer"/>
                         <outlet property="progress" destination="bPX-Td-euo" id="A62-mM-uPO"/>
+                        <outlet property="progressTitle" destination="CLS-mo-aYG" id="urt-0O-wSW"/>
                         <outlet property="title" destination="YEZ-oW-Aqd" id="YVN-Dn-ivr"/>
                     </connections>
                 </viewController>

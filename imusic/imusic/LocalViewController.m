@@ -71,6 +71,8 @@
             case UIEventSubtypeRemoteControlPlay:
             case UIEventSubtypeRemoteControlPause:
             case UIEventSubtypeRemoteControlStop:
+                if(playingbtn == nil)
+                    break;
                 if (player.playing) {
                     [player pause];
                     [playingbtn setBackgroundImage:[UIImage imageNamed:@"play.png"]
