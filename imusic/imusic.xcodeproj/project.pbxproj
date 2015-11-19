@@ -7,40 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		67014F9E1BE36B5D00410E1E /* guide_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67014F9B1BE36B5D00410E1E /* guide_01.jpg */; settings = {ASSET_TAGS = (); }; };
-		67014F9F1BE36B5D00410E1E /* guide_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67014F9C1BE36B5D00410E1E /* guide_02.jpg */; settings = {ASSET_TAGS = (); }; };
-		67014FA01BE36B5D00410E1E /* guide_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67014F9D1BE36B5D00410E1E /* guide_03.jpg */; settings = {ASSET_TAGS = (); }; };
-		67014FA21BE36F9B00410E1E /* bone.png in Resources */ = {isa = PBXBuildFile; fileRef = 67014FA11BE36F9B00410E1E /* bone.png */; settings = {ASSET_TAGS = (); }; };
-		67014FA51BE3735300410E1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67014FA31BE3735300410E1E /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
-		67331D6A1BDD3AF6005D60C9 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67331D691BDD3AF5005D60C9 /* bg.jpg */; settings = {ASSET_TAGS = (); }; };
-		67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */; settings = {ASSET_TAGS = (); }; };
-		67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B221BD7BAA000FB9EBE /* SBJsonParser.m */; settings = {ASSET_TAGS = (); }; };
-		67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */; settings = {ASSET_TAGS = (); }; };
-		67701B3A1BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B261BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m */; settings = {ASSET_TAGS = (); }; };
-		67701B3B1BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B281BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m */; settings = {ASSET_TAGS = (); }; };
-		67701B3C1BD7BAA000FB9EBE /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2A1BD7BAA000FB9EBE /* SBJsonStreamParserState.m */; settings = {ASSET_TAGS = (); }; };
-		67701B3D1BD7BAA000FB9EBE /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2C1BD7BAA000FB9EBE /* SBJsonStreamWriter.m */; settings = {ASSET_TAGS = (); }; };
-		67701B3E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m */; settings = {ASSET_TAGS = (); }; };
-		67701B3F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B301BD7BAA000FB9EBE /* SBJsonStreamWriterState.m */; settings = {ASSET_TAGS = (); }; };
-		67701B401BD7BAA000FB9EBE /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B321BD7BAA000FB9EBE /* SBJsonTokeniser.m */; settings = {ASSET_TAGS = (); }; };
-		67701B411BD7BAA000FB9EBE /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B341BD7BAA000FB9EBE /* SBJsonUTF8Stream.m */; settings = {ASSET_TAGS = (); }; };
-		67701B421BD7BAA000FB9EBE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B361BD7BAA000FB9EBE /* SBJsonWriter.m */; settings = {ASSET_TAGS = (); }; };
-		67701B481BD7BC3500FB9EBE /* ImusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B471BD7BC3500FB9EBE /* ImusicViewController.m */; settings = {ASSET_TAGS = (); }; };
-		67701B4B1BD7BC5A00FB9EBE /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */; settings = {ASSET_TAGS = (); }; };
-		6783C7841BDA837E00506203 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7351BDA837E00506203 /* delete.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7971BDA837E00506203 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7481BDA837E00506203 /* icon.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7A81BDA837E00506203 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7591BDA837E00506203 /* pause.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7A91BDA837E00506203 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C75A1BDA837E00506203 /* play.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7AA1BDA837E00506203 /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C75B1BDA837E00506203 /* reload.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7D61BDA8EC300506203 /* local.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7D31BDA8EC300506203 /* local.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7D71BDA8EC300506203 /* radio.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7D41BDA8EC300506203 /* radio.png */; settings = {ASSET_TAGS = (); }; };
-		6783C7D81BDA8EC300506203 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7D51BDA8EC300506203 /* settings.png */; settings = {ASSET_TAGS = (); }; };
+		67014F9E1BE36B5D00410E1E /* guide_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67014F9B1BE36B5D00410E1E /* guide_01.jpg */; };
+		67014F9F1BE36B5D00410E1E /* guide_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67014F9C1BE36B5D00410E1E /* guide_02.jpg */; };
+		67014FA01BE36B5D00410E1E /* guide_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67014F9D1BE36B5D00410E1E /* guide_03.jpg */; };
+		67014FA21BE36F9B00410E1E /* bone.png in Resources */ = {isa = PBXBuildFile; fileRef = 67014FA11BE36F9B00410E1E /* bone.png */; };
+		67014FA51BE3735300410E1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67014FA31BE3735300410E1E /* Main.storyboard */; };
+		67331D6A1BDD3AF6005D60C9 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67331D691BDD3AF5005D60C9 /* bg.jpg */; };
+		67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */; };
+		67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B221BD7BAA000FB9EBE /* SBJsonParser.m */; };
+		67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */; };
+		67701B3A1BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B261BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m */; };
+		67701B3B1BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B281BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m */; };
+		67701B3C1BD7BAA000FB9EBE /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2A1BD7BAA000FB9EBE /* SBJsonStreamParserState.m */; };
+		67701B3D1BD7BAA000FB9EBE /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2C1BD7BAA000FB9EBE /* SBJsonStreamWriter.m */; };
+		67701B3E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B2E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m */; };
+		67701B3F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B301BD7BAA000FB9EBE /* SBJsonStreamWriterState.m */; };
+		67701B401BD7BAA000FB9EBE /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B321BD7BAA000FB9EBE /* SBJsonTokeniser.m */; };
+		67701B411BD7BAA000FB9EBE /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B341BD7BAA000FB9EBE /* SBJsonUTF8Stream.m */; };
+		67701B421BD7BAA000FB9EBE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B361BD7BAA000FB9EBE /* SBJsonWriter.m */; };
+		67701B481BD7BC3500FB9EBE /* ImusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B471BD7BC3500FB9EBE /* ImusicViewController.m */; };
+		67701B4B1BD7BC5A00FB9EBE /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */; };
+		6783C7841BDA837E00506203 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7351BDA837E00506203 /* delete.png */; };
+		6783C7971BDA837E00506203 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7481BDA837E00506203 /* icon.png */; };
+		6783C7A81BDA837E00506203 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7591BDA837E00506203 /* pause.png */; };
+		6783C7A91BDA837E00506203 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C75A1BDA837E00506203 /* play.png */; };
+		6783C7AA1BDA837E00506203 /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C75B1BDA837E00506203 /* reload.png */; };
+		6783C7D61BDA8EC300506203 /* local.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7D31BDA8EC300506203 /* local.png */; };
+		6783C7D71BDA8EC300506203 /* radio.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7D41BDA8EC300506203 /* radio.png */; };
+		6783C7D81BDA8EC300506203 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 6783C7D51BDA8EC300506203 /* settings.png */; };
 		678BFD421BD9DED200CCF726 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678BFD411BD9DED200CCF726 /* AVFoundation.framework */; };
-		678BFD4B1BD9E5E000CCF726 /* localTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 678BFD491BD9E5E000CCF726 /* localTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		678BFD4C1BD9E5E000CCF726 /* localTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678BFD4A1BD9E5E000CCF726 /* localTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
-		678CEC301BE7678100266E88 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678CEC2F1BE7678100266E88 /* AboutViewController.m */; settings = {ASSET_TAGS = (); }; };
-		678CEC321BE76D1D00266E88 /* unsolidline.png in Resources */ = {isa = PBXBuildFile; fileRef = 678CEC311BE76D1D00266E88 /* unsolidline.png */; settings = {ASSET_TAGS = (); }; };
-		678F669E1BE9A704002FB9CA /* Update.m in Sources */ = {isa = PBXBuildFile; fileRef = 678F669D1BE9A704002FB9CA /* Update.m */; settings = {ASSET_TAGS = (); }; };
+		678BFD4B1BD9E5E000CCF726 /* localTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 678BFD491BD9E5E000CCF726 /* localTableViewCell.m */; };
+		678BFD4C1BD9E5E000CCF726 /* localTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678BFD4A1BD9E5E000CCF726 /* localTableViewCell.xib */; };
+		678CEC301BE7678100266E88 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678CEC2F1BE7678100266E88 /* AboutViewController.m */; };
+		678CEC321BE76D1D00266E88 /* unsolidline.png in Resources */ = {isa = PBXBuildFile; fileRef = 678CEC311BE76D1D00266E88 /* unsolidline.png */; };
+		678E3FD51BFDA6A60037D201 /* NSString+AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 678E3FD11BFDA6A60037D201 /* NSString+AESCrypt.m */; };
+		678E3FD61BFDA6A60037D201 /* NSData+AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 678E3FD31BFDA6A60037D201 /* NSData+AESCrypt.m */; };
+		678F669E1BE9A704002FB9CA /* Update.m in Sources */ = {isa = PBXBuildFile; fileRef = 678F669D1BE9A704002FB9CA /* Update.m */; };
 		67DCE24E1BD7695A00EFCEA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE24D1BD7695A00EFCEA1 /* main.m */; };
 		67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2501BD7695A00EFCEA1 /* AppDelegate.m */; };
 		67DCE25A1BD7695A00EFCEA1 /* imusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2581BD7695A00EFCEA1 /* imusic.xcdatamodeld */; };
@@ -48,9 +50,9 @@
 		67DCE25F1BD7695A00EFCEA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67DCE25D1BD7695A00EFCEA1 /* LaunchScreen.storyboard */; };
 		67DCE26A1BD7695A00EFCEA1 /* imusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2691BD7695A00EFCEA1 /* imusicTests.m */; };
 		67DCE2751BD7695A00EFCEA1 /* imusicUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2741BD7695A00EFCEA1 /* imusicUITests.m */; };
-		67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */; settings = {ASSET_TAGS = (); }; };
-		67DCE2891BD7716C00EFCEA1 /* settingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2881BD7716C00EFCEA1 /* settingViewController.m */; settings = {ASSET_TAGS = (); }; };
-		67DCE28C1BD7725600EFCEA1 /* ImusicTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE28B1BD7725600EFCEA1 /* ImusicTabBarController.m */; settings = {ASSET_TAGS = (); }; };
+		67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2831BD76BA300EFCEA1 /* SplashViewController.m */; };
+		67DCE2891BD7716C00EFCEA1 /* settingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE2881BD7716C00EFCEA1 /* settingViewController.m */; };
+		67DCE28C1BD7725600EFCEA1 /* ImusicTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DCE28B1BD7725600EFCEA1 /* ImusicTabBarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,10 @@
 		678CEC2E1BE7678100266E88 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		678CEC2F1BE7678100266E88 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		678CEC311BE76D1D00266E88 /* unsolidline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unsolidline.png; path = drawable/unsolidline.png; sourceTree = "<group>"; };
+		678E3FD11BFDA6A60037D201 /* NSString+AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AESCrypt.m"; sourceTree = "<group>"; };
+		678E3FD21BFDA6A60037D201 /* NSString+AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AESCrypt.h"; sourceTree = "<group>"; };
+		678E3FD31BFDA6A60037D201 /* NSData+AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AESCrypt.m"; sourceTree = "<group>"; };
+		678E3FD41BFDA6A60037D201 /* NSData+AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AESCrypt.h"; sourceTree = "<group>"; };
 		678F669C1BE9A704002FB9CA /* Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Update.h; sourceTree = "<group>"; };
 		678F669D1BE9A704002FB9CA /* Update.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Update.m; sourceTree = "<group>"; };
 		67DCE2491BD7695A00EFCEA1 /* imusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +222,10 @@
 		67DCE24B1BD7695A00EFCEA1 /* imusic */ = {
 			isa = PBXGroup;
 			children = (
+				678E3FD11BFDA6A60037D201 /* NSString+AESCrypt.m */,
+				678E3FD21BFDA6A60037D201 /* NSString+AESCrypt.h */,
+				678E3FD31BFDA6A60037D201 /* NSData+AESCrypt.m */,
+				678E3FD41BFDA6A60037D201 /* NSData+AESCrypt.h */,
 				67014FA31BE3735300410E1E /* Main.storyboard */,
 				678BFD481BD9E5E000CCF726 /* localTableViewCell.h */,
 				678BFD491BD9E5E000CCF726 /* localTableViewCell.m */,
@@ -468,8 +478,10 @@
 				678CEC301BE7678100266E88 /* AboutViewController.m in Sources */,
 				67DCE2511BD7695A00EFCEA1 /* AppDelegate.m in Sources */,
 				67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */,
+				678E3FD51BFDA6A60037D201 /* NSString+AESCrypt.m in Sources */,
 				67701B3D1BD7BAA000FB9EBE /* SBJsonStreamWriter.m in Sources */,
 				67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */,
+				678E3FD61BFDA6A60037D201 /* NSData+AESCrypt.m in Sources */,
 				67701B3F1BD7BAA000FB9EBE /* SBJsonStreamWriterState.m in Sources */,
 				67701B3B1BD7BAA000FB9EBE /* SBJsonStreamParserAdapter.m in Sources */,
 				67701B3E1BD7BAA000FB9EBE /* SBJsonStreamWriterAccumulator.m in Sources */,

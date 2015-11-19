@@ -7,8 +7,9 @@
 //
 
 #import "ImusicViewController.h"
-
+#import "NSString+AESCrypt.h"
 #define HTTP_URL @"http://www.imusic.ren/app/?"
+//#define HTTP_URL @"http://192.168.119.101/imusic/app/"
 #define NOTICE @"播放过程需要使用网络流量，最好使用WIFI网络！"
 @interface NSURLRequest (IgnoreSSL)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString*)host;
@@ -31,6 +32,7 @@
 @property (strong,nonatomic) Update *up;
 @property (nonatomic,strong) NSMutableData *receivedData;
 @property long expectedBytes;
+@property NSString *key;
 @property (nonatomic,strong) NSArray *abstractRes;
 @property (nonatomic,strong) NSArray *albumRes;
 @property (nonatomic,strong) AVPlayer *player;
@@ -39,7 +41,7 @@
 @end
 
 @implementation ImusicViewController
-@synthesize progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title,up,progressTitle;
+@synthesize key,progress,loadind,playbutton,expectedBytes,receivedData,abstractRes,albumRes,player,playeritems,itemen,title,up,progressTitle;
 - (void)viewDidLoad {
     [super viewDidLoad];
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -66,7 +68,7 @@
     title.lineBreakMode = UILineBreakModeWordWrap;
     title.frame = CGRectMake(0, 0, 300, labelSize.height);
     [title setHidden:NO];
-    
+    key = @"+imusic2015weshiimusic2015weshi+";
     
     
     
@@ -216,7 +218,13 @@
         for( int i=0; i<num; i++){
             NSDictionary *song =[albumRes objectAtIndex:i];
             
-            NSString *name=[song objectForKey:@"name"];
+            
+            
+            NSString *enstr = [song objectForKey:@"name"];
+            NSString *destr = [enstr AES256DecryptWithKey:@"+imusic2015weshiimusic2015weshi+"];
+            
+            NSString *name=destr;
+            
             int nm = 1;
             NSString *url=@"";
             NSString *sec = @"";
@@ -224,7 +232,12 @@
             do{
                 
                 sec = [NSString stringWithFormat:@"%@%d",@"url",nm];
-                url = [song objectForKey:sec];
+                
+                NSString *enstr = [song objectForKey:sec];
+                NSString *destr = [enstr AES256DecryptWithKey:key];
+                
+                url = destr;
+                //url = [song objectForKey:sec];
                 if(url != [NSNull null] && ![url isEqualToString:@""]){
                     path = [self downloadFiles:url filename:name whichone:i whole:num];
                 }
@@ -243,7 +256,17 @@
             //});
             
             
-            NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
+            
+            
+            enstr = [[abstractRes objectAtIndex:i] objectForKey:@"url"];
+            destr = [enstr AES256DecryptWithKey:key];
+            NSURL *furl = [NSURL URLWithString:destr];
+            
+            //NSString *ciphertext = [plaintext AES256EncryptWithKey: key];
+            
+            
+            
+            
             [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
             
             furl = [NSURL fileURLWithPath:path];
@@ -524,7 +547,16 @@ shouldWaitForResponseToAuthenticationChallenge:(NSURLAuthenticationChallenge *)a
         }
         
     }
-    
+    /*
+     NSString *key = @"a16byteslongkey!a16byteslongkey!";
+     NSString *plaintext = @"iphone";
+     NSString *ciphertext = [plaintext AES256EncryptWithKey: key];
+     NSLog(@"ciphertext: %@", ciphertext);
+     plaintext = [ciphertext AES256DecryptWithKey: key];
+     NSLog(@"plaintext: %@", plaintext);
+     
+     
+     */
     /*
      AVPlayerItem *playerItem = (AVPlayerItem *)object;
      if ([keyPath isEqualToString:@"status"]) {
