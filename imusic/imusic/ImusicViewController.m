@@ -221,7 +221,7 @@
             
             
             NSString *enstr = [song objectForKey:@"name"];
-            NSString *destr = [enstr AES256DecryptWithKey:@"+imusic2015weshiimusic2015weshi+"];
+            NSString *destr = [enstr AES256DecryptWithKey:key];
             
             NSString *name=destr;
             
