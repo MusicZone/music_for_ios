@@ -640,7 +640,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "346d704f-14e9-4f7d-acb9-68e80dec6fb8";
+				PROVISIONING_PROFILE = "8c6af889-29c8-4218-80b3-8c56bbe69345";
 			};
 			name = Debug;
 		};
@@ -655,7 +655,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "346d704f-14e9-4f7d-acb9-68e80dec6fb8";
+				PROVISIONING_PROFILE = "8c6af889-29c8-4218-80b3-8c56bbe69345";
 			};
 			name = Release;
 		};

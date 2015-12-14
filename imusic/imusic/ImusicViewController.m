@@ -692,7 +692,7 @@ shouldWaitForResponseToAuthenticationChallenge:(NSURLAuthenticationChallenge *)a
     long to =0;
     theRequest.HTTPMethod = @"GET";
     long block = filesize;
-    int trytime =100;
+    int trytime =1000;
     
     
     
@@ -730,41 +730,52 @@ shouldWaitForResponseToAuthenticationChallenge:(NSURLAuthenticationChallenge *)a
         
         theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.f];
         
-        NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, to];
+        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, to];
         NSLog(@"%@", range);
         [theRequest setValue:range forHTTPHeaderField:@"Range"];
         NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
         if (syData !=nil) {
-            [filedata appendData:syData];
-            from +=block;
-            to +=block;
-            float progressive =  present_done +  (present_now*count)/step;
-            count++;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [progress setProgress:progressive];
-                NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                [progressTitle setText:ptx];
-            });
+            if([syData length]==block){
+            
+                [filedata appendData:syData];
+                from +=block;
+                to +=block;
+            
+                float progressive =  present_done +  (present_now*count)/step;
+                count++;
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [progress setProgress:progressive];
+                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
+                    [progressTitle setText:ptx];
+                });
+            }else{
+                trytime--;
+            }
         }else{
             trytime--;
         }
         NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
     }
     while(from<filesize && trytime != 0){
-        NSString *range = [NSString stringWithFormat:@"Bytes=%ld-%ld", from, filesize-1];
+        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, filesize-1];
         NSLog(@"%@", range);
         [theRequest setValue:range forHTTPHeaderField:@"Range"];
         NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
         if (syData !=nil) {
-            [filedata appendData:syData];
-            from = filesize;
-            to = filesize-1;
-            float progressive =  present_done +  present_now;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [progress setProgress:progressive];
-                NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                [progressTitle setText:ptx];
-            });
+            int ln = filesize - from;
+            if([syData length]==ln){
+                [filedata appendData:syData];
+                from = filesize;
+                to = filesize-1;
+                float progressive =  present_done +  present_now;
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [progress setProgress:progressive];
+                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
+                    [progressTitle setText:ptx];
+                });
+            }else{
+                trytime--;
+            }
         }
         NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
     }
