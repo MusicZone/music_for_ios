@@ -43,7 +43,7 @@
                 NSString *localVersion = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleVersion"];
                 
                 NSString *msg = [NSString stringWithFormat:@"你当前的版本是V%@，发现新版本V%@，是否下载新版本？",localVersion,newVersion];
-                
+                //float tt =[localVersion floatValue];
                 //对比发现的新版本和本地的版本
                 if ([newVersion floatValue] > [localVersion floatValue])
                 {

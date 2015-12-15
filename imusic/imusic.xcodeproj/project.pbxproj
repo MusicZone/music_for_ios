@@ -108,6 +108,8 @@
 		67701B471BD7BC3500FB9EBE /* ImusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImusicViewController.m; sourceTree = "<group>"; };
 		67701B491BD7BC5A00FB9EBE /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
 		67701B4A1BD7BC5A00FB9EBE /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
+		6775DB391C1F450A00CE18F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		6775DB3A1C1F450B00CE18F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		6783C7351BDA837E00506203 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = drawable/delete.png; sourceTree = "<group>"; };
 		6783C7481BDA837E00506203 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = drawable/icon.png; sourceTree = "<group>"; };
 		6783C7591BDA837E00506203 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = drawable/pause.png; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				67014FA41BE3735300410E1E /* Base */,
+				6775DB391C1F450A00CE18F6 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				67DCE25E1BD7695A00EFCEA1 /* Base */,
+				6775DB3A1C1F450B00CE18F6 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -640,7 +644,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8c6af889-29c8-4218-80b3-8c56bbe69345";
+				PROVISIONING_PROFILE = "346d704f-14e9-4f7d-acb9-68e80dec6fb8";
 			};
 			name = Debug;
 		};
@@ -655,7 +659,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.weshi.imusic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8c6af889-29c8-4218-80b3-8c56bbe69345";
+				PROVISIONING_PROFILE = "346d704f-14e9-4f7d-acb9-68e80dec6fb8";
 			};
 			name = Release;
 		};

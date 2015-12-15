@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "CLS-mo-aYG"; */
+"CLS-mo-aYG.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "关于"; ObjectID = "Si6-ba-sY2"; */
+"Si6-ba-sY2.title" = "关于";
+
+/* Class = "UILabel"; text = "iMusic"; ObjectID = "WG1-QO-yZA"; */
+"WG1-QO-yZA.text" = "iMusic";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "YEZ-oW-Aqd"; */
+"YEZ-oW-Aqd.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "iMusic"; ObjectID = "eiY-Ji-OgS"; */
+"eiY-Ji-OgS.title" = "iMusic";
+
+/* Class = "UILabel"; text = "http://www.imusic.ren/bbs"; ObjectID = "wx6-gQ-Z6c"; */
+"wx6-gQ-Z6c.text" = "http://www.imusic.ren/bbs";
+
+/* Class = "UILabel"; text = "V1.0.1"; ObjectID = "xAX-en-OgN"; */
+"xAX-en-OgN.text" = "V1.0.1";
+
+/* Class = "UITabBarItem"; title = "本地音乐"; ObjectID = "yfw-Ng-eL8"; */
+"yfw-Ng-eL8.title" = "本地音乐";
