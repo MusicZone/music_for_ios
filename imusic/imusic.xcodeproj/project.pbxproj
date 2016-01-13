@@ -13,6 +13,7 @@
 		67014FA21BE36F9B00410E1E /* bone.png in Resources */ = {isa = PBXBuildFile; fileRef = 67014FA11BE36F9B00410E1E /* bone.png */; };
 		67014FA51BE3735300410E1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67014FA31BE3735300410E1E /* Main.storyboard */; };
 		67331D6A1BDD3AF6005D60C9 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 67331D691BDD3AF5005D60C9 /* bg.jpg */; };
+		6748D6DA1C3BC2760009BC7D /* FileHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 6748D6D91C3BC2760009BC7D /* FileHash.m */; };
 		67701B371BD7BAA000FB9EBE /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */; };
 		67701B381BD7BAA000FB9EBE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B221BD7BAA000FB9EBE /* SBJsonParser.m */; };
 		67701B391BD7BAA000FB9EBE /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 67701B241BD7BAA000FB9EBE /* SBJsonStreamParser.m */; };
@@ -79,6 +80,8 @@
 		67014FA11BE36F9B00410E1E /* bone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bone.png; path = drawable/bone.png; sourceTree = "<group>"; };
 		67014FA41BE3735300410E1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67331D691BDD3AF5005D60C9 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg.jpg; path = drawable/bg.jpg; sourceTree = "<group>"; };
+		6748D6D81C3BC2760009BC7D /* FileHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHash.h; sourceTree = "<group>"; };
+		6748D6D91C3BC2760009BC7D /* FileHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHash.m; sourceTree = "<group>"; };
 		67701B1E1BD7BAA000FB9EBE /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "SBJson/NSObject+SBJson.h"; sourceTree = "<group>"; };
 		67701B1F1BD7BAA000FB9EBE /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJson.m"; path = "SBJson/NSObject+SBJson.m"; sourceTree = "<group>"; };
 		67701B201BD7BAA000FB9EBE /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson.h; path = SBJson/SBJson.h; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				678CEC2F1BE7678100266E88 /* AboutViewController.m */,
 				678F669C1BE9A704002FB9CA /* Update.h */,
 				678F669D1BE9A704002FB9CA /* Update.m */,
+				6748D6D81C3BC2760009BC7D /* FileHash.h */,
+				6748D6D91C3BC2760009BC7D /* FileHash.m */,
 			);
 			path = imusic;
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				678F669E1BE9A704002FB9CA /* Update.m in Sources */,
+				6748D6DA1C3BC2760009BC7D /* FileHash.m in Sources */,
 				67701B3A1BD7BAA000FB9EBE /* SBJsonStreamParserAccumulator.m in Sources */,
 				67DCE2841BD76BA300EFCEA1 /* SplashViewController.m in Sources */,
 				67701B411BD7BAA000FB9EBE /* SBJsonUTF8Stream.m in Sources */,
