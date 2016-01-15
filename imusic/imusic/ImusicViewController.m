@@ -332,14 +332,14 @@
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:100.f];
     
     NSString *range = [NSString stringWithFormat:@"bytes=%d-%d", from, from+size-1];
-    //NSLog(@"%@", range);
+    //SLog(@"%@", range);
     [theRequest setValue:range forHTTPHeaderField:@"Range"];
     
     NSError * error;
     NSURLResponse * rep;
-    NSLog(@"openthreadstart:%@",range);
+    //SLog(@"openthreadstart:%@",range);
     NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-    NSLog(@"openthreadend:%@",range);
+    //SLog(@"openthreadend:%@",range);
     if (syData !=nil && [syData length]==size) {
         NSRange range;
         range.location = from;
@@ -355,7 +355,7 @@
                 [progress setProgress:(float)progressive/100];
                 NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%i%%!",progressive];
                 [progressTitle setText:ptx];
-                NSLog(@"***********downloadfinnished:%i/%i****************",gets,steps);
+                //SLog(@"***********downloadfinnished:%i/%i****************",gets,steps);
                 if(gets == steps){
                     s_finished = true;
                     queue = nil;
@@ -375,7 +375,7 @@
                     
                     if(downloadsize!=0 && downloadsize <= [self freeDiskSpace] && queue != nil){
                         [queue addOperationWithBlock:^{
-                            NSLog(@"========Aqueueworkon:%i-%@-%i-%i",ind,utemp,from,size);
+                            //SLog(@"========Aqueueworkon:%i-%@-%i-%i",ind,utemp,from,size);
                             [self downByThread:utemp fromwhere:from blocksize:size index:ind mdstr:md filebuf:buf];
                             
                         }];
@@ -399,7 +399,7 @@
                                 if (md5 == md5_temp) {
                                     if(downloadsize!=0 && downloadsize <= [self freeDiskSpace]  && queue != nil){
                                         [queue addOperationWithBlock:^{
-                                            NSLog(@"========Bqueueworkon:%i-%@-%i-%i",ind,downloadurl,from,size);
+                                            //SLog(@"========Bqueueworkon:%i-%@-%i-%i",ind,downloadurl,from,size);
                                             [self downByThread:downloadurl fromwhere:from blocksize:size index:ind mdstr:md filebuf:buf];
                                             
                                         }];
@@ -513,7 +513,7 @@
         }
         if(queue != nil){
             [queue addOperationWithBlock:^{
-            NSLog(@"queueworkonM:%i-%@-%i-%i",thnum,utemp,ftemp,btemp);
+            //SLog(@"queueworkonM:%i-%@-%i-%i",thnum,utemp,ftemp,btemp);
             [self downByThread:utemp fromwhere:ftemp blocksize:btemp index:thnum mdstr:md filebuf:buffer];
             
             }];

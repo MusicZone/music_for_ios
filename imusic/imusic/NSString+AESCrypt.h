@@ -20,11 +20,11 @@
  NSString *plainString = @"This string will be encrypted";
  NSString *key = @"YourEncryptionKey"; // should be provided by a user
  
- NSLog( @"Original String: %@", plainString );
+ //SLog( @"Original String: %@", plainString );
  
  NSString *encryptedString = [plainString AES256EncryptWithKey:key];
- NSLog( @"Encrypted String: %@", encryptedString );
+ //SLog( @"Encrypted String: %@", encryptedString );
  
- NSLog( @"Decrypted String: %@", [encryptedString AES256DecryptWithKey:key] );
+ //SLog( @"Decrypted String: %@", [encryptedString AES256DecryptWithKey:key] );
  
  */

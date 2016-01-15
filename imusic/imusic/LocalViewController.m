@@ -123,25 +123,25 @@
                 /*if ([metadataItem.commonKey isEqual:]) {
                  NSData *data = [(NSDictionary*)metadataItem.value objectForKey:@"data"];
                  NSString *mime = [(NSDictionary*)metadataItem.value objectForKey:@"MIME"];
-                 NSLog(@"mime = %@, data = %@, image = %@", mime, data, [UIImage imageWithData:data]);
+                 //SLog(@"mime = %@, data = %@, image = %@", mime, data, [UIImage imageWithData:data]);
                  break;
                  }*/
                 if ([metadataItem.commonKey isEqual:AVMetadataCommonKeyArtist]) {
-                    NSLog(@"%@", (NSString *)metadataItem.value);
+                    //SLog(@"%@", (NSString *)metadataItem.value);
                     [info setObject:metadataItem.value forKey:@"artist"];
                 }
                 // 2、获取音乐名字commonKey：AVMetadataCommonKeyTitle
                 else if ([metadataItem.commonKey isEqual:AVMetadataCommonKeyTitle]) {
-                    NSLog(@"%@", (NSString *)metadataItem.value);
+                    //SLog(@"%@", (NSString *)metadataItem.value);
                     [info setObject:metadataItem.value forKey:@"title"];
                 }
                 // 3、获取专辑图片commonKey：AVMetadataCommonKeyArtwork
                 else if ([metadataItem.commonKey isEqual:AVMetadataCommonKeyArtwork]) {
-                    NSLog(@"%@", (NSData *)metadataItem.value);
+                    //SLog(@"%@", (NSData *)metadataItem.value);
                 }
                 // 4、获取专辑名commonKey：AVMetadataCommonKeyAlbumName
                 else if ([metadataItem.commonKey isEqual:AVMetadataCommonKeyAlbumName]) {
-                    NSLog(@"%@", (NSString *)metadataItem.value);
+                    //SLog(@"%@", (NSString *)metadataItem.value);
                 }
                 
                 

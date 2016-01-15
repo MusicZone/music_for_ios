@@ -25,7 +25,7 @@
             NSURL *url = [NSURL URLWithString:surl];
             //通过url获取数据
             NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-            NSLog(@"通过appStore获取的数据是：%@",jsonResponseString);
+            //SLog(@"通过appStore获取的数据是：%@",jsonResponseString);
             if (jsonResponseString != nil && ![jsonResponseString isEqualToString:@""]) {
                 //解析json数据为数据字典
                 NSDictionary *loginAuthenticationResponse = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
@@ -37,7 +37,7 @@
                     newVersion = [config valueForKey:@"version"];
                 }
                 
-                NSLog(@"通过appStore获取的版本号是：%@",newVersion);
+                //SLog(@"通过appStore获取的版本号是：%@",newVersion);
                 
                 //获取本地软件的版本号
                 NSString *localVersion = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleVersion"];

@@ -24,12 +24,12 @@
     //if(YES)
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        NSLog(@"第一次启动");
+        //SLog(@"第一次启动");
         SplashViewController *mainview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"splash"];
         mainview.isFirstTime = YES;
         self.window.rootViewController = mainview;
     }else{
-        NSLog(@"不是第一次启动");
+        //SLog(@"不是第一次启动");
         UINavigationController *mainview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"start"];
         self.window.rootViewController = mainview;
     }
@@ -125,7 +125,7 @@
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        //SLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -157,7 +157,7 @@
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            //SLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
