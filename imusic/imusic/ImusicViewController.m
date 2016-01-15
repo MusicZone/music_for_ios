@@ -95,9 +95,51 @@
     
     
     [self reload];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoEnd) name:UIApplicationWillTerminateNotification object:nil];
     // Do any additional setup after loading the view.
 }
+- (void) gotoBackground
+{
+    if (queue != nil) {/*
+        [queue cancelAllOperations];
+        [progress setHidden:YES];
+        [progressTitle setHidden:YES];
+        [progressTitle setText:@""];
+        [playbutton setHidden:NO];
+        [title setHidden:NO];
+        queue = nil;*/
+        [queue setSuspended:YES];
+                    
+        
+    }
+    
+}
+- (void) gotoForeground
+{
+    if (queue != nil) {/*
+                        [queue cancelAllOperations];
+                        [progress setHidden:YES];
+                        [progressTitle setHidden:YES];
+                        [progressTitle setText:@""];
+                        [playbutton setHidden:NO];
+                        [title setHidden:NO];
+                        queue = nil;*/
+        [queue setSuspended:NO];
+        
+        
+    }
+    
+}
+- (void) gotoEnd
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
+
+
 - (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
     if (receivedEvent.type == UIEventTypeRemoteControl) {
         int test = receivedEvent.subtype;
@@ -141,18 +183,6 @@
     [loadind startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("serialqueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(myqueue, ^{
-        /*NSURL *url = [NSURL URLWithString:urlString];
-         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"]];
-         NSURLResponse *response = nil;
-         NSError *error = nil;
-         NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-         if ([data length] > 0 && error == nil) {
-         NSLog(@"%lu bytes of data was returned.",(unsigned long)[data length]);
-         }else if ([data length] == 0 && error == nil){
-         NSLog(@"No data was returned.");
-         }else if (error != nil){
-         NSLog(@"Error happened = %@",error);
-         }*/
         
         NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"];
         //通过url获取数据
@@ -161,28 +191,12 @@
         NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&err];
         if(jsonResponseString != nil){
             abstractRes = [self dictionaryFromJsonFormatOriginalData:jsonResponseString];
-            /*
-             dispatch_async(dispatch_get_main_queue(), ^{
-             //解析json数据为数据字典
-             
-             });*/
+
         }
         
     });
     
     dispatch_async(myqueue, ^{
-        /*NSURL *url = [NSURL URLWithString:urlString];
-         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"]];
-         NSURLResponse *response = nil;
-         NSError *error = nil;
-         NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-         if ([data length] > 0 && error == nil) {
-         NSLog(@"%lu bytes of data was returned.",(unsigned long)[data length]);
-         }else if ([data length] == 0 && error == nil){
-         NSLog(@"No data was returned.");
-         }else if (error != nil){
-         NSLog(@"Error happened = %@",error);
-         }*/
         
         NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Albums&a=get"];
         //通过url获取数据
@@ -249,8 +263,6 @@
         return 0;
     }
     
-    
-    
 }
 - (NSDictionary *)getFileSize:(NSString *)urlstring
 {
@@ -300,11 +312,6 @@
             }else{
                 [result setObject:[NSNumber numberWithInt:0] forKey:@"status"];
             }
-            
-            //NSString *rang = [dc objectForKey:@"Accept-Ranges"];
-            //if ([rang isEqual:@"bytes"]) {
-            //    block = 524288;
-            //}
         }else{
         
             [result setObject:[NSNumber numberWithInt:0] forKey:@"status"];
@@ -319,8 +326,9 @@
     return result;
 
 }
-- (void)downByThread:(NSString *)url fromwhere:(int)from blocksize:(int)size index:(int)ind mdstr:(NSString *)md
+- (void)downByThread:(NSString *)url fromwhere:(int)from blocksize:(int)size index:(int)ind mdstr:(NSString *)md filebuf:(NSMutableData *)buf
 {
+    
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:100.f];
     
     NSString *range = [NSString stringWithFormat:@"bytes=%d-%d", from, from+size-1];
@@ -336,11 +344,7 @@
         NSRange range;
         range.location = from;
         range.length = size;
-        [buffer replaceBytesInRange:range withBytes:[syData bytes]];
-            //[buffer appendData:syData];
-            //herehere liweichen now
-            //float progressive =  present_done +  (present_now*count)/step;
-            //count++;
+        [buf replaceBytesInRange:range withBytes:[syData bytes]];
             dispatch_sync(dispatch_get_main_queue(), ^{
                 
                 [allparts setObject:@"1" forKey:[NSString stringWithFormat:@"%d",ind]];
@@ -354,6 +358,7 @@
                 NSLog(@"***********downloadfinnished:%i/%i****************",gets,steps);
                 if(gets == steps){
                     s_finished = true;
+                    queue = nil;
                 }
             });
     }else{
@@ -368,10 +373,10 @@
                     NSString *utemp = [urlinfo objectAtIndex:1];
                     long downloadsize = [urlinfo objectAtIndex:0];
                     
-                    if(downloadsize!=0 && downloadsize <= [self freeDiskSpace]){
+                    if(downloadsize!=0 && downloadsize <= [self freeDiskSpace] && queue != nil){
                         [queue addOperationWithBlock:^{
                             NSLog(@"========Aqueueworkon:%i-%@-%i-%i",ind,utemp,from,size);
-                            [self downByThread:utemp fromwhere:from blocksize:size index:ind mdstr:md];
+                            [self downByThread:utemp fromwhere:from blocksize:size index:ind mdstr:md filebuf:buf];
                             
                         }];
                     }
@@ -392,10 +397,10 @@
                                 NSString *downloadurl = [urlinfo objectAtIndex:1];
                                 long downloadsize = [urlinfo objectAtIndex:0];
                                 if (md5 == md5_temp) {
-                                    if(downloadsize!=0 && downloadsize <= [self freeDiskSpace]){
+                                    if(downloadsize!=0 && downloadsize <= [self freeDiskSpace]  && queue != nil){
                                         [queue addOperationWithBlock:^{
                                             NSLog(@"========Bqueueworkon:%i-%@-%i-%i",ind,downloadurl,from,size);
-                                            [self downByThread:downloadurl fromwhere:from blocksize:size index:ind mdstr:md];
+                                            [self downByThread:downloadurl fromwhere:from blocksize:size index:ind mdstr:md filebuf:buf];
                                             
                                         }];
                                         return;
@@ -506,106 +511,19 @@
             btemp = fz - from;
             from = fz;
         }
-        [queue addOperationWithBlock:^{
+        if(queue != nil){
+            [queue addOperationWithBlock:^{
             NSLog(@"queueworkonM:%i-%@-%i-%i",thnum,utemp,ftemp,btemp);
-            [self downByThread:utemp fromwhere:ftemp blocksize:btemp index:thnum mdstr:md];
+            [self downByThread:utemp fromwhere:ftemp blocksize:btemp index:thnum mdstr:md filebuf:buffer];
             
-        }];
-        [NSThread sleepForTimeInterval:0.01];
-        
+            }];
+            [NSThread sleepForTimeInterval:0.01];
+        }
         
         
 
         
     }
-    return 1;
-    
-    //here liweichen
-    
-    /*
-    to = from + block-1;
-    while (from+block<=filesize && trytime != 0) {
-        
-        theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.f];
-        
-        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, to];
-        NSLog(@"%@", range);
-        [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-        if (syData !=nil) {
-            if([syData length]==block){
-                
-                [filedata appendData:syData];
-                from +=block;
-                to +=block;
-                
-                float progressive =  present_done +  (present_now*count)/step;
-                count++;
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setProgress:progressive];
-                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                    [progressTitle setText:ptx];
-                });
-            }else{
-                trytime--;
-            }
-        }else{
-            trytime--;
-        }
-        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
-    }
-    while(from<filesize && trytime != 0){
-        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, filesize-1];
-        NSLog(@"%@", range);
-        [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-        if (syData !=nil) {
-            int ln = filesize - from;
-            if([syData length]==ln){
-                [filedata appendData:syData];
-                from = filesize;
-                to = filesize-1;
-                float progressive =  present_done +  present_now;
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setProgress:progressive];
-                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                    [progressTitle setText:ptx];
-                });
-            }else{
-                trytime--;
-            }
-        }
-        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
-    }
-    if ([filedata length] == filesize  && trytime != 0) {
-        
-        
-        NSString *aResults = [[NSString alloc] initWithData:filedata encoding:NSUTF8StringEncoding];
-        if(aResults && [aResults containsString:@"<html>"]) {
-            return @"";
-        }
-        NSString *imusicDir = [self getDirectory];
-        NSString *path = [imusicDir stringByAppendingPathComponent:name];
-        [self saveToFile:filedata filepath:path];
-        return path;
-    }
-*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     return 1;
 }
@@ -626,7 +544,7 @@
         return path;
     }else{
         NSString *downloadurl;
-        long downloadsize;
+        int downloadsize=0;
         
         current_present = cur;
         step_present = step;
@@ -640,7 +558,7 @@
             
             NSArray *urls = [urlIt nextObject];
             while (urls != nil) {
-                downloadsize = [urls objectAtIndex:0];
+                downloadsize = [(NSNumber *)[urls objectAtIndex:0] intValue];
                 downloadurl = [urls objectAtIndex:1];
                 if(downloadsize==0 || downloadsize> [self freeDiskSpace])
                 {
@@ -672,7 +590,7 @@
                 
                 if([self downUrls:firstgroup mdstr:md5] !=1)
                     return nil;
-                while(!s_finished){
+                while(!s_finished || queue != nil){
                 
                     [NSThread sleepForTimeInterval:0.5]; 
                 }
@@ -683,14 +601,6 @@
                         NSString *timusicDir = [self getDirectory];
                         NSString *tpath = [imusicDir stringByAppendingPathComponent:name];
                         [self saveToFile:buffer filepath:tpath];
-                        /*
-                        //NSString *executablePath = [[NSBundle mainBundle] executablePath];
-                        NSString *executableFileMD5Hash = [FileHash md5HashOfFileAtPath:tpath];
-                        //return executableFileMD5Hash ? executableFileMD5Hash : @"";
-                        
-                        */
-                        
-                        
                         
                         NSString *checksum = [self computeMD5HashOfData:buffer];
                         if (![checksum isEqualToString:md5]) {
@@ -718,122 +628,7 @@
             md5 = [md5It nextObject];
         }
         
-        
     }
-    
-    
-    /*
-    NSURL *url = [NSURL URLWithString:urlstring];
-    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url
-                                                              cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                          timeoutInterval:60];
-    
-    NSError * error;
-    NSURLResponse * rep;
-    
-    
-    theRequest.HTTPMethod = @"HEAD";
-    //[theRequest setAllowsAnyHTTPSCertificate:YES forHost:[url host]];
-    NSData *headdata = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-    long filesize = rep.expectedContentLength;
-    NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
-    if(rp.statusCode!=200 && rp.statusCode != 206){
-        return @"";
-    }
-    //========================method 1 =================
-    long from=0;
-    long to =0;
-    theRequest.HTTPMethod = @"GET";
-    long block = filesize;
-    int trytime =1000;
-    
-    
-    
-    NSDictionary *dc = [rp allHeaderFields];
-    
-    if([dc objectForKey:@"Accept-Ranges"]){
-        NSString *rang = [dc objectForKey:@"Accept-Ranges"];
-        if ([rang isEqual:@"bytes"]) {
-            block = 524288;
-        }
-    }
-    
-    float present_done = (float)which/whole;
-    float present_now = (float)1/whole;
-    int step=0,count=1;
-    if (filesize/block) {
-        step = filesize/block+1;
-    }else{
-        step = filesize/block;
-    }
-    NSMutableData *filedata=[[NSMutableData alloc] init];
-    to = from + block-1;
-    while (from+block<=filesize && trytime != 0) {
-        
-        theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.f];
-        
-        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, to];
-        NSLog(@"%@", range);
-        [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-        if (syData !=nil) {
-            if([syData length]==block){
-                
-                [filedata appendData:syData];
-                from +=block;
-                to +=block;
-                
-                float progressive =  present_done +  (present_now*count)/step;
-                count++;
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setProgress:progressive];
-                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                    [progressTitle setText:ptx];
-                });
-            }else{
-                trytime--;
-            }
-        }else{
-            trytime--;
-        }
-        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
-    }
-    while(from<filesize && trytime != 0){
-        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, filesize-1];
-        NSLog(@"%@", range);
-        [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-        if (syData !=nil) {
-            int ln = filesize - from;
-            if([syData length]==ln){
-                [filedata appendData:syData];
-                from = filesize;
-                to = filesize-1;
-                float progressive =  present_done +  present_now;
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setProgress:progressive];
-                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                    [progressTitle setText:ptx];
-                });
-            }else{
-                trytime--;
-            }
-        }
-        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
-    }
-    if ([filedata length] == filesize  && trytime != 0) {
-        
-        
-        NSString *aResults = [[NSString alloc] initWithData:filedata encoding:NSUTF8StringEncoding];
-        if(aResults && [aResults containsString:@"<html>"]) {
-            return @"";
-        }
-        NSString *imusicDir = [self getDirectory];
-        NSString *path = [imusicDir stringByAppendingPathComponent:name];
-        [self saveToFile:filedata filepath:path];
-        return path;
-    }
-    return @"";*/
     return nil;
 }
 
@@ -868,7 +663,6 @@
             NSString *name=destr;
             
             int nm = 1;
-            //NSString *url=@"";
             NSString *sec = @"";
             NSString *path = @"";
             
@@ -914,47 +708,13 @@
             [self addFourTimes:mdmap];
             NSString *ph = [self downFile:mdmap filename:name current:current thisstep:step];
             current +=step;
-            ///here liweichen
-            
-            /*
-            
-            do{
-                
-                sec = [NSString stringWithFormat:@"%@%d",@"url",nm];
-                
-                NSString *enstr = [song objectForKey:sec];
-                NSString *destr = [enstr AES256DecryptWithKey:key];
-                
-                url = destr;
-                //url = [song objectForKey:sec];
-                if(url != [NSNull null] && ![url isEqualToString:@""]){
-                    path = [self downloadFiles:url filename:name whichone:i whole:num];
-                }
-                nm++;
-                
-            }while([path isEqualToString:@""] && nm<=10);
-            
-            if ([path isEqualToString:@""])
-                continue;
-            
-            
-            
-            //float progressive = (float)(i+1) / num;
-            //dispatch_sync(dispatch_get_main_queue(), ^{
-            //    [progress setProgress:progressive];
-            //});
-            */
-            
-            
-            
-            //enstr = [[abstractRes objectAtIndex:i] objectForKey:@"url"];
-            //destr = [enstr AES256DecryptWithKey:key];
             if (ph != nil) {
                 NSURL *furl = [NSURL URLWithString:[self getDecodeString:[abstractRes objectAtIndex:i] section:@"url"]];
                 [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
                 furl = [NSURL fileURLWithPath:ph];
                 [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
             }
+            
             
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -978,81 +738,7 @@
             
         });
     });
-}/*
-  - (void)downloadSongsAgain:(int)ind{
-  [title setHidden:YES];
-  [playbutton setHidden:YES];
-  [progress setHidden:NO];
-  [progress setProgress:0];
-  //dispatch_sync(dispatch_get_main_queue(), ^{
-  //解析json数据为数据字典
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-  
-  
-  float num = (float)albumRes.count;
-  playeritems = [[NSMutableArray alloc] init];
-  
-  for( int i=0; i<num; i++){
-  NSDictionary *song =[albumRes objectAtIndex:i];
-  NSString *url=[song objectForKey:@"url"];
-  NSString *name=[song objectForKey:@"name"];
-  NSString *path = [self downloadFiles:url filename:name];
-  
-  float progressive = (float)(i+1) / num;
-  dispatch_sync(dispatch_get_main_queue(), ^{
-  [progress setProgress:progressive];
-  });
-  
-  if ([path isEqualToString:@""]) {
-  break;
-  }
-  NSURL *furl = [NSURL URLWithString:[[abstractRes objectAtIndex:i] objectForKey:@"url"]];
-  [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
-  
-  furl = [NSURL fileURLWithPath:path];
-  [playeritems addObject:[AVPlayerItem playerItemWithURL:furl]];
-  }
-  dispatch_sync(dispatch_get_main_queue(), ^{
-  [progress setHidden:YES];
-  [playbutton setHidden:NO];
-  [title setHidden:YES];
-  
-  /*[sender addTarget:self
-  action:@selector(playSong:)
-  forControlEvents:UIControlEventTouchUpInside];*//*
-                                                   itemen =[playeritems objectEnumerator];
-                                                   
-                                                   
-                                                   
-                                                   
-                                                   [self play];
-                                                   
-                                                   
-                                                   
-                                                   
-                                                   /*[sender addTarget:self
-                                                   action:@selector(playSong:)
-                                                   forControlEvents:UIControlEventTouchUpInside];*/
-//itemen =[playeritems objectEnumerator];
-//AVPlayerItem *bj = [player currentItem];
-//AVPlayerItem *bj = [itemen nextObject];
-//[player replaceCurrentItemWithPlayerItem:item];
-//NSError * er = [item error];
-//er =nil;
-//player = [AVPlayer playerWithPlayerItem:bj];
-//player = [AVPlayer playerWithPlayerItem:item];
-//[player play];
-////player = [AVPlayer r:item];
-//[bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
-//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:item];
-//[player seekToTime:kCMTimeZero];
-//[self play];
-/*[playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
- forState:UIControlStateNormal];
- 
- });
- });
- }*/
+}
 - (void)pressPlay:(id)sender {
     if (player != nil && player.rate > 0 && !player.error) {
         [player pause];
@@ -1111,20 +797,6 @@
         AVPlayerItem    *playerItem     = [AVPlayerItem playerItemWithAsset:asset];
         AVAssetResourceLoader *loader   = asset.resourceLoader;
         [loader setDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-/*
-        
-        NSURL *sourceMovieURL = [[NSURL alloc]initWithString:@"https://bbs-androidtv.rhcloud.com/comment/test1.mp3"];
-        
-        AVURLAsset *movieAsset = [AVURLAsset URLAssetWithURL:sourceMovieURL options:nil];
-        [movieAsset.resourceLoader setDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-        
-        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
-        
-        bj = playerItem;*/
-        
-        
-        
-        
         player = [AVPlayer playerWithPlayerItem:bj];
         [bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:bj];
@@ -1164,50 +836,6 @@ shouldWaitForResponseToAuthenticationChallenge:(NSURLAuthenticationChallenge *)a
     [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
                           forState:UIControlStateNormal];
 }
-//- (void)playSong:(id)sender{
-/*
- NSURL *url = [NSURL fileURLWithPath:[[abstractRes objectAtIndex:0] objectForKey:@"url"]];
- player = [[AVPlayer alloc] initWithURL:url];
- [player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
- [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
- */
-
-/*
- NSURL *videoUrl = [NSURL URLWithString:@"http://www.jxvdy.com/file/upload/201405/05/18-24-58-42-627.mp4"];
- self.playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
- [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
- [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
- self.player = [AVPlayer playerWithPlayerItem:self.playerItem];<br>[[NSNotificationCenterdefaultCenter]addObserver:selfselector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotificationobject:self.playerItem];
- */
-
-/*
- 
- NSURL *url = [NSURL fileURLWithPath:[[albums objectAtIndex:index] objectForKey:@"path"]];
- NSURL *videoUrl = [NSURL URLWithString:
- @"http:/1/v.jxvdy.com/sendfile/w5bgP3A8JgiQQo5l0hvoNGE2H16WbN09X-ONHPq3P3C1BISgf7C-qVs6_c8oaw3zKScO78I--b0BGFBRxlpw13sf2e54QA"];
- self.playerItem = [AVPlayerItem playerItemWithURL:videoUrl];
- [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
- [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
- self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
- self.playerView.player = _player;
- self.stateButton.enabled = NO;
- 
- 
- 
- 
- 
- */
-
-/*
- NSData *filedata = [NSData dataWithContentsOfURL:url];
- player = [[AVAudioPlayer alloc] initWithData:filedata error:nil];
- if(player != nil){
- [player setDelegate:self];
- if([player prepareToPlay]){
- [player play];
- }
- }*/
-//}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     AVPlayerItem *playerItem = (AVPlayerItem *)object;
     if([keyPath isEqualToString:@"status"]){
@@ -1218,384 +846,28 @@ shouldWaitForResponseToAuthenticationChallenge:(NSURLAuthenticationChallenge *)a
             AVPlayerItem * ss = [player currentItem];
             NSError *er = ss.error;
             int index = [playeritems indexOfObject:[player currentItem]];
-            /*AVPlayerItem *bj = [player currentItem];
-             if(bj)
-             bj =nil;
-             [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
-             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];*/
             [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
             [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
             [self downloadSongs:index];
-            //player = [AVPlayer playerWithPlayerItem:[player currentItem]];
-            
-            //[self play];
         }
         
     }
-    /*
-     NSString *key = @"a16byteslongkey!a16byteslongkey!";
-     NSString *plaintext = @"iphone";
-     NSString *ciphertext = [plaintext AES256EncryptWithKey: key];
-     NSLog(@"ciphertext: %@", ciphertext);
-     plaintext = [ciphertext AES256DecryptWithKey: key];
-     NSLog(@"plaintext: %@", plaintext);
-     
-     
-     */
-    /*
-     AVPlayerItem *playerItem = (AVPlayerItem *)object;
-     if ([keyPath isEqualToString:@"status"]) {
-     if ([playerItem status] == AVPlayerStatusReadyToPlay) {
-     NSLog(@"AVPlayerStatusReadyToPlay");
-     self.stateButton.enabled = YES;
-     CMTime duration = self.playerItem.duration;// 获取视频总长度
-     CGFloat totalSecond = playerItem.duration.value / playerItem.duration.timescale;// 转换成秒
-     _totalTime = [self convertTime:totalSecond];// 转换成播放时间
-     [self customVideoSlider:duration];// 自定义UISlider外观
-     NSLog(@"movie total duration:%f",CMTimeGetSeconds(duration));
-     [self monitoringPlayback:self.playerItem];// 监听播放状态
-     } else if ([playerItem status] == AVPlayerStatusFailed) {
-     NSLog(@"AVPlayerStatusFailed");
-     }
-     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-     NSTimeInterval timeInterval = [self availableDuration];// 计算缓冲进度
-     NSLog(@"Time Interval:%f",timeInterval);
-     CMTime duration = self.playerItem.duration;
-     CGFloat totalDuration = CMTimeGetSeconds(duration);
-     [self.videoProgress setProgress:timeInterval / totalDuration animated:YES];
-     
-     }*/
 }
 - (void)moviePlayDidEnd:(NSNotification *)notification {
     
     [[player currentItem] removeObserver:self forKeyPath:@"status" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:[player currentItem]];
-    
-    
-    
     [self play];
-    /*
-     NSLog(@"Play end");
-     
-     __weak typeof(self) weakSelf = self;
-     [self.playerView.player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
-     [weakSelf.videoSlider setValue:0.0 animated:YES];
-     [weakSelf.stateButton setTitle:@"Play" forState:UIControlStateNormal];
-     }];*/
 }
 -(NSArray *)dictionaryFromJsonFormatOriginalData:(NSString *)str
 {
     SBJsonParser *sbJsonParser = [[SBJsonParser alloc]init];
-    //NSError *error = nil;
-    //NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc]initWithDictionary:[sbJsonParser objectWithString:str error:&error]];
     return [sbJsonParser objectWithString:str error:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
-
-
-
-
-
-
-
-
-
-
-//==================DownLoad Code=============================
-/*
-- (NSString *)downloadFiles:(NSString *)urlstring filename:(NSString *)name whichone:(int)which whole:(int)whole
-{
-    NSString *imusicDir = [self getDirectory];
-    NSString *path = [imusicDir stringByAppendingPathComponent:name];
-    NSFileManager* fm=[NSFileManager defaultManager];
-    if([fm fileExistsAtPath:path]){
-        float progressive =  (float)which/whole + (float)1/whole;
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [progress setProgress:progressive];
-            NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-            [progressTitle setText:ptx];
-        });
-        return path;
-    }
-    /*
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-  
-  BOOL needBackup = [self.backupDelegate checkNeedBackup];// 跑在子线程
-  
-  dispatch_async(dispatch_get_main_queue(), ^(void){
-  if(needBackup){
-  UIAlertView *confirmBackupAlert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"backup_confirm_alert_view_message", @"") delegate:mainViewDelegate cancelButtonTitle:NSLocalizedString(@"button_cancel", @"") otherButtonTitles:NSLocalizedString(@"button_confirm", @""), nil nil];
-  confirmBackupAlert.tag = ALERT_TAG_CONFIRM_BACKUP;
-  [confirmBackupAlert show];
-  }else{
-  UIAlertView *noNeedBackupAlert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"backup_no_need", @"") delegate:mainViewDelegate cancelButtonTitle:NSLocalizedString(@"button_iknow", @"") otherButtonTitles:nil];
-  noNeedBackupAlert.tag = ALERT_TAG_BACKUP_NO_NEED;
-  [noNeedBackupAlert show];
-  }
-  });
-  
-  });*//*
-    NSURL *url = [NSURL URLWithString:urlstring];
-    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url
-                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                            timeoutInterval:60];
-    /*receivedData = [[NSMutableData alloc] initWithLength:0];
-     NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:theRequest
-     delegate:self
-     startImmediately:YES];
-     *//*
-    
-    NSError * error;
-    NSURLResponse * rep;
-    
-    
-    theRequest.HTTPMethod = @"HEAD";
-    //[theRequest setAllowsAnyHTTPSCertificate:YES forHost:[url host]];
-    NSData *headdata = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-    long filesize = rep.expectedContentLength;
-    NSHTTPURLResponse *rp = (NSHTTPURLResponse *)rep;
-    if(rp.statusCode!=200 && rp.statusCode != 206){
-        return @"";
-    }
-    //========================method 1 =================
-    long from=0;
-    long to =0;
-    theRequest.HTTPMethod = @"GET";
-    long block = filesize;
-    int trytime =1000;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    NSDictionary *dc = [rp allHeaderFields];
-    
-    if([dc objectForKey:@"Accept-Ranges"]){
-        NSString *rang = [dc objectForKey:@"Accept-Ranges"];
-        if ([rang isEqual:@"bytes"]) {
-            block = 524288;
-        }
-    }
-    
-    float present_done = (float)which/whole;
-    float present_now = (float)1/whole;
-    int step=0,count=1;
-    if (filesize/block) {
-        step = filesize/block+1;
-    }else{
-        step = filesize/block;
-    }
-    NSMutableData *filedata=[[NSMutableData alloc] init];
-    to = from + block-1;
-    while (from+block<=filesize && trytime != 0) {
-        
-        theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20.f];
-        
-        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, to];
-        NSLog(@"%@", range);
-        [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-        if (syData !=nil) {
-            if([syData length]==block){
-            
-                [filedata appendData:syData];
-                from +=block;
-                to +=block;
-            
-                float progressive =  present_done +  (present_now*count)/step;
-                count++;
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setProgress:progressive];
-                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                    [progressTitle setText:ptx];
-                });
-            }else{
-                trytime--;
-            }
-        }else{
-            trytime--;
-        }
-        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
-    }
-    while(from<filesize && trytime != 0){
-        NSString *range = [NSString stringWithFormat:@"bytes=%ld-%ld", from, filesize-1];
-        NSLog(@"%@", range);
-        [theRequest setValue:range forHTTPHeaderField:@"Range"];
-        NSData *syData = [NSURLConnection sendSynchronousRequest:(NSURLRequest *)theRequest returningResponse:&rep error:&error];
-        if (syData !=nil) {
-            int ln = filesize - from;
-            if([syData length]==ln){
-                [filedata appendData:syData];
-                from = filesize;
-                to = filesize-1;
-                float progressive =  present_done +  present_now;
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [progress setProgress:progressive];
-                    NSString *ptx = [NSString stringWithFormat:@"歌曲同步了%.2f%%!",progressive*100];
-                    [progressTitle setText:ptx];
-                });
-            }else{
-                trytime--;
-            }
-        }
-        NSLog([NSString stringWithFormat:@"%ld.%ld.%ld",from,to,filesize]);
-    }
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    if ([filedata length] == filesize  && trytime != 0) {
-        
-        
-        NSString *aResults = [[NSString alloc] initWithData:filedata encoding:NSUTF8StringEncoding];
-        if(aResults && [aResults containsString:@"<html>"]) {
-            return @"";
-        }
-        
-        
-        NSString *imusicDir = [self getDirectory];
-        NSString *path = [imusicDir stringByAppendingPathComponent:name];
-        //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
-        //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self saveToFile:filedata filepath:path];
-        return path;
-    }
-    return @"";
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    
-    //==================method 2==============
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession  *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-    
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:theRequest];
-    [task resume];
-    return @"";*//*
-    
-}*/
-/*
-#pragma mark NSURLSessionDownloadDelegate
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
-didFinishDownloadingToURL:(NSURL *)location
-{/*
-    //下载成功后，文件是保存在一个临时目录的，需要开发者自己考到放置该文件的目录
-    NSLog(@"Download success for URL: %@",location.description);
-    NSURL *destination = [self createDirectoryForDownloadItemFromURL:location];
-    BOOL success = [self copyTempFileAtURL:location toDestination:destination];
-    
-    if(success){
-        //        文件保存成功后，使用GCD调用主线程把图片文件显示在UIImageView中
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *image = [UIImage imageWithContentsOfFile:[destination path]];
-            self.imageView.image = image;
-            self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-            self.imageView.hidden = NO;
-        });
-    }else{
-        NSLog(@"Meet error when copy file");
-    }
-    self.task = nil;*//*
-    NSString *imusicDir = [self getDirectory];
-    NSString *path = [imusicDir stringByAppendingPathComponent:@"1.mp3"];
-    
-    NSFileManager* fm=[NSFileManager defaultManager];
-    if(![fm fileExistsAtPath:path]){
-        //下面是对该文件进行制定路径的保存
-        [fm moveItemAtPath:location.path toPath:path error:nil];
-    }
-}
-
-/* Sent periodically to notify the delegate of download progress. *//*
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
-      didWriteData:(int64_t)bytesWritten
- totalBytesWritten:(int64_t)totalBytesWritten
-totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
-{/*
-    //刷新进度条的delegate方法，同样的，获取数据，调用主线程刷新UI
-    double currentProgress = totalBytesWritten/(double)totalBytesExpectedToWrite;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.progressBar.progress = currentProgress;
-        self.progressBar.hidden = NO;
-    });*//*
-}
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
- didResumeAtOffset:(int64_t)fileOffset
-expectedTotalBytes:(int64_t)expectedTotalBytes
-{
-    NSLog(@"Resume");
-
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
 - (void)saveToFile:(NSData *)data filepath:(NSString *)path{
     
     NSFileManager* fm=[NSFileManager defaultManager];
@@ -1605,30 +877,6 @@ expectedTotalBytes:(int64_t)expectedTotalBytes
     }
     
 }
-/*
- - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
- [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
- progress.hidden = NO;
- [receivedData setLength:0];
- expectedBytes = [response expectedContentLength];
- }
- 
- - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
- [receivedData appendData:data];
- float progressive = (float)[receivedData length] / (float)expectedBytes;
- [progress setProgress:progressive];
- 
- 
- }
- 
- - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
- [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
- 
- }
- 
- - (NSCachedURLResponse *) connection:(NSURLConnection *)connection willCacheResponse:    (NSCachedURLResponse *)cachedResponse {
- return nil;
- }*/
 - (NSString *)getDirectory
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -1646,33 +894,8 @@ expectedTotalBytes:(int64_t)expectedTotalBytes
     return dir;
     
 }
-/*
- - (void) connectionDidFinishLoading:(NSURLConnection *)connection {
- //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
- 
- //NSString *documentsDirectory = [paths objectAtIndex:0];
- NSString *imusicDir = [self getDirectory];
- NSString *path = [imusicDir stringByAppendingPathComponent:[@"dfs" stringByAppendingString:@".mp3"]];
- //NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
- [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
- [receivedData writeToFile:path atomically:YES];
- progress.hidden = YES;
- }*/
-//=================================================
-/*
- - (void) viewDidLayoutSubviews {
- if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
- CGRect viewBounds = self.view.bounds;
- CGFloat topBarOffset = self.topLayoutGuide.length;
- viewBounds.origin.y = topBarOffset * -1;
- self.view.bounds = viewBounds;
- }
- }*/
-
 
 #pragma mark - alert
-
-
 -(void)showAlertView:(NSString *)msg{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:msg
@@ -1682,25 +905,9 @@ expectedTotalBytes:(int64_t)expectedTotalBytes
     [alert setTag:index];
     [alert show];
 }
-
-
-
-
-
-
-
-
-
 - (NSString *)computeMD5HashOfData:(NSData *)dt {
     //NSString *executablePath = [[NSBundle mainBundle] executablePath];
     NSString *dataMD5Hash = [FileHash md5HashOfData:dt];
     return dataMD5Hash ? dataMD5Hash : @"";
 }
-
-
-
-
-
-
-
 @end

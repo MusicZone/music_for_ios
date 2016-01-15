@@ -84,9 +84,10 @@
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     //如果选择“现在升级”
-    if (buttonIndex == 1)
+    if (buttonIndex == 0)
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[getUrls valueForKey:@"downloadurl"]]];
+        exit(0);
     }
 }
 
