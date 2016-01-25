@@ -184,7 +184,10 @@
     dispatch_queue_t myqueue = dispatch_queue_create("serialqueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(myqueue, ^{
         
-        NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"];
+        NSString *localVersion = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleVersion"];
+        NSString *formatstring = [NSString stringWithFormat:@"m=Abstracts&a=get&sys=ios&ver=%.2f",[localVersion floatValue]];
+        NSString *urlstr = [HTTP_URL stringByAppendingString:formatstring];
+        //NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Abstracts&a=get"];
         //通过url获取数据
         NSURL * url = [NSURL URLWithString:urlstr];
         NSError *err;
@@ -197,8 +200,11 @@
     });
     
     dispatch_async(myqueue, ^{
+        NSString *localVersion = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleVersion"];
+        NSString *formatstring = [NSString stringWithFormat:@"m=Albums&a=get&sys=ios&ver=%.2f",[localVersion floatValue]];
         
-        NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Albums&a=get"];
+        NSString *urlstr = [HTTP_URL stringByAppendingString:formatstring];
+        //NSString *urlstr = [HTTP_URL stringByAppendingString:@"m=Albums&a=get"];
         //通过url获取数据
         NSURL * url = [NSURL URLWithString:urlstr];
         NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
@@ -731,8 +737,7 @@
                 [itemen nextObject];
             }
             [self play];
-            [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
-                                  forState:UIControlStateNormal];
+            
             
             [UIApplication sharedApplication].idleTimerDisabled=NO;
             
@@ -800,6 +805,8 @@
         player = [AVPlayer playerWithPlayerItem:bj];
         [bj addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:bj];
+        [playbutton setBackgroundImage:[UIImage imageNamed:@"pause.png"]
+                              forState:UIControlStateNormal];
     }else{
         player = nil;
         [playbutton setBackgroundImage:[UIImage imageNamed:@"play.png"]
